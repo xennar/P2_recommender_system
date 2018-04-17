@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8daeddc0-6947-48c1-a44b-60471ff07ef0" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/Movie_Recommender/Movie_Recommender.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Diagrammer/LogIn_ControllerDiagram" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Diagrammer/Menucontroller.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Diagrammer/ProgramDiagram" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Diagrammer/ResultsController.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Diagrammer/content.txt.txt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Diagrammer/menucontrollerupdate.png" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -202,12 +194,12 @@
       <option name="presentableId" value="Default" />
       <updated>1523958726879</updated>
       <workItem from="1523958755495" duration="184000" />
-      <workItem from="1523959278323" duration="563000" />
+      <workItem from="1523959278323" duration="484000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="747000" />
+    <option name="totallyTimeSpent" value="668000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
