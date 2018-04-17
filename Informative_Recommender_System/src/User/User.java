@@ -5,11 +5,23 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class User {
-    int UserID;
-    String passowrd;
+    private int UserID;
+    private String password;
     ArrayList<Movie> WatchedMovies;
-    Map<Integer, Double> UserRatings;
+    private Map<Integer, Double> UserRatings;
     ArrayList<Movie> IgnoredMovies;
     ArrayList<User> neighbors;
 
+
+    int GetUserID(){
+        return UserID;
+    }
+
+    String GetUserPassword(){
+        return password;
+    }
+
+    Map<Integer, Double> ViewPreviousRatings(){
+        return UserRatings;
+    }
 }
