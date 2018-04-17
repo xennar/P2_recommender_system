@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Movie_Recommender/Movie_Recommender.iml" filepath="$PROJECT_DIR$/Movie_Recommender/Movie_Recommender.iml" />
       <module fileurl="file://$PROJECT_DIR$/P2.iml" filepath="$PROJECT_DIR$/P2.iml" />
     </modules>
   </component>
