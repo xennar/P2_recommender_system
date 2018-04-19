@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-      <change beforePath="$PROJECT_DIR$/Movie_Recommender/Movie_Recommender.iml" afterPath="$PROJECT_DIR$/Movie_Recommender/Movie_Recommender.iml" />
     <list default="true" id="ea04ab5f-b910-48cd-a445-d4356f5dafb8" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
