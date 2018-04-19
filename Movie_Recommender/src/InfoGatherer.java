@@ -9,7 +9,7 @@ public class InfoGatherer {
 
         File RatingsFile = new File("Movie_Recommender\\src\\ratings.csv");
         Scanner scan = new Scanner(RatingsFile);
-        FileWriter fileWriter = new FileWriter("adjratings.csv");
+        FileWriter fileWriter = new FileWriter("Movie_Recommender\\adjratings.csv");
         PrintWriter writer = new PrintWriter(fileWriter);
 
         while (scan.hasNextLine()) {
