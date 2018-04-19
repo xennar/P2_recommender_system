@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea04ab5f-b910-48cd-a445-d4356f5dafb8" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/Movie_Recommender/test/InfoGatherertest.java" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/Movie_Recommender/Movie_Recommender.iml" afterPath="$PROJECT_DIR$/Movie_Recommender/Movie_Recommender.iml" />
-      <change beforePath="$PROJECT_DIR$/Movie_Recommender/src/InfoGatherer.java" afterPath="$PROJECT_DIR$/Movie_Recommender/src/InfoGatherer.java" />
-      <change beforePath="$PROJECT_DIR$/adjratings.csv" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/Movie_Recommender/InfoGatherer.class" afterPath="$PROJECT_DIR$/out/production/Movie_Recommender/InfoGatherer.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/Movie_Recommender/Main.class" afterPath="$PROJECT_DIR$/out/production/Movie_Recommender/Main.class" />
-    </list>
+    <list default="true" id="ea04ab5f-b910-48cd-a445-d4356f5dafb8" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -350,7 +343,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7527000" />
+    <option name="totallyTimeSpent" value="8810000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
