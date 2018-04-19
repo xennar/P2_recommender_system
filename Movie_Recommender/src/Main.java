@@ -4,5 +4,7 @@ public class Main {
         System.out.println("active");
         InfoGatherer ratingsMake = new InfoGatherer();
         ratingsMake.MakeRatings();
+        Reader NewReader = new Reader();
+        NewReader.ReadToMovies();
     }
 }
