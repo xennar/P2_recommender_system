@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class InfoGatherer {
 
     public static void MakeRatings() throws Exception {
-        
+
         File RatingsFile = new File("Movie_Recommender\\src\\ratings.csv");
         Scanner scan = new Scanner(RatingsFile);
         FileWriter fileWriter = new FileWriter("adjratings.csv");
