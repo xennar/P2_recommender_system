@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 public class Movie extends Recommendation {
-    private Set<String> Tags;
+    private ArrayList<String> Genre;
     private ArrayList<Double> Ratings;
     private double Average_Rating;
 
@@ -13,9 +13,9 @@ public class Movie extends Recommendation {
         super(ProductID, ProductName);
     }
 
-    Set<String> GetTags(){
-        return Tags;
-    }
+    /*Set<String> GetTags(){
+        //return Tags;
+    }*/
 
     ArrayList<Double> GetRatings(){
         return Ratings;

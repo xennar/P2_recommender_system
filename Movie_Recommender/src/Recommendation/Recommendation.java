@@ -3,6 +3,8 @@ package Recommendation;
 import User.*;
 
 public class Recommendation {
+    /*Skal der laves 9000 objekter, eller skal vi laese det direkte ind i lister?*/
+
     private int ProductID;
     private String ProductName;
 

@@ -13,6 +13,7 @@ public class MovieWatcher extends User {
     private Map<Integer, Double> UserRatings;
     private ArrayList<User> Neighbors;
     private ArrayList<Movie> IgnoreList;
+    //map for movieID
 
 
     public ArrayList<Movie> GetRatedProducts(){
