@@ -1,11 +1,11 @@
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class InfoGatherer {
-
-    public static void MakeRatings() throws Exception {
+    public static void main(String[] argc) throws IOException {
 
         File RatingsFile = new File("Movie_Recommender\\src\\ratings.csv");
         Scanner scan = new Scanner(RatingsFile);
