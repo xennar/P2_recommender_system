@@ -1,8 +1,6 @@
-package Recommendation;
+package Framework;
 
-import User.*;
-
-public class Recommendation {
+public class Recommendation implements Basic_Characteristics {
     private int ProductID;
     private String ProductName;
 
@@ -11,15 +9,11 @@ public class Recommendation {
         this.ProductName = ProductName;
     }
 
-    public int GetProductID(){
+    public int GetID() {
         return ProductID;
     }
 
-    public String GetProductName(){
+    public String GetString() {
         return ProductName;
-    }
-
-    public void GetRecommendation(MovieWatcher ActiveUser){
-
     }
 }

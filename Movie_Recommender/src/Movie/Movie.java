@@ -1,11 +1,11 @@
-package Recommendation;
+package Movie;
+
+import Framework.Recommendation;
 
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.stream.Stream;
 
 public class Movie extends Recommendation {
-    private Set<String> Tags;
+    private ArrayList<String> Tags;
     private ArrayList<Double> Ratings;
     private double Average_Rating;
 
@@ -13,7 +13,7 @@ public class Movie extends Recommendation {
         super(ProductID, ProductName);
     }
 
-    Set<String> GetTags(){
+    ArrayList<String> GetTags(){
         return Tags;
     }
 
@@ -26,6 +26,7 @@ public class Movie extends Recommendation {
     }
 
     double GetAverage_Rating(){
+        Average_Rating = 0;
         for(Double d : Ratings)
             Average_Rating += d;
         Average_Rating /= Ratings.size();
