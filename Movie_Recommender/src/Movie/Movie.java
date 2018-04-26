@@ -3,17 +3,23 @@ package Movie;
 import Framework.Recommendation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Movie extends Recommendation {
     private ArrayList<String> Tags;
     private ArrayList<Double> Ratings;
     private double Average_Rating;
 
-    public Movie(int ProductID, String ProductName) {
+    //TODO FINALIZE AFTER MANAGERS HAS BEEN MADE
+
+    public Movie(int ProductID, String ProductName, String Tags) {
         super(ProductID, ProductName);
+
+        this.Tags = (ArrayList<String>)Arrays.stream(Tags.split("\\|")).collect(Collectors.toList());
     }
 
-    ArrayList<String> GetTags(){
+    public ArrayList<String> GetTags(){
         return Tags;
     }
 

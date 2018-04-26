@@ -1,10 +1,23 @@
-import Framework.User;
+import Framework.*;
+import Managers.*;
+import Movie.*;
+import RatingsWatcher.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.util.ArrayList;
+
 
 public class Movie_Recommender {
     public static void main(String[] args){
+
+        //TODO Create Managers
+        ArrayList<Movie> test = new ArrayList<>();
+        RatingsReader reader = new RatingsReader();
+        try{
+        reader.ProductReader(test);}catch (IOException e){e.getMessage();}
+
+        ArrayList<RatingsWatcher> test2 = new ArrayList<>();
+        reader.UserReader(test2);
 
     }
 }
