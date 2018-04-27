@@ -9,13 +9,11 @@ public class InfoGatherer {
         Path src = Paths.get("ratings.csv");
         Path dest = Paths.get("C:\\Users\\emilp_ik\\Documents\\GitHub\\P2_recommender_system\\Movie_Recommender\\Database\\adjratings.csv");
         if(Files.exists(src) && Files.exists(dest)) {
-            System.out.println("Got here");
             try{
                 BufferedReader reader = Files.newBufferedReader(src);
                 BufferedWriter fileWriter = Files.newBufferedWriter(dest);
-                String line;
+                String line = reader.readLine();
                 String[] line_parts;
-                line = reader.readLine();
                 fileWriter.write(line + '\n');
                 while((line = reader.readLine()) != null){
                     line_parts = line.split(",");

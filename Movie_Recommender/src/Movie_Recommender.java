@@ -12,7 +12,7 @@ public class Movie_Recommender {
 
         //TODO Create Managers
         ArrayList<Movie> test = new ArrayList<>();
-        RatingsReader reader = new RatingsReader();
+        RatingsReader reader = new RatingsReader(); //TODO Rename either this or the method
         try{
         reader.ProductReader(test);}catch (IOException e){e.getMessage();}
 

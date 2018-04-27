@@ -18,8 +18,9 @@ import java.util.Scanner;
 public class RatingsReader {
 
     public void ProductReader(ArrayList<Movie> ListOfMovies) throws IOException {
-
-        Path moviepath = Paths.get("C:\\Users\\emilp_ik\\Documents\\GitHub\\P2_recommender_system\\Movie_Recommender\\Database\\movies.csv");
+//TODO convert to generic
+//TODO REMOVE INPUT List
+        Path moviepath = Paths.get("src/Database/movies.csv");
         if (Files.exists(moviepath)) {
             try {
                 BufferedReader MovieReader = Files.newBufferedReader(moviepath);
@@ -42,7 +43,7 @@ public class RatingsReader {
     }
 
     public void UserReader(ArrayList<RatingsWatcher> ListOfUsers){
-        Path userpath = Paths.get("C:\\Users\\emilp_ik\\Documents\\GitHub\\P2_recommender_system\\Movie_Recommender\\Database\\Users.csv");
+        Path userpath = Paths.get("src/Database/Users.csv");
         if(Files.exists(userpath)){
             try {
                 BufferedReader MovieReader = Files.newBufferedReader(userpath);
@@ -71,7 +72,7 @@ public class RatingsReader {
     }
 
     public void ReadRatings(ArrayList<Movie> ListOfMovies, ArrayList<RatingsWatcher> ListOfUsers){
-        Path ratingsPath = Paths.get("C:\\Users\\emilp_ik\\Documents\\GitHub\\P2_recommender_system\\Movie_Recommender\\Database\\adjratings.csv");
+        Path ratingsPath = Paths.get("src/Database/adjratings.csv");
         if(Files.exists(ratingsPath)){
             try {
                 BufferedReader ratingsreader = Files.newBufferedReader(ratingsPath);
