@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #1a2942;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIp2.SeeListOfMoviesController">
+    <children>
+        <Label layoutX="300.0" layoutY="51.0" text="Movie" textFill="#17a7ee">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="360.0" layoutY="51.0" text="Recommender" textFill="#dad3d3">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <VBox prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #061426;">
+            <children>
+                <Button fx:id="GetRecommendation" mnemonicParsing="false" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #17a7ee;" text="Get Recommendation" textFill="#dad3d3">
+                    <VBox.margin>
+                        <Insets bottom="20.0" left="5.0" top="20.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+                <Button fx:id="AddMovies" layoutX="15.0" layoutY="20.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #17a7ee;" text="Add A New Movie" textFill="#dad3d3">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="20.0" left="5.0" />
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="PreviousRatings" layoutX="10.0" layoutY="65.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #17a7ee;" text="Previous ratings" textFill="#dad3d3">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="20.0" left="5.0" />
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="ListOfMovies" layoutX="10.0" layoutY="90.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #587191;" text="See List Of Movies" textFill="#dad3d3">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="275.0" left="5.0" />
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="Back" layoutX="15.0" layoutY="165.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #17a7ee;" text="Back" textFill="#dad3d3">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets left="5.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
