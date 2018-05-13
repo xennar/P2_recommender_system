@@ -4,7 +4,7 @@ public class Recommendation implements Basic_Characteristics {
     private int ProductID;
     private String ProductName;
 
-    public Recommendation(int ProductID, String ProductName){
+    public Recommendation(int ProductID, String ProductName) {
         this.ProductID = ProductID;
         this.ProductName = ProductName;
     }

@@ -1,32 +1,39 @@
 package Managers;
 
-import Framework.Basic_Characteristics;
-import Framework.User;
+import Framework.FileReader;
+import Movie.Movie;
+import RatingsWatcher.RatingsWatcher;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-public class User_Manager<T extends User> {
+public class User_Manager {
 
-    private static User_Manager user_manager = new User_Manager();
+    private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
+    private HashMap<Integer, RatingsWatcher<Movie>> UserIDMap;
 
-    private User_Manager(){
-        //TODO CONNECT TO READER
+    public User_Manager(FileReader reader) {
+        ListOfUsers = reader.ReadUsers();
+        UserIDMap = new HashMap<>();
+        for (RatingsWatcher<Movie> u : ListOfUsers) {
+            UserIDMap.put(u.GetID(), u);
+        }
     }
 
-    private ArrayList<T> ListOfUsers;
-
-    ArrayList<T> GetListOfUser(){
+    public ArrayList<RatingsWatcher<Movie>> GetListOfUsers() {
         return ListOfUsers;
     }
 
-    void AddNewUser(T NewUser){
-
-
-        ListOfUsers.add(NewUser);
+    public void AddNewUser(int ID, String Password) {
+        RatingsWatcher<Movie> newUser = new RatingsWatcher<Movie>(ID, Password);
+        ListOfUsers.add(newUser);
     }
 
-
-
+    public RatingsWatcher<Movie> LogIn(int ID, String Password) {
+        if (UserIDMap.containsKey(ID)) {
+            if (UserIDMap.get(ID).GetString().equals(Password))
+                return UserIDMap.get(ID);
+        }
+        throw new RuntimeException("UserID or Password is incorrect");
+    }
 }

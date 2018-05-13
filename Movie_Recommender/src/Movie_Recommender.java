@@ -1,23 +1,24 @@
-import Framework.*;
-import Managers.*;
-import Movie.*;
-import RatingsWatcher.*;
+import Framework.FileReader;
+import Managers.Product_Manager;
+import Managers.User_Manager;
+import Movie.Movie;
+import RatingsWatcher.RatingsWatcher;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class Movie_Recommender {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
-        //TODO Create Managers
-        ArrayList<Movie> test = new ArrayList<>();
-        RatingsReader reader = new RatingsReader(); //TODO Rename either this or the method
-        try{
-        reader.ProductReader(test);}catch (IOException e){e.getMessage();}
+        FileReader filereader = new FileReader();
+        User_Manager user_manager = new User_Manager(filereader);
+        Product_Manager product_manager = new Product_Manager(filereader);
 
-        ArrayList<RatingsWatcher> test2 = new ArrayList<>();
-        reader.UserReader(test2);
+        ArrayList<RatingsWatcher<Movie>> ListOfUsers = user_manager.GetListOfUsers();
+        ArrayList<Movie> ListOfMovies = product_manager.GetProductList();
+
+        filereader.ReadRatings(ListOfUsers, ListOfMovies);
+
 
     }
 }

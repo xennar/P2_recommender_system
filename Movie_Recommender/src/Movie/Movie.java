@@ -9,33 +9,31 @@ import java.util.stream.Collectors;
 public class Movie extends Recommendation {
     private ArrayList<String> Tags;
     private ArrayList<Double> Ratings;
-    private double Average_Rating;
-
-    //TODO FINALIZE AFTER MANAGERS HAS BEEN MADE
 
     public Movie(int ProductID, String ProductName, String Tags) {
         super(ProductID, ProductName);
-
-        this.Tags = (ArrayList<String>)Arrays.stream(Tags.split("\\|")).collect(Collectors.toList());
+        Ratings = new ArrayList<>();
+        this.Tags = (ArrayList<String>) Arrays.stream(Tags.split("\\|")).collect(Collectors.toList());
     }
 
-    public ArrayList<String> GetTags(){
+    public ArrayList<String> GetTags() {
         return Tags;
     }
 
-    ArrayList<Double> GetRatings(){
+    public ArrayList<Double> GetRatings() {
         return Ratings;
     }
 
-    void AddRating(double rating){
+    public void AddRating(double rating) {
         Ratings.add(rating);
     }
 
-    double GetAverage_Rating(){
-        Average_Rating = 0;
-        for(Double d : Ratings)
-            Average_Rating += d;
-        Average_Rating /= Ratings.size();
-        return Average_Rating;
+    public double GetAverage_Rating() {
+        double Average;
+        Average = 0;
+        for (Double d : Ratings)
+            Average += d;
+        Average /= Ratings.size();
+        return Average;
     }
 }
