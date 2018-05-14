@@ -78,8 +78,8 @@ public class FileReader {
                 BufferedReader ratingsreader = Files.newBufferedReader(ratingsPath);
 
                 String line = ratingsreader.readLine();
-                int userID = 0, productID = 0;
-                double rating = 0;
+                int userID, productID;
+                double rating;
                 RatingsWatcher<Movie> current = ListOfUsers.get(0);
                 while ((line = ratingsreader.readLine()) != null) {
                     String[] line_part = line.split(",");
@@ -102,14 +102,14 @@ public class FileReader {
         }
     }
 
-    public RatingsWatcher<Movie> GetUserFromID(int ID, ArrayList<RatingsWatcher<Movie>> ListOfUsers) {
+    RatingsWatcher<Movie> GetUserFromID(int ID, ArrayList<RatingsWatcher<Movie>> ListOfUsers) {
         int i = 0;
         while (ID != ListOfUsers.get(i).GetID())
             i++;
         return ListOfUsers.get(i);
     }
 
-    private Movie GetProductFromID(int ID, ArrayList<Movie> ListOfObject) {
+    Movie GetProductFromID(int ID, ArrayList<Movie> ListOfObject) {
         int i = 0;
         while (ID != ListOfObject.get(i).GetID())
             i++;

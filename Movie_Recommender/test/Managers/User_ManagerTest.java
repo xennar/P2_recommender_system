@@ -1,0 +1,51 @@
+package Managers;
+
+import Framework.FileReader;
+import RatingsWatcher.RatingsWatcher;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import Movie.*;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class User_ManagerTest {
+
+    private User_Manager user_manager;
+    private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
+
+    @BeforeEach
+    void SetUp(){
+        FileReader fileReader = new FileReader();
+        user_manager = new User_Manager(fileReader);
+        ListOfUsers = user_manager.GetListOfUsers();
+    }
+    @Test
+    void getListOfUsers() {
+        assertEquals(671, ListOfUsers.size());
+    }
+
+    @Test
+    void addNewUser() {
+        user_manager.AddNewUser(672, "password");
+        assertEquals(672, ListOfUsers.get(ListOfUsers.size()-1).GetID());
+    }
+
+    @Test
+    void logIn01() {
+        assertEquals(ListOfUsers.get(0),user_manager.LogIn(1, "1"));
+    }
+
+    @Test
+    void logIn02() {
+        boolean ExceptionThrown = false;
+
+        try{
+            user_manager.LogIn(2, "5");
+        }catch(RuntimeException e){
+            ExceptionThrown = true;
+        }
+        assertTrue(ExceptionThrown);
+    }
+}
