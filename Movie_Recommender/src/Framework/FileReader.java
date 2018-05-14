@@ -109,7 +109,7 @@ public class FileReader {
         return ListOfUsers.get(i);
     }
 
-    public Movie GetProductFromID(int ID, ArrayList<Movie> ListOfObject) {
+    private Movie GetProductFromID(int ID, ArrayList<Movie> ListOfObject) {
         int i = 0;
         while (ID != ListOfObject.get(i).GetID())
             i++;

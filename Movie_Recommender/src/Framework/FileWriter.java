@@ -21,8 +21,9 @@ public class FileWriter {
                 try {
                     BufferedWriter movieWriter = Files.newBufferedWriter(dest);
                     for (Movie m : currentSessionProducts) {
-                        movieWriter.write(m.GetID() + "," + m.GetString() + "," + m.GetTags());
+                        movieWriter.append(m.GetID() + "," + m.GetString() + "," + m.GetTags());
                     }
+                    movieWriter.close();
                 } catch (IOException e) {
                     System.out.println("Unable to write to file");
                 }
@@ -39,8 +40,9 @@ public class FileWriter {
                     BufferedWriter ratingsWriter = Files.newBufferedWriter(dest);
                     for (RatingsWatcher<Movie> u : currentSessionRatingsData) {
                         for (Movie m : u.GetRatedProducts())
-                            ratingsWriter.write(u.GetID() + "," + m.GetID() + "," + u.GetProductRating(m));
+                            ratingsWriter.append(u.GetID() + "," + m.GetID() + "," + u.GetProductRating(m));
                     }
+                    ratingsWriter.close();
                 } catch (IOException e) {
                     System.out.println("Unable to write to file");
                 }
@@ -65,7 +67,7 @@ public class FileWriter {
                     for (RatingsWatcher<Movie> newUserData : currentUsers){
                         userWriter.write(newUserData.GetID() + ',' + newUserData.GetString() + ',' + newUserData.GetNeighborIDs() + ',' + newUserData.GetNeighborIDs() + '\n');
                     }
-
+                    userWriter.close();
                 } catch (IOException e) {
                     System.out.println("Unable to write to file");
                 }

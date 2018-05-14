@@ -21,5 +21,8 @@ public class Product_Manager {
         Movie newProduct = new Movie(ID, title, tags);
         ProductList.add(newProduct);
     }
+    public Movie getProductFromID(int productID){
+        return ProductList.get(productID - 1);
+    }
 }
 

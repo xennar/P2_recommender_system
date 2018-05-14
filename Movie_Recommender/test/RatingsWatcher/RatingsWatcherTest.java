@@ -40,7 +40,7 @@ class RatingsWatcherTest {
 
     @Test
     void getProductRating() {
-        assertEquals(2.5, ListOfUsers.get(0).GetProductRating(ListOfMovies.get(31)));
+        assertEquals(2.5, ListOfUsers.get(0).GetProductRating(product_manager.getProductFromID(31)));
     }
 
     @Test
