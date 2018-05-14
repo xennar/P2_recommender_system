@@ -57,13 +57,12 @@ public class FileWriter {
             if (Files.exists(dest)) {
                 try {
                     BufferedWriter userWriter = Files.newBufferedWriter(dest);
-                    for (RatingsWatcher<Movie> u : currentSessionUserData) {
-                        for (RatingsWatcher<Movie> Users : currentUsers)
-                            if (u.GetID() == Users.GetID()) {
-                                currentUsers.set(Users.GetID(), u);
+                    for (RatingsWatcher<Movie> newData : currentSessionUserData) {
+                        for (RatingsWatcher<Movie> oldData : currentUsers)
+                            if (newData.GetID() == oldData.GetID()) {
+                                currentUsers.set(oldData.GetID(), newData);
                             }
                     }
-
                     for (RatingsWatcher<Movie> newUserData : currentUsers){
                         userWriter.write(newUserData.GetID() + ',' + newUserData.GetString() + ',' + newUserData.GetNeighborIDs() + ',' + newUserData.GetNeighborIDs() + '\n');
                     }
