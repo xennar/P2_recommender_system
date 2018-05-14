@@ -20,6 +20,7 @@ class MovieTest {
     ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     ArrayList<Movie> ListOfMovies;
 
+
     @BeforeEach
     void SetUp() {
         FileReader filereader = new FileReader();
