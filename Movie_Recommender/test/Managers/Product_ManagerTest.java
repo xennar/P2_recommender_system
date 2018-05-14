@@ -4,6 +4,7 @@ import Framework.FileReader;
 import Movie.Movie;
 import RatingsWatcher.RatingsWatcher;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -17,15 +18,25 @@ class Product_ManagerTest {
     static ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     static ArrayList<Movie> ListOfMovies;
 
-    @BeforeAll
-    static void SetUp(){
+    @BeforeEach
+    void SetUp(){
         FileReader filereader = new FileReader();
-        user_manager = new User_Manager(filereader);
+        User_Manager user_manager = new User_Manager(filereader);
         product_manager = new Product_Manager(filereader);
+
 
         ListOfUsers = user_manager.GetListOfUsers();
         ListOfMovies = product_manager.GetProductList();
-        filereader.ReadRatings(ListOfUsers, ListOfMovies);
+        RatingsWatcher<Movie> watcher;
+        for(int counter = 672; counter <686; counter++) {
+            watcher = new RatingsWatcher<Movie>(counter, "Test");
+            ListOfUsers.add(watcher);
+        }
+        for(int counter = 0; counter < 42; counter++){
+            ListOfMovies.add(product_manager.GetProductList().get(counter));
+        }
+
+        Ratings_Manager ratings_manager = new Ratings_Manager(filereader, ListOfUsers, ListOfMovies, "stc/Database/adjratings.csv");
     }
 
     @Test

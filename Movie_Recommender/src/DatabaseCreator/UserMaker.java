@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 class UserMaker {
-    void MakeUsersFile(int NumberOfUsers) {
+    void MakeUsersFile(int NumberOfUsers) throws IOException {
         Path src = Paths.get("src\\Database\\Users.csv");
         if (Files.exists(src)) {
             try {
@@ -23,6 +23,7 @@ class UserMaker {
                 Usermaker.close();
             } catch (IOException e) {
                 System.out.println("Error: File not found: " + e.getMessage());
+                throw e;
             }
         }
     }

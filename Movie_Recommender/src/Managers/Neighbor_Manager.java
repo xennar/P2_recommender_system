@@ -30,27 +30,37 @@ public class Neighbor_Manager {
         double SumOfUserDifference;
         double SumOfNeighborDifference;
         for (RatingsWatcher<Movie> n : ListOfUsers) {
-            NeighborAverage = n.GetUsersAverageScore();
-            SumOfScoreDifference = 0;
-            SumOfUserDifference = 0;
-            SumOfNeighborDifference = 0;
-            for (Movie m : n.GetRatedProducts()) {
-                if (Current_User.GetRatedProducts().contains(m))
-                    Movies_in_common.add(m);
+            if (!n.equals(Current_User)) {
+
+                NeighborAverage = n.GetUsersAverageScore();
+                SumOfScoreDifference = 0;
+                SumOfUserDifference = 0;
+                SumOfNeighborDifference = 0;
+                Movies_in_common.clear();
+
+                for (Movie m : n.GetRatedProducts()) {
+                    if (Current_User.GetRatedProducts().contains(m))
+                        Movies_in_common.add(m);
+                }
+                if (Movies_in_common.size() != 0) {
+                    for (Movie m : Movies_in_common) {
+                        if (n.GetRatedProducts().contains(m)) {
+                            UserDifference = Current_User.GetProductRating(m) - UserAverage;
+                            NeighborDifference = n.GetProductRating(m) - NeighborAverage;
+                            SumOfScoreDifference += UserDifference * NeighborDifference;
+                            SumOfUserDifference += UserDifference * UserDifference;
+                            SumOfNeighborDifference += NeighborDifference * NeighborDifference;
+                        }
+                    }
+                    Neighborsimilarity = new ObjectScore<>(n, SumOfScoreDifference / (Math.sqrt(SumOfUserDifference) * Math.sqrt(SumOfNeighborDifference)));
+                    ListOfNeighborsAndScores.add(Neighborsimilarity);
+                }
             }
-            for (Movie m : Movies_in_common) {
-                UserDifference = Current_User.GetProductRating(m) - UserAverage;
-                NeighborDifference = n.GetProductRating(m) - NeighborAverage;
-                SumOfScoreDifference = +UserDifference * NeighborDifference;
-                SumOfUserDifference = +UserDifference * UserDifference;
-                SumOfNeighborDifference = +NeighborDifference * NeighborDifference;
-            }
-            Neighborsimilarity = new ObjectScore<>(n, SumOfScoreDifference / (Math.sqrt(SumOfUserDifference) * Math.sqrt(SumOfNeighborDifference)));
-            ListOfNeighborsAndScores.add(Neighborsimilarity);
         }
         ListOfNeighborsAndScores.sort(Comparator.comparing(ObjectScore::GetScore));
         ArrayList<ObjectScore<RatingsWatcher<Movie>>> ListOfNeighbors = new ArrayList<>();
-        for (int counter = 0; counter < NumberOfNeighbors; counter++)
+
+        for (int counter = ListOfNeighborsAndScores.size() - 1; counter > ListOfNeighborsAndScores.size() - (NumberOfNeighbors + 1); counter--)
             ListOfNeighbors.add(ListOfNeighborsAndScores.get(counter));
         Neighbor_Lists.put(Current_User, ListOfNeighbors);
         return ListOfNeighbors;

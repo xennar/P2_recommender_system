@@ -61,7 +61,7 @@ public class RatingsWatcher<T extends Basic_Characteristics> extends User {
     public double GetUsersAverageScore() {
         double Average = 0;
         for (T t : GetRatedProducts()) {
-            Average = +GetProductRating(t);
+            Average += GetProductRating(t);
         }
         Average = Average / GetRatedProducts().size();
         return Average;

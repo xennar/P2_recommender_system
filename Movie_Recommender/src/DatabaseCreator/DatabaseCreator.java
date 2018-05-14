@@ -14,6 +14,8 @@ public class DatabaseCreator {
         }
 
         int NumberOfUsers = ratingsRewriter.getNumberOfUsers();
-        usermaker.MakeUsersFile(NumberOfUsers);
+        try{usermaker.MakeUsersFile(NumberOfUsers);}catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }

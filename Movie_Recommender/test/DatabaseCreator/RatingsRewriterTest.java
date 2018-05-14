@@ -21,7 +21,7 @@ class RatingsRewriterTest {
     }
 
     @Test
-    void rewriteRatings() {
+    void testgetNumberOfUsers() {
         assertEquals(671, ratingsRewriter.getNumberOfUsers());
     }
 }

@@ -34,7 +34,8 @@ class RatingsRewriter {
                 reader.close();
                 fileWriter.close();
 
-            }catch(IOException e){System.out.println("Error: Files not found: " + e.getMessage());}
+            }catch(IOException e){System.out.println("Error: Files not found: " + e.getMessage());
+            throw e;}
         }
     }
 

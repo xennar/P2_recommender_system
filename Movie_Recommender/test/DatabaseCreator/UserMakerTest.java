@@ -15,7 +15,8 @@ class UserMakerTest {
     @Test
     void makeUsersFile() {
         UserMaker userMaker = new UserMaker();
-        userMaker.MakeUsersFile(671);
+        try{
+        userMaker.MakeUsersFile(671);}catch(IOException e){e.printStackTrace();}
         Path src = Paths.get("src\\DatabaseCreator\\ratings.csv");
         int userID = 0;
         if (Files.exists(src)) {

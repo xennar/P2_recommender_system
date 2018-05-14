@@ -71,8 +71,8 @@ public class FileReader {
         return ListOfUsers;
     }
 
-    public void ReadRatings(ArrayList<RatingsWatcher<Movie>> ListOfUsers, ArrayList<Movie> ListOfMovies) {
-        Path ratingsPath = Paths.get("src/Database/adjratings.csv");
+    public void ReadRatings(ArrayList<RatingsWatcher<Movie>> ListOfUsers, ArrayList<Movie> ListOfMovies, String path) {
+        Path ratingsPath = Paths.get(path);
         if (Files.exists(ratingsPath)) {
             try {
                 BufferedReader ratingsreader = Files.newBufferedReader(ratingsPath);
@@ -104,7 +104,7 @@ public class FileReader {
 
     RatingsWatcher<Movie> GetUserFromID(int ID, ArrayList<RatingsWatcher<Movie>> ListOfUsers) {
         int i = 0;
-        while (ID != ListOfUsers.get(i).GetID())
+        while (i < ListOfUsers.size() && ID != ListOfUsers.get(i).GetID())
             i++;
         return ListOfUsers.get(i);
     }

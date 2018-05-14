@@ -30,7 +30,19 @@ class RatingsWatcherTest {
         ListOfUsers = user_manager.GetListOfUsers();
         ListOfMovies = product_manager.GetProductList();
 
-        ratings_manager = new Ratings_Manager(filereader, ListOfUsers, ListOfMovies);
+        ratings_manager = new Ratings_Manager(filereader, ListOfUsers, ListOfMovies, "src/Database/adjratings.csv");
+    }
+
+    @Test
+    void MakeRatingsWatcher01(){
+        RatingsWatcher<Movie> watcher = new RatingsWatcher<Movie>(672, "672", "1|2|3|4");
+        assertEquals(4, watcher.GetNeighborIDs().size());
+    }
+
+    @Test
+    void MakeRatingsWatcher02(){
+        RatingsWatcher<Movie> watcher = new RatingsWatcher<Movie>(672, "672", "1|2|3|4", "3|4|6");
+        assertEquals(3, watcher.GetIgnoreIDs().size());
     }
 
     @Test
@@ -57,5 +69,6 @@ class RatingsWatcherTest {
 
     @Test
     void getUsersAverageScore() {
+        assertEquals(2.55, ListOfUsers.get(0).GetUsersAverageScore());
     }
 }

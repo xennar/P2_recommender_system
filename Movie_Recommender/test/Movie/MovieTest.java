@@ -20,6 +20,7 @@ class MovieTest {
     ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     ArrayList<Movie> ListOfMovies;
 
+
     @BeforeEach
     void SetUp() {
         FileReader filereader = new FileReader();
@@ -28,7 +29,7 @@ class MovieTest {
 
         ListOfUsers = user_manager.GetListOfUsers();
         ListOfMovies = product_manager.GetProductList();
-        filereader.ReadRatings(ListOfUsers, ListOfMovies);
+        filereader.ReadRatings(ListOfUsers, ListOfMovies, "src/Database/adjratings.csv");
     }
 
     @Test
