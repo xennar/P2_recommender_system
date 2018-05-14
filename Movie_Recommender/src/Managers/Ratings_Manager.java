@@ -33,7 +33,7 @@ public class Ratings_Manager {
     public Movie GetRecommendation(RatingsWatcher<Movie> CurrentUser, Neighbor_Manager neighbor_manager, int NumberOfNeighbors) {
         ObjectScore<Movie> RecommendationScore;
         ArrayList<ObjectScore<Movie>> ListOfRecommendableMovies = new ArrayList<>();
-        HashMap<Movie, ObjectScore<Movie>> MapOfRecommendableMovies = new HashMap<>();
+        HashMap<Movie, ObjectScore<Movie>> MapOfRecommendableMovies = new HashMap<>();//TODO make local
         HashSet<Movie> MoviesInCommon = new HashSet<>();
 
         double SumOfNeighborContribution;

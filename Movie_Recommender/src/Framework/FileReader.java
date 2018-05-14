@@ -102,14 +102,14 @@ public class FileReader {
         }
     }
 
-    private RatingsWatcher<Movie> GetUserFromID(int ID, ArrayList<RatingsWatcher<Movie>> ListOfUsers) {
+    public RatingsWatcher<Movie> GetUserFromID(int ID, ArrayList<RatingsWatcher<Movie>> ListOfUsers) {
         int i = 0;
         while (ID != ListOfUsers.get(i).GetID())
             i++;
         return ListOfUsers.get(i);
     }
 
-    private Movie GetProductFromID(int ID, ArrayList<Movie> ListOfObject) {
+    public Movie GetProductFromID(int ID, ArrayList<Movie> ListOfObject) {
         int i = 0;
         while (ID != ListOfObject.get(i).GetID())
             i++;

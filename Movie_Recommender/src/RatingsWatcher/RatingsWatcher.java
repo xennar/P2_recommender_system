@@ -42,8 +42,8 @@ public class RatingsWatcher<T extends Basic_Characteristics> extends User {
         return new ArrayList<>(UserRatings.keySet());
     }
 
-    public double GetProductRating(T ProductID) {
-        return UserRatings.get(ProductID);
+    public double GetProductRating(T Product) {
+        return UserRatings.get(Product);
     }
 
     public ArrayList<Integer> GetIgnoreIDs() {
