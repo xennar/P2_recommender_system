@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class FileReader {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     //This method reads movies.csv, and adds the information to Movie objects which are stored on the ArrayList that is returned.
     public ArrayList<Movie> ReadProducts() {
 
@@ -22,6 +23,13 @@ public class FileReader {
 
         //The method checks if it can open the specific path, and then opens is.
         Path moviepath = Paths.get("src/Database/movies.csv");
+=======
+    public ArrayList<Movie> ReadProducts(String path){
+
+        ArrayList<Movie> ListOfMovies = new ArrayList<Movie>();
+
+        Path moviepath = Paths.get(path);
+>>>>>>> 9e4fc02ab75514945a16198651f8811731d8ff1a
 =======
     public ArrayList<Movie> ReadProducts(String path){
 
@@ -61,6 +69,7 @@ public class FileReader {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     //This method reads the file Users.csv, and translates the info into user profiles.
     public ArrayList<RatingsWatcher<Movie>> ReadUsers() {
@@ -68,6 +77,12 @@ public class FileReader {
 
         //As in Readproducts, the method checks if it can open the file, and reads the first line, since it is unnecessary.
         Path userpath = Paths.get("src/Database/Users.csv");
+=======
+    public ArrayList<RatingsWatcher<Movie>> ReadUsers(String path) {
+        ArrayList<RatingsWatcher<Movie>> ListOfUsers = new ArrayList<>();
+
+        Path userpath = Paths.get(path);
+>>>>>>> 9e4fc02ab75514945a16198651f8811731d8ff1a
 =======
     public ArrayList<RatingsWatcher<Movie>> ReadUsers(String path) {
         ArrayList<RatingsWatcher<Movie>> ListOfUsers = new ArrayList<>();

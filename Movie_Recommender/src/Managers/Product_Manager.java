@@ -13,12 +13,17 @@ public class Product_Manager {
     private HashMap<Integer, Movie> ProductMap;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     //The constructor makes a Map of IDs and Movies.
     public Product_Manager(FileReader reader) {
             ProductList = reader.ReadProducts();
             ProductMap = new HashMap<>();
             for(Movie m : ProductList)
                 ProductMap.put(m.GetID(), m);
+=======
+    public Product_Manager(FileReader reader, String path) {
+            ProductList = reader.ReadProducts(path);
+>>>>>>> 9e4fc02ab75514945a16198651f8811731d8ff1a
 =======
     public Product_Manager(FileReader reader, String path) {
             ProductList = reader.ReadProducts(path);
