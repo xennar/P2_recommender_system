@@ -91,7 +91,7 @@ public class FileReader {
                         current = GetUserFromID(userID, ListOfUsers);
                     Movie rated = GetProductFromID(productID, ListOfMovies);
                     rated.AddRating(rating);
-                    current.AddNewRatedProduct(rated, rating);
+                    current.AddNewRatedProductDuringFileReader(rated, rating);
 
                 }
                 ratingsreader.close();

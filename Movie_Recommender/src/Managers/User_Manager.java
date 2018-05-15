@@ -1,5 +1,6 @@
 package Managers;
 
+import Framework.Basic_Characteristics;
 import Framework.FileReader;
 import Movie.Movie;
 import RatingsWatcher.RatingsWatcher;
@@ -11,6 +12,7 @@ public class User_Manager {
 
     private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     private HashMap<Integer, RatingsWatcher<Movie>> UserIDMap;
+
 
     public User_Manager(FileReader reader, String path) {
         ListOfUsers = reader.ReadUsers(path);
@@ -28,6 +30,7 @@ public class User_Manager {
         RatingsWatcher<Movie> newUser = new RatingsWatcher<Movie>(ID, Password);
         ListOfUsers.add(newUser);
     }
+
 
     public RatingsWatcher<Movie> LogIn(int ID, String Password) {
         if (UserIDMap.containsKey(ID)) {

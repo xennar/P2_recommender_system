@@ -2,6 +2,9 @@ package RatingsWatcher;
 
 import Framework.Basic_Characteristics;
 import Framework.User;
+import Managers.Session_Manager;
+import Managers.User_Manager;
+import Movie.Movie;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,9 +53,15 @@ public class RatingsWatcher<T extends Basic_Characteristics> extends User {
         return IgnoreIDs;
     }
 
-    public void AddNewRatedProduct(T NewProduct, double rating) {
+    public void AddNewRatedProductDuringFileReader(T NewProduct, double rating) {
         UserRatings.put(NewProduct, rating);
     }
+    public void AddNewRatedProductDuringSession(T NewProduct, double rating){
+        UserRatings.put(NewProduct, rating);
+        Session_Manager.addNewSessionRatings(this.GetID() + "," + NewProduct.GetID() + "," + rating);
+    }
+
+
 
     public ArrayList<Integer> GetNeighborIDs() {
         return NeighborsIDs;

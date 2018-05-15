@@ -13,6 +13,7 @@ public class Product_Manager {
             ProductList = reader.ReadProducts(path);
     }
 
+
     public ArrayList<Movie> GetProductList() {
         return ProductList;
     }
@@ -20,6 +21,7 @@ public class Product_Manager {
     public void AddNewProduct(int ID, String title, String tags) {
         Movie newProduct = new Movie(ID, title, tags);
         ProductList.add(newProduct);
+        Session_Manager.addNewSessionProducts(newProduct);
     }
     public Movie getProductFromID(int productID){
         return ProductList.get(productID - 1);

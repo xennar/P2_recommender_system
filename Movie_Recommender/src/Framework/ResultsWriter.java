@@ -44,24 +44,21 @@ public class ResultsWriter {
         }
     }
 
-    public void WriteRatingsData(ArrayList<RatingsWatcher<Movie>> currentSessionRatingsData, ArrayList<Integer> newRatedProductID, String  path) {
+    public void WriteRatingsData(ArrayList<String> currentSessionRatingsData, String  path) {
         if (!currentSessionRatingsData.isEmpty()) {
             Path dest = Paths.get(path);
 
             if (Files.exists(dest)) {
                 try {
                     FileWriter ratingsWriter = new FileWriter(path, true);
-                    for (RatingsWatcher<Movie> u : currentSessionRatingsData) {
-                        for (Movie m : u.GetRatedProducts())
-                            for (Integer IDtoAdd : newRatedProductID) {
                             /*Loops through each of the changed users movies, if the ID of the currently looped
                             * Movie matches the ID of the movies that are to be added then it writes the Rating
                             * at the end of adjratings.csv*/
-                                if (m.GetID() == IDtoAdd) {
-                                    ratingsWriter.append(String.valueOf(u.GetID())).append(",").append(String.valueOf(m.GetID())).append(",").append(String.valueOf(u.GetProductRating(m))).append("\n");
-                                }
+                            for (String s : currentSessionRatingsData){
+                                ratingsWriter.append(s);
                             }
-                    }
+
+
                     ratingsWriter.close();
                 } catch (IOException e) {
                     System.out.println("Unable to write to file");
