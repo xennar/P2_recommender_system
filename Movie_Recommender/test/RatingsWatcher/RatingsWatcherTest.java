@@ -17,15 +17,19 @@ class RatingsWatcherTest {
     User_Manager user_manager;
     Product_Manager product_manager;
     Ratings_Manager ratings_manager;
+    String userPath;
+    String moviePath;
 
     ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     ArrayList<Movie> ListOfMovies;
 
     @BeforeEach
     void SetUp(){
+        userPath = "test/UsersTest.csv";
+        moviePath = "test/moviesTest.csv";
         FileReader filereader = new FileReader();
-        user_manager = new User_Manager(filereader);
-        product_manager = new Product_Manager(filereader);
+        user_manager = new User_Manager(filereader, userPath);
+        product_manager = new Product_Manager(filereader, moviePath);
 
         ListOfUsers = user_manager.GetListOfUsers();
         ListOfMovies = product_manager.GetProductList();

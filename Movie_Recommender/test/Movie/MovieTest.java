@@ -16,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class MovieTest {
     User_Manager user_manager;
     Product_Manager product_manager;
+    String moviePath;
+    String ratingsPath;
+    String userPath;
 
     ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     ArrayList<Movie> ListOfMovies;
@@ -23,13 +26,16 @@ class MovieTest {
 
     @BeforeEach
     void SetUp() {
+        moviePath = "test/moviesTest.csv";
+        ratingsPath = "test/adjratingsTest.csv";
+        userPath = "test/UsersTest.csv";
         FileReader filereader = new FileReader();
-        user_manager = new User_Manager(filereader);
-        product_manager = new Product_Manager(filereader);
+        user_manager = new User_Manager(filereader,userPath);
+        product_manager = new Product_Manager(filereader, moviePath);
 
         ListOfUsers = user_manager.GetListOfUsers();
         ListOfMovies = product_manager.GetProductList();
-        filereader.ReadRatings(ListOfUsers, ListOfMovies, "src/Database/adjratings.csv");
+        filereader.ReadRatings(ListOfUsers, ListOfMovies, ratingsPath);
     }
 
     @Test

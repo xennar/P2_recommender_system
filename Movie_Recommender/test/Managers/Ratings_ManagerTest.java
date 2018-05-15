@@ -15,7 +15,7 @@ class Ratings_ManagerTest {
 
     ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     ArrayList<Movie> ListOfMovies;
-
+    String moviePath;
     Product_Manager product_manager;
     Neighbor_Manager neighbor_manager;
     Ratings_Manager ratings_manager;
@@ -23,8 +23,9 @@ class Ratings_ManagerTest {
 
     @BeforeEach
     void SetUp() {
+        moviePath = "test/moviesTest.csv";
         FileReader filereader = new FileReader();
-        product_manager = new Product_Manager(filereader);
+        product_manager = new Product_Manager(filereader, moviePath);
 
         ListOfUsers = new ArrayList<>();
         ListOfMovies = product_manager.GetProductList();

@@ -12,8 +12,8 @@ public class User_Manager {
     private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     private HashMap<Integer, RatingsWatcher<Movie>> UserIDMap;
 
-    public User_Manager(FileReader reader) {
-        ListOfUsers = reader.ReadUsers();
+    public User_Manager(FileReader reader, String path) {
+        ListOfUsers = reader.ReadUsers(path);
         UserIDMap = new HashMap<>();
         for (RatingsWatcher<Movie> u : ListOfUsers) {
             UserIDMap.put(u.GetID(), u);

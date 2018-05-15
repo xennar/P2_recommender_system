@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class Product_Manager {
     private ArrayList<Movie> ProductList;
 
-    public Product_Manager(FileReader reader) {
-            ProductList = reader.ReadProducts();
+    public Product_Manager(FileReader reader, String path) {
+            ProductList = reader.ReadProducts(path);
     }
 
     public ArrayList<Movie> GetProductList() {

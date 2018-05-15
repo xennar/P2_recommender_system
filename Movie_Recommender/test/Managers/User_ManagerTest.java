@@ -12,13 +12,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class User_ManagerTest {
 
+    private String userPath;
     private User_Manager user_manager;
     private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
 
     @BeforeEach
     void SetUp(){
+        userPath = "test/UsersTest.csv";
         FileReader fileReader = new FileReader();
-        user_manager = new User_Manager(fileReader);
+        user_manager = new User_Manager(fileReader, userPath);
         ListOfUsers = user_manager.GetListOfUsers();
     }
     @Test

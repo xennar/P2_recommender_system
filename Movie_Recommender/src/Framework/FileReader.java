@@ -13,11 +13,11 @@ import java.util.ArrayList;
 
 public class FileReader {
 
-    public ArrayList<Movie> ReadProducts(){
+    public ArrayList<Movie> ReadProducts(String path){
 
         ArrayList<Movie> ListOfMovies = new ArrayList<Movie>();
 
-        Path moviepath = Paths.get("src/Database/movies.csv");
+        Path moviepath = Paths.get(path);
         if (Files.exists(moviepath)) {
             try {
                 BufferedReader MovieReader = Files.newBufferedReader(moviepath);
@@ -39,10 +39,10 @@ public class FileReader {
         return ListOfMovies;
     }
 
-    public ArrayList<RatingsWatcher<Movie>> ReadUsers() {
+    public ArrayList<RatingsWatcher<Movie>> ReadUsers(String path) {
         ArrayList<RatingsWatcher<Movie>> ListOfUsers = new ArrayList<>();
 
-        Path userpath = Paths.get("src/Database/Users.csv");
+        Path userpath = Paths.get(path);
         if (Files.exists(userpath)) {
             try {
                 BufferedReader MovieReader = Files.newBufferedReader(userpath);

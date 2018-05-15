@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class Neighbor_ManagerTest {
-
+    String moviePath;
     ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     ArrayList<Movie> ListOfMovies;
     Neighbor_Manager neighbor_manager;
@@ -23,8 +23,9 @@ class Neighbor_ManagerTest {
 
     @BeforeEach
     void SetUp() {
+        moviePath = "test/moviesTest.csv";
         FileReader filereader = new FileReader();
-        Product_Manager product_manager = new Product_Manager(filereader);
+        Product_Manager product_manager = new Product_Manager(filereader, moviePath);
 
 
         ListOfUsers = new ArrayList<>();
