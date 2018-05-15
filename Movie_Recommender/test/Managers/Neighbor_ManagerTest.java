@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class Neighbor_ManagerTest {
-
+    String moviePath;
     ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     ArrayList<Movie> ListOfMovies;
     Neighbor_Manager neighbor_manager;
@@ -23,8 +23,9 @@ class Neighbor_ManagerTest {
 
     @BeforeEach
     void SetUp() {
+        moviePath = "test/moviesTest.csv";
         FileReader filereader = new FileReader();
-        Product_Manager product_manager = new Product_Manager(filereader);
+        Product_Manager product_manager = new Product_Manager(filereader, moviePath);
 
 
         ListOfUsers = new ArrayList<>();
@@ -81,6 +82,29 @@ class Neighbor_ManagerTest {
             NeighborsAsList1.add(on.GetObject());
 
         assertFalse(NeighborsAsList.contains(ListOfUsers.get(14)) && NeighborsAsList1.contains(ListOfUsers.get(14)));
+    }
+
+    @Test
+    void getNewNeighbors04(){
+
+        ArrayList<ObjectScore<RatingsWatcher<Movie>>> neighbors = neighbor_manager.GetNewNeighbors(ListOfUsers.get(0), 6);
+        ArrayList<ObjectScore<RatingsWatcher<Movie>>> testList = new ArrayList<>(neighbors);
+        neighbors = neighbor_manager.GetNewNeighbors(ListOfUsers.get(0), 6);
+        ArrayList<RatingsWatcher<Movie>> testlistaslist = new ArrayList<>();
+        for(ObjectScore<RatingsWatcher<Movie>> os : testList)
+            testlistaslist.add(os.GetObject());
+
+        ArrayList<RatingsWatcher<Movie>> neighborsaslist = new ArrayList<>();
+        for(ObjectScore<RatingsWatcher<Movie>> os : testList)
+            neighborsaslist.add(os.GetObject());
+
+        assertTrue(testlistaslist.containsAll(neighborsaslist));
+    }
+
+    @Test
+    void getNewNeighbors05() {
+        ArrayList<ObjectScore<RatingsWatcher<Movie>>> neighbors = neighbor_manager.GetNewNeighbors(ListOfUsers.get(0), 6);
+        assertEquals(6, ListOfUsers.get(0).GetNeighborIDs().size());
     }
 
     @Test

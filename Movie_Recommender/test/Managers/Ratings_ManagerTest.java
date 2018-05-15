@@ -8,14 +8,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class Ratings_ManagerTest {
 
     ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     ArrayList<Movie> ListOfMovies;
-
+    String moviePath;
     Product_Manager product_manager;
     Neighbor_Manager neighbor_manager;
     Ratings_Manager ratings_manager;
@@ -23,8 +22,9 @@ class Ratings_ManagerTest {
 
     @BeforeEach
     void SetUp() {
+        moviePath = "test/moviesTest.csv";
         FileReader filereader = new FileReader();
-        product_manager = new Product_Manager(filereader);
+        product_manager = new Product_Manager(filereader, moviePath);
 
         ListOfUsers = new ArrayList<>();
         ListOfMovies = product_manager.GetProductList();
@@ -60,5 +60,11 @@ class Ratings_ManagerTest {
     void getRecommendation02() {
         Movie Recommended_Movie = ratings_manager.GetRecommendation(ListOfUsers.get(1), neighbor_manager, 6);
         assertEquals(ListOfMovies.get(24), Recommended_Movie);
+    }
+
+    @Test
+    void getRecommendation03() {
+        ratings_manager.AddIgnoreToUser(ListOfUsers.get(0), ratings_manager.GetListOfMovies().get(29));
+        assertThrows(RuntimeException.class, ()-> ratings_manager.GetRecommendation(ListOfUsers.get(0), neighbor_manager, 6));
     }
 }

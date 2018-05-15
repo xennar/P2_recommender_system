@@ -16,14 +16,14 @@ import RatingsWatcher.RatingsWatcher;
 
 public class ResultsWriter {
 
-    public void WriteProductData(ArrayList<Movie> currentSessionProducts) {
+    public void WriteProductData(ArrayList<Movie> currentSessionProducts, String path) {
         if (!currentSessionProducts.isEmpty()) {
-            Path dest = Paths.get("src\\Database\\movies.csv");
+            Path dest = Paths.get(path);
             int count = 0;
 
             if (Files.exists(dest)) {
                 try {
-                    FileWriter MovieWriter = new FileWriter("src\\Database\\movies.csv", true);
+                    FileWriter MovieWriter = new FileWriter(path, true);
                     for (Movie m : currentSessionProducts) {
                         String combinedtags = "";
                         for (String s: m.GetTags()){
@@ -44,13 +44,13 @@ public class ResultsWriter {
         }
     }
 
-    public void WriteRatingsData(ArrayList<RatingsWatcher<Movie>> currentSessionRatingsData, ArrayList<Integer> newRatedProductID) {
+    public void WriteRatingsData(ArrayList<RatingsWatcher<Movie>> currentSessionRatingsData, ArrayList<Integer> newRatedProductID, String  path) {
         if (!currentSessionRatingsData.isEmpty()) {
-            Path dest = Paths.get("src\\Database\\adjratings.csv");
+            Path dest = Paths.get(path);
 
             if (Files.exists(dest)) {
                 try {
-                    FileWriter ratingsWriter = new FileWriter("src\\Database\\adjratings.csv", true);
+                    FileWriter ratingsWriter = new FileWriter(path, true);
                     for (RatingsWatcher<Movie> u : currentSessionRatingsData) {
                         for (Movie m : u.GetRatedProducts())
                             for (Integer IDtoAdd : newRatedProductID) {
@@ -70,14 +70,14 @@ public class ResultsWriter {
         }
     }
 
-    public void WriteUserData(ArrayList<RatingsWatcher<Movie>> currentSessionUserData) {
+    public void WriteUserData(ArrayList<RatingsWatcher<Movie>> currentSessionUserData, String path) {
         if (!currentSessionUserData.isEmpty()) {
-            Path dest = Paths.get("src\\Database\\Users.csv");
-            ArrayList<RatingsWatcher<Movie>> currentUsers = new FileReader().ReadUsers();
+            Path dest = Paths.get(path);
+            ArrayList<RatingsWatcher<Movie>> currentUsers = new FileReader().ReadUsers(path);
 //            Reads the entire list of users into an arraylist for editing
             if (Files.exists(dest)) {
                 try {
-                    FileWriter userWriter = new FileWriter("src\\Database\\Users.csv", false);
+                    FileWriter userWriter = new FileWriter(path, false);
                     for (RatingsWatcher<Movie> newData : currentSessionUserData) {
                         for (RatingsWatcher<Movie> oldData : currentUsers)
                             if (newData.GetID() == oldData.GetID()) {

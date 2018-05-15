@@ -12,17 +12,21 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Product_ManagerTest {
-    static User_Manager user_manager;
-    static Product_Manager product_manager;
+    User_Manager user_manager;
+    Product_Manager product_manager;
+    String moviePath;
+    String userPath;
 
-    static ArrayList<RatingsWatcher<Movie>> ListOfUsers;
-    static ArrayList<Movie> ListOfMovies;
+    ArrayList<RatingsWatcher<Movie>> ListOfUsers;
+    ArrayList<Movie> ListOfMovies;
 
     @BeforeEach
     void SetUp(){
+        moviePath = "test/moviesTest.csv";
+        userPath = "test/UsersTest.csv";
         FileReader filereader = new FileReader();
-        User_Manager user_manager = new User_Manager(filereader);
-        product_manager = new Product_Manager(filereader);
+        user_manager = new User_Manager(filereader, userPath);
+        product_manager = new Product_Manager(filereader, moviePath);
 
 
         ListOfUsers = user_manager.GetListOfUsers();
@@ -46,7 +50,7 @@ class Product_ManagerTest {
     @Test
     void addNewProduct() {
         int startSize = product_manager.GetProductList().size();
-        product_manager.AddNewProduct(164980,"test the Movie", "fun|great|sad|drama");
+        product_manager.AddNewProduct(1649800,"test the Movie", "fun|great|sad|drama");
         assertEquals(startSize + 1, product_manager.GetProductList().size());
     }
 
