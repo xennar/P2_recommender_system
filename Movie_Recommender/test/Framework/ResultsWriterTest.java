@@ -53,7 +53,7 @@ class ResultsWriterTest {
 //        asks the results writer to write the list of new movies from the testMovies list
         int newSize = new Product_Manager(new FileReader(), moviePath).GetProductList().size();
 //        reReads the movies.csv file and snapshots the size of products
-        assertTrue(newSize == initialSize + 1); // if everything went well the new size should be 1 larger as there has been added 1 movie to the csv file
+        assertEquals(initialSize + 1, newSize); // if everything went well the new size should be 1 larger as there has been added 1 movie to the csv file
     }
 
     @Test
@@ -70,12 +70,12 @@ class ResultsWriterTest {
 //        calls the resultsWriter to write in the new ratings, using the changed users and new rated movies lists
         FileReader testReader = new FileReader(); //creates a new file reader
         User_Manager testUserManager = new User_Manager(testReader, userPath); // creates a new user_manager with the new file reader to reread the data
-        Product_Manager testProductManager = new Product_Manager(testReader, userPath); //creates a new Product_manager to reread data
+        Product_Manager testProductManager = new Product_Manager(testReader, moviePath); //creates a new Product_manager to reread data
         testReader.ReadRatings(testUserManager.GetListOfUsers(), testProductManager.GetProductList(), ratingsPath);
 //        uses the newly read data and reads the ratings in order to load all the ratings post changes
         int newSize = testUserManager.GetListOfUsers().get(0).GetRatedProducts().size();
 //        snapshots takes the size of rated products from the first user in the user list
-        assertTrue(newSize == initialSize + 1);
+        assertEquals(initialSize + 1, newSize);
         // if everything went well the new size should be 1 larger as there has been added 1 new movie rating for user 1 to the csv file
     }
 

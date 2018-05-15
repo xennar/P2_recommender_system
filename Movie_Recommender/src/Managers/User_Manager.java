@@ -13,19 +13,9 @@ public class User_Manager {
     private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     private HashMap<Integer, RatingsWatcher<Movie>> UserIDMap;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     //The constructor makes a map that takes IDs and returns the RatingsWatcher with that id
-    public User_Manager(FileReader reader) {
-        ListOfUsers = reader.ReadUsers();
-=======
     public User_Manager(FileReader reader, String path) {
         ListOfUsers = reader.ReadUsers(path);
->>>>>>> 9e4fc02ab75514945a16198651f8811731d8ff1a
-=======
-    public User_Manager(FileReader reader, String path) {
-        ListOfUsers = reader.ReadUsers(path);
->>>>>>> 9e4fc02ab75514945a16198651f8811731d8ff1a
         UserIDMap = new HashMap<>();
         for (RatingsWatcher<Movie> u : ListOfUsers) {
             UserIDMap.put(u.GetID(), u);

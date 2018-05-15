@@ -25,8 +25,8 @@ class RatingsWatcherTest {
 
     @BeforeEach
     void SetUp(){
-        userPath = "test/UsersTest.csv";
-        moviePath = "test/moviesTest.csv";
+        userPath = "src/Database/Users.csv";
+        moviePath = "src/Database/movies.csv";
         FileReader filereader = new FileReader();
         user_manager = new User_Manager(filereader, userPath);
         product_manager = new Product_Manager(filereader, moviePath);
@@ -73,6 +73,6 @@ class RatingsWatcherTest {
 
     @Test
     void getUsersAverageScore() {
-        assertEquals(55.5/21, ListOfUsers.get(0).GetUsersAverageScore());
+        assertEquals((double) 51/20, ListOfUsers.get(0).GetUsersAverageScore());
     }
 }

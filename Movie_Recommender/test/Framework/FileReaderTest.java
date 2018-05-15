@@ -24,9 +24,9 @@ class FileReaderTest {
 
     @BeforeEach
     void SetUp() {
-        moviePath = "test/moviesTest.csv";
-        ratingsPath = "test/adjratingsTest.csv";
-        userPath = "test/UsersTest.csv";
+        moviePath = "src/Database/movies.csv";
+        ratingsPath = "src/Database/adjratings.csv";
+        userPath = "src/Database/Users.csv";
         fileReader = new FileReader();
         user_manager = new User_Manager(fileReader, userPath);
         product_manager = new Product_Manager(fileReader, moviePath);
