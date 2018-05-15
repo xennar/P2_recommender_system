@@ -1,6 +1,7 @@
 package Framework;
 
 import Managers.Product_Manager;
+import Managers.Ratings_Manager;
 import Managers.Session_Manager;
 import Managers.User_Manager;
 import Movie.Movie;
@@ -15,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ResultsWriterTest {
     private User_Manager user_manager;
     private Product_Manager product_manager;
+    private Ratings_Manager ratings_manager;
     private ResultsWriter resultsWriter = new ResultsWriter();
     private FileReader filereader;
     private String moviePath;
@@ -78,5 +80,10 @@ class ResultsWriterTest {
 
     @Test
     void writeUserData() {
+        ratings_manager = new Ratings_Manager(filereader, ListOfUsers, ListOfMovies, ratingsPath);
+        ratings_manager.AddIgnoreToUser(ListOfUsers.get(0), product_manager.getProductFromID(20));
+        Session_Manager session_manager = new Session_Manager();
+        System.out.println(session_manager.getChangedUserData().get(0).GetIgnoreIDs());
+        resultsWriter.WriteUserData(session_manager.getChangedUserData(), userPath);
     }
 }

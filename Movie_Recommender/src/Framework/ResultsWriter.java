@@ -26,15 +26,15 @@ public class ResultsWriter {
                     FileWriter MovieWriter = new FileWriter(path, true);
                     for (Movie m : currentSessionProducts) {
                         String combinedtags = "";
-                        for (String s: m.GetTags()){
+                        for (String s : m.GetTags()) {
                             count++;
                             combinedtags += s;
-                            if (count < m.GetTags().size()){
+                            if (count < m.GetTags().size()) {
                                 combinedtags += "|";
                             }
                         }
 //                        loops through the products added in the current session and writes them at the end of the movies.csv file
-                            MovieWriter.append(String.valueOf(m.GetID())).append(",").append(m.GetString()).append(",").append(combinedtags).append("\n");
+                        MovieWriter.append(String.valueOf(m.GetID())).append(",").append(m.GetString()).append(",").append(combinedtags).append("\n");
                     }
                     MovieWriter.close();
                 } catch (IOException e) {
@@ -44,19 +44,19 @@ public class ResultsWriter {
         }
     }
 
-    public void WriteRatingsData(ArrayList<String> currentSessionRatingsData, String  path) {
+    public void WriteRatingsData(ArrayList<String> currentSessionRatingsData, String path) {
         if (!currentSessionRatingsData.isEmpty()) {
             Path dest = Paths.get(path);
 
             if (Files.exists(dest)) {
                 try {
                     FileWriter ratingsWriter = new FileWriter(path, true);
-                            /*Loops through each of the changed users movies, if the ID of the currently looped
-                            * Movie matches the ID of the movies that are to be added then it writes the Rating
-                            * at the end of adjratings.csv*/
-                            for (String s : currentSessionRatingsData){
-                                ratingsWriter.append(s);
-                            }
+                    /*Loops through each of the changed users movies, if the ID of the currently looped
+                     * Movie matches the ID of the movies that are to be added then it writes the Rating
+                     * at the end of adjratings.csv*/
+                    for (String s : currentSessionRatingsData) {
+                        ratingsWriter.append(s);
+                    }
 
 
                     ratingsWriter.close();
@@ -71,21 +71,45 @@ public class ResultsWriter {
         if (!currentSessionUserData.isEmpty()) {
             Path dest = Paths.get(path);
             ArrayList<RatingsWatcher<Movie>> currentUsers = new FileReader().ReadUsers(path);
+            for (RatingsWatcher<Movie> current : currentUsers) {
+            }
 //            Reads the entire list of users into an arraylist for editing
             if (Files.exists(dest)) {
                 try {
                     FileWriter userWriter = new FileWriter(path, false);
                     for (RatingsWatcher<Movie> newData : currentSessionUserData) {
-                        for (RatingsWatcher<Movie> oldData : currentUsers)
+                        for (RatingsWatcher<Movie> oldData : currentUsers) {
                             if (newData.GetID() == oldData.GetID()) {
-                            /*Loops through each of the changed users and compares it to every user before any changes
-                            * if the IDs match then the line of the ID is replaced with the new User Data*/
-                                currentUsers.set(oldData.GetID(), newData);
+                                /*Loops through each of the changed users and compares it to every user before any changes
+                                 * if the IDs match then the line of the ID is replaced with the new User Data*/
+                                currentUsers.set(oldData.GetID() - 1, newData);
+                                break;
                             }
+                        }
                     }
+
                     for (RatingsWatcher<Movie> newUserData : currentUsers) {
+                        String neighborID = "";
+                        String ignoreID = "";
+                        int count = 0;
 //                        overwrites Users.csv with the new edited information
-                        userWriter.write(newUserData.GetID() + ',' + newUserData.GetString() + ',' + newUserData.GetNeighborIDs() + ',' + newUserData.GetNeighborIDs() + '\n');
+                        for (Integer n : newUserData.GetNeighborIDs()) {
+                            count++;
+                            neighborID += n;
+                            if (count < newUserData.GetNeighborIDs().size()) {
+                                neighborID += "|";
+                            }
+                        }
+                        count = 0;
+                        for (Integer ignore : newUserData.GetIgnoreIDs()) {
+                            count++;
+                            ignoreID += ignore;
+                            if (count < newUserData.GetIgnoreIDs().size()) {
+                                neighborID += "|";
+                            }
+                        }
+                        System.out.println(newUserData.GetID() + "," + newUserData.GetString());
+                        userWriter.write(String.valueOf(newUserData.GetID()) + ',' + newUserData.GetString() + ',' + neighborID + ',' + ignoreID + '\n');
                     }
                     userWriter.close();
                 } catch (IOException e) {
