@@ -1,5 +1,6 @@
 package Framework;
 
+//This class is the most basic recommendation, and is extended by, and will be extended by, all other products that are recommended.
 public class Recommendation implements Basic_Characteristics {
     private int ProductID;
     private String ProductName;

@@ -29,11 +29,15 @@ class User_ManagerTest {
     }
 
     @Test
-    void addNewUser() {
+    void addNewUser01() {
         user_manager.AddNewUser(672, "password");
         assertEquals(672, ListOfUsers.get(ListOfUsers.size()-1).GetID());
     }
 
+    @Test
+    void addNewUser02(){
+        assertThrows(RuntimeException.class, () -> user_manager.AddNewUser(1, "1"));
+    }
     @Test
     void logIn01() {
         assertEquals(ListOfUsers.get(0),user_manager.LogIn(1, "1"));
@@ -41,13 +45,6 @@ class User_ManagerTest {
 
     @Test
     void logIn02() {
-        boolean ExceptionThrown = false;
-
-        try{
-            user_manager.LogIn(2, "5");
-        }catch(RuntimeException e){
-            ExceptionThrown = true;
-        }
-        assertTrue(ExceptionThrown);
+        assertThrows(RuntimeException.class, () -> user_manager.LogIn(2, "5"));
     }
 }

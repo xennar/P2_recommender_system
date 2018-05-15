@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class Ratings_ManagerTest {
 
@@ -61,5 +60,11 @@ class Ratings_ManagerTest {
     void getRecommendation02() {
         Movie Recommended_Movie = ratings_manager.GetRecommendation(ListOfUsers.get(1), neighbor_manager, 6);
         assertEquals(ListOfMovies.get(24), Recommended_Movie);
+    }
+
+    @Test
+    void getRecommendation03() {
+        ratings_manager.AddIgnoreToUser(ListOfUsers.get(0), ratings_manager.GetListOfMovies().get(29));
+        assertThrows(RuntimeException.class, ()-> ratings_manager.GetRecommendation(ListOfUsers.get(0), neighbor_manager, 6));
     }
 }

@@ -85,6 +85,29 @@ class Neighbor_ManagerTest {
     }
 
     @Test
+    void getNewNeighbors04(){
+
+        ArrayList<ObjectScore<RatingsWatcher<Movie>>> neighbors = neighbor_manager.GetNewNeighbors(ListOfUsers.get(0), 6);
+        ArrayList<ObjectScore<RatingsWatcher<Movie>>> testList = new ArrayList<>(neighbors);
+        neighbors = neighbor_manager.GetNewNeighbors(ListOfUsers.get(0), 6);
+        ArrayList<RatingsWatcher<Movie>> testlistaslist = new ArrayList<>();
+        for(ObjectScore<RatingsWatcher<Movie>> os : testList)
+            testlistaslist.add(os.GetObject());
+
+        ArrayList<RatingsWatcher<Movie>> neighborsaslist = new ArrayList<>();
+        for(ObjectScore<RatingsWatcher<Movie>> os : testList)
+            neighborsaslist.add(os.GetObject());
+
+        assertTrue(testlistaslist.containsAll(neighborsaslist));
+    }
+
+    @Test
+    void getNewNeighbors05() {
+        ArrayList<ObjectScore<RatingsWatcher<Movie>>> neighbors = neighbor_manager.GetNewNeighbors(ListOfUsers.get(0), 6);
+        assertEquals(6, ListOfUsers.get(0).GetNeighborIDs().size());
+    }
+
+    @Test
     void getNeighborList() {
         ArrayList<ObjectScore<RatingsWatcher<Movie>>> neighbors = neighbor_manager.GetNewNeighbors(ListOfUsers.get(0), 6);
 

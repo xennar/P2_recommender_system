@@ -50,7 +50,7 @@ class Product_ManagerTest {
     @Test
     void addNewProduct() {
         int startSize = product_manager.GetProductList().size();
-        product_manager.AddNewProduct(164980,"test the Movie", "fun|great|sad|drama");
+        product_manager.AddNewProduct(1649800,"test the Movie", "fun|great|sad|drama");
         assertEquals(startSize + 1, product_manager.GetProductList().size());
     }
 
