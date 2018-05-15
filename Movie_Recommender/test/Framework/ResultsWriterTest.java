@@ -32,7 +32,7 @@ class ResultsWriterTest {
 
         ListOfUsers = user_manager.GetListOfUsers();
         ListOfMovies = product_manager.GetProductList();
-        filereader.ReadRatings(ListOfUsers, ListOfMovies);
+        filereader.ReadRatings(ListOfUsers, ListOfMovies, "src/Database/adjratings.csv");
     }
 
     @Test
@@ -65,7 +65,7 @@ class ResultsWriterTest {
         FileReader testReader = new FileReader(); //creates a new file reader
         User_Manager testUserManager = new User_Manager(testReader); // creates a new user_manager with the new file reader to reread the data
         Product_Manager testProductManager = new Product_Manager(testReader); //creates a new Product_manager to reread data
-        testReader.ReadRatings(testUserManager.GetListOfUsers(), testProductManager.GetProductList());
+        testReader.ReadRatings(testUserManager.GetListOfUsers(), testProductManager.GetProductList(), "src/Database/adjratings.csv");
 //        uses the newly read data and reads the ratings in order to load all the ratings post changes
         int newSize = testUserManager.GetListOfUsers().get(0).GetRatedProducts().size();
 //        snapshots takes the size of rated products from the first user in the user list

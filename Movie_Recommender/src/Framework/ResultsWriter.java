@@ -19,13 +19,22 @@ public class ResultsWriter {
     public void WriteProductData(ArrayList<Movie> currentSessionProducts) {
         if (!currentSessionProducts.isEmpty()) {
             Path dest = Paths.get("src\\Database\\movies.csv");
+            int count = 0;
 
             if (Files.exists(dest)) {
                 try {
                     FileWriter MovieWriter = new FileWriter("src\\Database\\movies.csv", true);
                     for (Movie m : currentSessionProducts) {
+                        String combinedtags = "";
+                        for (String s: m.GetTags()){
+                            count++;
+                            combinedtags += s;
+                            if (count < m.GetTags().size()){
+                                combinedtags += "|";
+                            }
+                        }
 //                        loops through the products added in the current session and writes them at the end of the movies.csv file
-                            MovieWriter.append(String.valueOf(m.GetID())).append(",").append(m.GetString()).append(",").append(String.valueOf(m.GetTags())).append("\n");
+                            MovieWriter.append(String.valueOf(m.GetID())).append(",").append(m.GetString()).append(",").append(combinedtags).append("\n");
                     }
                     MovieWriter.close();
                 } catch (IOException e) {
