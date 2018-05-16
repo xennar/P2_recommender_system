@@ -44,10 +44,6 @@ class Product_ManagerTest {
     }
 
     @Test
-    void getProductList() {
-    }
-
-    @Test
     void addNewProduct() {
         int startSize = product_manager.GetProductList().size();
         product_manager.AddNewProduct(1649800,"test the Movie", "fun|great|sad|drama");
