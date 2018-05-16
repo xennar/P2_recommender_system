@@ -70,25 +70,25 @@ class RatingsWatcherTest {
 
     @Test
     void addNewRatedProduct01() {
-        ListOfUsers.get(0).AddNewRatedProduct(ListOfMovies.get(0), 4);
+        ListOfUsers.get(0).AddNewRatedProductDuringSession(ListOfMovies.get(0), 4);
         assertTrue(ListOfUsers.get(0).GetRatedProducts().contains(ListOfMovies.get(0)));
     }
 
     @Test
     void addNewRatedProduct02(){
-        ListOfUsers.get(0).AddNewRatedProduct(ListOfMovies.get(0), 4);
+        ListOfUsers.get(0).AddNewRatedProductDuringSession(ListOfMovies.get(0), 4);
         assertEquals(4 ,ListOfUsers.get(0).GetProductRating(ListOfMovies.get(0)));
     }
 
     @Test
     void addNewRatedProduct03(){
-        ListOfUsers.get(0).AddNewRatedProduct(ListOfMovies.get(0), 0);
+        ListOfUsers.get(0).AddNewRatedProductDuringSession(ListOfMovies.get(0), 0);
         assertEquals(20 ,ListOfUsers.get(0).GetRatedProducts().size());
     }
 
     @Test
     void addNewRatedProduct04(){
-        ListOfUsers.get(0).AddNewRatedProduct(ListOfMovies.get(0), 6);
+        ListOfUsers.get(0).AddNewRatedProductDuringSession(ListOfMovies.get(0), 6);
         assertEquals(20 ,ListOfUsers.get(0).GetRatedProducts().size());
     }
 

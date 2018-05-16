@@ -100,5 +100,5 @@ class ResultsWriterTest {
 
     }
 
-    @AfterAll
+   // @AfterAll
 }

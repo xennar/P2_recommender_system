@@ -76,7 +76,6 @@ public class ResultsWriter {
                         }
                         if (!ratings.contains(s)){
                             ratings.add(s);
-                            System.out.println("here " + s);
                         }
                     }
                     FileWriter ratingsWriter = new FileWriter(path, false);
@@ -134,7 +133,6 @@ public class ResultsWriter {
                                 neighborID += "|";
                             }
                         }
-                        System.out.println(newUserData.GetID() + "," + newUserData.GetString());
                         userWriter.write(String.valueOf(newUserData.GetID()) + ',' + newUserData.GetString() + ',' + neighborID + ',' + ignoreID + '\n');
                     }
                     userWriter.close();
