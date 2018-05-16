@@ -48,7 +48,6 @@ class MovieTest {
 
     @Test
     void getRatings() {
-        System.out.println(product_manager.getProductFromID(31));
         assertFalse(product_manager.getProductFromID(31).GetRatings().isEmpty());
     }
 

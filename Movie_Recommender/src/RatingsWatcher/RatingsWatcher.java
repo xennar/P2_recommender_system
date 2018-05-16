@@ -76,10 +76,8 @@ public class RatingsWatcher<T extends Basic_Characteristics> extends User {
     }
     public void AddNewRatedProductDuringSession(T NewProduct, double rating){
         if (rating >= 1 && rating <= 5) {
-            System.out.println(UserRatings.size());
             UserRatings.put(NewProduct, rating);
             Session_Manager.addNewSessionRatings(this.GetID() + "," + NewProduct.GetID() + "," + rating);
-            System.out.println(UserRatings.size());
         }
     }
 

@@ -1,18 +1,15 @@
 package Framework;
 
+import Movie.Movie;
+import RatingsWatcher.RatingsWatcher;
+
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-
-import Managers.Product_Manager;
-import Managers.User_Manager;
-import Movie.Movie;
-import RatingsWatcher.RatingsWatcher;
 
 public class ResultsWriter {
 
@@ -72,7 +69,7 @@ public class ResultsWriter {
                                 break;
                             }
                         }
-                        if (!ratings.contains(s)){
+                        if (!ratings.contains(s)) {
                             ratings.add(s);
                         }
                     }
@@ -94,9 +91,7 @@ public class ResultsWriter {
         if (!currentSessionUserData.isEmpty()) {
             Path dest = Paths.get(path);
             ArrayList<RatingsWatcher<Movie>> currentUsers = new FileReader().ReadUsers(path);
-            for (RatingsWatcher<Movie> current : currentUsers) {
-            }
-//            Reads the entire list of users into an arraylist for editing
+            //Reads the entire list of users into an arraylist for editing
             if (Files.exists(dest)) {
                 try {
                     FileWriter userWriter = new FileWriter(path, false);
@@ -106,7 +101,6 @@ public class ResultsWriter {
                                 /*Loops through each of the changed users and compares it to every user before any changes
                                  * if the IDs match then the line of the ID is replaced with the new User Data*/
                                 currentUsers.set(oldData.GetID() - 1, newData);
-                                break;
                             }
                         }
                     }
@@ -130,8 +124,10 @@ public class ResultsWriter {
                             if (count < newUserData.GetIgnoreIDs().size()) {
                                 ignoreID.append("|");
                             }
+
                         }
                         userWriter.write(String.valueOf(newUserData.GetID()) + ',' + newUserData.GetString() + ',' + neighborID + ',' + ignoreID + '\n');
+
                     }
                     userWriter.close();
                 } catch (IOException e) {

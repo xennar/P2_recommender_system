@@ -90,4 +90,9 @@ public class Ratings_Manager {
         Current_User.GetIgnoreIDs().add(ToBeIgnored.GetID());
         Session_Manager.addNewSessionUserChanges(Current_User);
     }
+
+    public void RemoveIgnoreFromUser(RatingsWatcher<Movie> Current_User, Movie ToBeIgnored){
+        Current_User.GetIgnoreIDs().remove(Current_User.GetIgnoreIDs().indexOf(ToBeIgnored.GetID()));
+        Session_Manager.addNewSessionUserChanges(Current_User);
+    }
 }
