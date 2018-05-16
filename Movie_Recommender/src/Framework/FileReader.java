@@ -21,7 +21,7 @@ public class FileReader {
 
         Path moviepath = Paths.get(path);
 
-        //The method checks if it can open the specific path, and then opens is.
+        //The method checks if it can open the specific path, and then opens it.
         if (Files.exists(moviepath)) {
             try {
                 BufferedReader MovieReader = Files.newBufferedReader(moviepath);
