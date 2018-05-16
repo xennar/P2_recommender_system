@@ -52,12 +52,10 @@ public class ResultsWriter {
 
             if (Files.exists(dest)) {
                 try {
-                    int i = 0;
                     String line;
                     BufferedReader ratingsReader = Files.newBufferedReader(dest);
                     while ((line = ratingsReader.readLine()) != null) {
                         ratings.add(line);
-                        i++;
                     }
                     ratingsReader.close();
 
@@ -74,7 +72,7 @@ public class ResultsWriter {
                                 break;
                             }
                         }
-                        if (!ratings.contains(s)){
+                        if (!ratings.contains(s)) {
                             ratings.add(s);
                         }
                     }
@@ -114,25 +112,26 @@ public class ResultsWriter {
                     }
                     userWriter.write("userID,password,neighborID,ignoreID\n");
                     for (RatingsWatcher<Movie> newUserData : currentUsers) {
-                        String neighborID = "";
-                        String ignoreID = "";
+                        StringBuilder neighborID = new StringBuilder();
+                        StringBuilder ignoreID = new StringBuilder();
                         int count = 0;
 //                        overwrites Users.csv with the new edited information
                         for (Integer n : newUserData.GetNeighborIDs()) {
                             count++;
-                            neighborID += n;
+                            neighborID.append(n);
                             if (count < newUserData.GetNeighborIDs().size()) {
-                                neighborID += "|";
+                                neighborID.append("|");
                             }
                         }
                         count = 0;
-                        for (Integer ignore : newUserData.GetIgnoreIDs()) {
-                            count++;
-                            ignoreID += ignore;
-                            if (count < newUserData.GetIgnoreIDs().size()) {
-                                neighborID += "|";
+                            for (Integer ignore : newUserData.GetIgnoreIDs()) {
+                                count++;
+                                ignoreID.append(ignore);
+                                if (count < newUserData.GetIgnoreIDs().size()) {
+                                    ignoreID.append("|");
+                                }
+
                             }
-                        }
                         userWriter.write(String.valueOf(newUserData.GetID()) + ',' + newUserData.GetString() + ',' + neighborID + ',' + ignoreID + '\n');
                     }
                     userWriter.close();
