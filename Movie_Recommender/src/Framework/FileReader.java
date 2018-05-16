@@ -68,17 +68,21 @@ public class FileReader {
                 //Not all movies have NeighborIDs or IgnoreIDs, so the construction of RatingsWatcher objects are done
                 //with three different constructors. It is, however, not possible to have ignoreIDs, without having neighbors.
                 while ((line = MovieReader.readLine()) != null) {
-                    String[] line_parts = line.split(",");
-                    int ID = Integer.valueOf(line_parts[0]);
-                    RatingsWatcher<Movie> On_Line;
-                    if (line_parts.length == 4)
-                        On_Line = new RatingsWatcher<Movie>(ID, line_parts[1], line_parts[2], line_parts[3]);
-                    else if (line_parts.length == 3)
-                        On_Line = new RatingsWatcher<Movie>(ID, line_parts[1], line_parts[2]);
-                    else
-                        On_Line = new RatingsWatcher<Movie>(ID, line_parts[1]);
+                    try {
+                        String[] line_parts = line.split(",");
+                        int ID = Integer.valueOf(line_parts[0]);
+                        RatingsWatcher<Movie> On_Line;
+                        if (line_parts.length == 4)
+                            On_Line = new RatingsWatcher<Movie>(ID, line_parts[1], line_parts[2], line_parts[3]);
+                        else if (line_parts.length == 3)
+                            On_Line = new RatingsWatcher<Movie>(ID, line_parts[1], line_parts[2]);
+                        else
+                            On_Line = new RatingsWatcher<Movie>(ID, line_parts[1]);
 
-                    ListOfUsers.add(On_Line);
+                        ListOfUsers.add(On_Line);
+                    }catch(Exception ignore){
+
+                    }
 
                 }
                 MovieReader.close();

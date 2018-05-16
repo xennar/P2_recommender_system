@@ -55,7 +55,7 @@ class MovieTest {
     @Test
     void getAverage_Rating() {
 //        actual value is 3.17857... but with a delta of 0.01 3.17 or 3.18 will be accepted
-        assertEquals(3.18, product_manager.getProductFromID(31).GetAverage_Rating(), 0.01);
+        assertEquals(131.5/42, product_manager.getProductFromID(31).GetAverage_Rating(), 0.1);
     }
 
     @Test

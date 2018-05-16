@@ -25,16 +25,16 @@ public class ResultsWriter {
                 try {
                     FileWriter MovieWriter = new FileWriter(path, true);
                     for (Movie m : currentSessionProducts) {
-                        String combinedtags = "";
+                        StringBuilder combinedtags = new StringBuilder();
                         for (String s : m.GetTags()) {
                             count++;
-                            combinedtags += s;
+                            combinedtags.append(s);
                             if (count < m.GetTags().size()) {
-                                combinedtags += "|";
+                                combinedtags.append("|");
                             }
                         }
 //                        loops through the products added in the current session and writes them at the end of the movies.csv file
-                        MovieWriter.append(String.valueOf(m.GetID())).append(",").append(m.GetString()).append(",").append(combinedtags).append("\n");
+                        MovieWriter.append(String.valueOf(m.GetID())).append(",").append(m.GetString()).append(",").append(combinedtags.toString()).append("\n");
                     }
                     MovieWriter.close();
                 } catch (IOException e) {
@@ -52,12 +52,10 @@ public class ResultsWriter {
 
             if (Files.exists(dest)) {
                 try {
-                    int i = 0;
                     String line;
                     BufferedReader ratingsReader = Files.newBufferedReader(dest);
                     while ((line = ratingsReader.readLine()) != null) {
                         ratings.add(line);
-                        i++;
                     }
                     ratingsReader.close();
 
@@ -114,23 +112,23 @@ public class ResultsWriter {
                     }
                     userWriter.write("userID,password,neighborID,ignoreID\n");
                     for (RatingsWatcher<Movie> newUserData : currentUsers) {
-                        String neighborID = "";
-                        String ignoreID = "";
+                        StringBuilder neighborID = new StringBuilder();
+                        StringBuilder ignoreID = new StringBuilder();
                         int count = 0;
 //                        overwrites Users.csv with the new edited information
                         for (Integer n : newUserData.GetNeighborIDs()) {
                             count++;
-                            neighborID += n;
+                            neighborID.append(n);
                             if (count < newUserData.GetNeighborIDs().size()) {
-                                neighborID += "|";
+                                neighborID.append("|");
                             }
                         }
                         count = 0;
                         for (Integer ignore : newUserData.GetIgnoreIDs()) {
                             count++;
-                            ignoreID += ignore;
+                            ignoreID.append(ignore);
                             if (count < newUserData.GetIgnoreIDs().size()) {
-                                neighborID += "|";
+                                ignoreID.append("|");
                             }
                         }
                         userWriter.write(String.valueOf(newUserData.GetID()) + ',' + newUserData.GetString() + ',' + neighborID + ',' + ignoreID + '\n');

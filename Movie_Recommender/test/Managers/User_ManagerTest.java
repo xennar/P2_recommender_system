@@ -36,11 +36,11 @@ class User_ManagerTest {
 
     @Test
     void addNewUser02(){
-        assertThrows(RuntimeException.class, () -> user_manager.AddNewUser(1, "1"));
+        assertThrows(RuntimeException.class, () -> user_manager.AddNewUser(11, "1"));
     }
     @Test
     void logIn01() {
-        assertEquals(ListOfUsers.get(0),user_manager.LogIn(1, "1"));
+        assertEquals(ListOfUsers.get(10),user_manager.LogIn(11, "11"));
     }
 
     @Test

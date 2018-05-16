@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ResultsWriterTest {
     private User_Manager user_manager;
     private Product_Manager product_manager;
-    private Ratings_Manager ratings_manager;
-    private ResultsWriter resultsWriter = new ResultsWriter();
     private FileReader filereader;
     private String moviePath;
     private String ratingsPath;
@@ -27,8 +25,6 @@ class ResultsWriterTest {
 
     private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     private ArrayList<Movie> ListOfMovies;
-    private ArrayList<Integer> newRatedMovies = new ArrayList<>();
-    private ArrayList<Movie> testMovies = new ArrayList<>();
 
     @BeforeEach
     void SetUp() {
@@ -51,7 +47,7 @@ class ResultsWriterTest {
 //        Takes a snapshot of the initial size of the list for comparison later
         product_manager.AddNewProduct(164980, "test movie for ResultsWriter", "Great|New|Exciting|drama"); //TODO add security so movie can't be written if it already exists in file
 //        adds the test movie to the current product_manager list of movies, to simulate runtime changes
-        resultsWriter.WriteProductData(currentSession.getNewlyAddedProducts(), moviePath);
+        ResultsWriter.WriteProductData(currentSession.getNewlyAddedProducts(), moviePath);
 //        asks the results writer to write the list of new movies from the testMovies list
         int newSize = new Product_Manager(new FileReader(), moviePath).GetProductList().size();
 //        reReads the movies.csv file and snapshots the size of products
@@ -64,7 +60,7 @@ class ResultsWriterTest {
 //        Takes a snapshot of the initial size of the list for comparison later
         user_manager.GetListOfUsers().get(0).AddNewRatedProductDuringSession(product_manager.getProductFromID(10), 4.5);
 //        adds the movie rating
-        resultsWriter.WriteRatingsData(currentSession.getChangedRatings(), ratingsPath);
+        ResultsWriter.WriteRatingsData(currentSession.getChangedRatings(), ratingsPath);
 //        calls the resultsWriter to write in the new ratings, using the changed users and new rated movies lists
 
         FileReader testReader = new FileReader(); //creates a new file reader
@@ -81,7 +77,7 @@ class ResultsWriterTest {
     void writeRatingsData02() {
         int initialSize = user_manager.GetListOfUsers().get(0).GetRatedProducts().size();
         user_manager.GetListOfUsers().get(0).AddNewRatedProductDuringSession(product_manager.getProductFromID(31), 4.5);
-        resultsWriter.WriteRatingsData(currentSession.getChangedRatings(), ratingsPath);
+        ResultsWriter.WriteRatingsData(currentSession.getChangedRatings(), ratingsPath);
 
         FileReader testReader = new FileReader();
         User_Manager testUserManager = new User_Manager(testReader, userPath);
@@ -93,10 +89,10 @@ class ResultsWriterTest {
 
     @Test
     void writeUserData() {
-        ratings_manager = new Ratings_Manager(filereader, ListOfUsers, ListOfMovies, ratingsPath);
+        Ratings_Manager ratings_manager = new Ratings_Manager(filereader, ListOfUsers, ListOfMovies, ratingsPath);
         ratings_manager.AddIgnoreToUser(ListOfUsers.get(0), product_manager.getProductFromID(20));
         Session_Manager session_manager = new Session_Manager();
-        resultsWriter.WriteUserData(session_manager.getChangedUserData(), userPath);
+        ResultsWriter.WriteUserData(session_manager.getChangedUserData(), userPath);
 
     }
 

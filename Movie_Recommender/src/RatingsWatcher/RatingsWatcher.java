@@ -11,9 +11,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-//This class describes an user who rates product by ratings rather than like/dislike.
+//This class describes an user who rates product by ratings from 1 to 5, rather than like/dislike.
 public class RatingsWatcher<T extends Basic_Characteristics> extends User {
+
+    //UserRatings is a map which takes a product as a key, and returns the rating the user gave that product as the value.
     private HashMap<T, Double> UserRatings;
+
+    //These two lists contain the IDs of the users current neighbors and the products the user does not want to be recommended, respectively.
     private ArrayList<Integer> NeighborsIDs;
     private ArrayList<Integer> IgnoreIDs;
 
@@ -72,8 +76,10 @@ public class RatingsWatcher<T extends Basic_Characteristics> extends User {
     }
     public void AddNewRatedProductDuringSession(T NewProduct, double rating){
         if (rating >= 1 && rating <= 5) {
+            System.out.println(UserRatings.size());
             UserRatings.put(NewProduct, rating);
             Session_Manager.addNewSessionRatings(this.GetID() + "," + NewProduct.GetID() + "," + rating);
+            System.out.println(UserRatings.size());
         }
     }
 
