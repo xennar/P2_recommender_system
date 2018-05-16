@@ -20,6 +20,7 @@ public class Product_Manager {
                 ProductMap.put(m.GetID(), m);
     }
 
+
     //basic Getter
     public ArrayList<Movie> GetProductList() {
         return ProductList;
@@ -32,6 +33,7 @@ public class Product_Manager {
             throw new RuntimeException("Movie ID already exists");
         Movie newProduct = new Movie(ID, title, tags);
         ProductList.add(newProduct);
+        Session_Manager.addNewSessionProducts(newProduct);
     }
 
     //returns the movie associated with the ID.

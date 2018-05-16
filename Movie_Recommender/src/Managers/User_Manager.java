@@ -1,5 +1,6 @@
 package Managers;
 
+import Framework.Basic_Characteristics;
 import Framework.FileReader;
 import Movie.Movie;
 import RatingsWatcher.RatingsWatcher;
@@ -12,6 +13,7 @@ public class User_Manager {
 
     private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     private HashMap<Integer, RatingsWatcher<Movie>> UserIDMap;
+
 
     //The constructor makes a map that takes IDs and returns the RatingsWatcher with that id
     public User_Manager(FileReader reader, String path) {
@@ -34,6 +36,7 @@ public class User_Manager {
         RatingsWatcher<Movie> newUser = new RatingsWatcher<Movie>(ID, Password);
         ListOfUsers.add(newUser);
     }
+
 
     //This method is used to set the current active user my logging the user in. If ID and password fits, the user is set,
     // if not, then an exception is throw.

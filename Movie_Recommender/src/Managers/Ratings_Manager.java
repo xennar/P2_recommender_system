@@ -88,5 +88,6 @@ public class Ratings_Manager {
 
     public void AddIgnoreToUser(RatingsWatcher<Movie> Current_User, Movie ToBeIgnored) {
         Current_User.GetIgnoreIDs().add(ToBeIgnored.GetID());
+        Session_Manager.addNewSessionUserChanges(Current_User);
     }
 }

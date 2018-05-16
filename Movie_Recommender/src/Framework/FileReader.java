@@ -106,6 +106,7 @@ public class FileReader {
 
                 //Each part of the split string are converted into integers or doubles.
                 while ((line = ratingsreader.readLine()) != null) {
+
                     try {
                         String[] line_part = line.split(",");
                         userID = Integer.valueOf(line_part[0]);
@@ -119,8 +120,9 @@ public class FileReader {
                             current = GetUserFromID(userID, ListOfUsers);
                         Movie rated = GetProductFromID(productID, ListOfMovies);
                         rated.AddRating(rating);
-                        current.AddNewRatedProduct(rated, rating);
+                        current.AddNewRatedProductDuringFileReader(rated, rating);
                     } catch (Exception ignore) {
+
 
                     }
                 }
