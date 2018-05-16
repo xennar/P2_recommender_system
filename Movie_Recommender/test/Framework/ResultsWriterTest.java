@@ -6,6 +6,7 @@ import Managers.Session_Manager;
 import Managers.User_Manager;
 import Movie.Movie;
 import RatingsWatcher.RatingsWatcher;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,6 @@ class ResultsWriterTest {
     private ArrayList<Movie> ListOfMovies;
     private ArrayList<Integer> newRatedMovies = new ArrayList<>();
     private ArrayList<Movie> testMovies = new ArrayList<>();
-//TODO add lists in all managers to keep track of added things this session
 
     @BeforeEach
     void SetUp() {
@@ -59,7 +59,7 @@ class ResultsWriterTest {
     }
 
     @Test
-    void writeRatingsData() {
+    void writeRatingsData01() {
         int initialSize = user_manager.GetListOfUsers().get(0).GetRatedProducts().size();
 //        Takes a snapshot of the initial size of the list for comparison later
         user_manager.GetListOfUsers().get(0).AddNewRatedProductDuringSession(product_manager.getProductFromID(10), 4.5);
@@ -77,13 +77,28 @@ class ResultsWriterTest {
         assertEquals(initialSize + 1, newSize);
         // if everything went well the new size should be 1 larger as there has been added 1 new movie rating for user 1 to the csv file
     }
+    @Test
+    void writeRatingsData02() {
+        int initialSize = user_manager.GetListOfUsers().get(0).GetRatedProducts().size();
+        user_manager.GetListOfUsers().get(0).AddNewRatedProductDuringSession(product_manager.getProductFromID(31), 4.5);
+        resultsWriter.WriteRatingsData(currentSession.getChangedRatings(), ratingsPath);
+
+        FileReader testReader = new FileReader();
+        User_Manager testUserManager = new User_Manager(testReader, userPath);
+        Product_Manager testProductManager = new Product_Manager(testReader, moviePath);
+        testReader.ReadRatings(testUserManager.GetListOfUsers(), testProductManager.GetProductList(), ratingsPath);
+        int newSize = testUserManager.GetListOfUsers().get(0).GetRatedProducts().size();
+        assertEquals(initialSize, newSize);
+    }
 
     @Test
     void writeUserData() {
         ratings_manager = new Ratings_Manager(filereader, ListOfUsers, ListOfMovies, ratingsPath);
         ratings_manager.AddIgnoreToUser(ListOfUsers.get(0), product_manager.getProductFromID(20));
         Session_Manager session_manager = new Session_Manager();
-        System.out.println(session_manager.getChangedUserData().get(0).GetIgnoreIDs());
         resultsWriter.WriteUserData(session_manager.getChangedUserData(), userPath);
+
     }
+
+    @AfterAll
 }

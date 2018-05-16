@@ -16,7 +16,7 @@ import RatingsWatcher.RatingsWatcher;
 
 public class ResultsWriter {
 
-    public void WriteProductData(ArrayList<Movie> currentSessionProducts, String path) {
+    static public void WriteProductData(ArrayList<Movie> currentSessionProducts, String path) {
         if (!currentSessionProducts.isEmpty()) {
             Path dest = Paths.get(path);
             int count = 0;
@@ -44,20 +44,46 @@ public class ResultsWriter {
         }
     }
 
-    public void WriteRatingsData(ArrayList<String> currentSessionRatingsData, String path) {
+    static public void WriteRatingsData(ArrayList<String> currentSessionRatingsData, String path) {
         if (!currentSessionRatingsData.isEmpty()) {
             Path dest = Paths.get(path);
+            ArrayList<String> ratings = new ArrayList<>();
+
 
             if (Files.exists(dest)) {
                 try {
-                    FileWriter ratingsWriter = new FileWriter(path, true);
+                    int i = 0;
+                    String line;
+                    BufferedReader ratingsReader = Files.newBufferedReader(dest);
+                    while ((line = ratingsReader.readLine()) != null) {
+                        ratings.add(line);
+                        i++;
+                    }
+                    ratingsReader.close();
+
                     /*Loops through each of the changed users movies, if the ID of the currently looped
                      * Movie matches the ID of the movies that are to be added then it writes the Rating
                      * at the end of adjratings.csv*/
                     for (String s : currentSessionRatingsData) {
-                        ratingsWriter.append(s);
+                        String[] splitNewData = s.split(",");
+                        for (String oldData : ratings) {
+                            String[] splitOldData = oldData.split(",");
+                            if (splitOldData[0].equals(splitNewData[0]) && splitOldData[1].equals(splitNewData[1])) {
+                                int location = ratings.indexOf(oldData);
+                                ratings.set(location, s);
+                                break;
+                            }
+                        }
+                        if (!ratings.contains(s)){
+                            ratings.add(s);
+                            System.out.println("here " + s);
+                        }
                     }
+                    FileWriter ratingsWriter = new FileWriter(path, false);
 
+                    for (String newData : ratings) {
+                        ratingsWriter.write(newData + "\n");
+                    }
 
                     ratingsWriter.close();
                 } catch (IOException e) {
@@ -67,7 +93,7 @@ public class ResultsWriter {
         }
     }
 
-    public void WriteUserData(ArrayList<RatingsWatcher<Movie>> currentSessionUserData, String path) {
+    static public void WriteUserData(ArrayList<RatingsWatcher<Movie>> currentSessionUserData, String path) {
         if (!currentSessionUserData.isEmpty()) {
             Path dest = Paths.get(path);
             ArrayList<RatingsWatcher<Movie>> currentUsers = new FileReader().ReadUsers(path);
@@ -87,7 +113,7 @@ public class ResultsWriter {
                             }
                         }
                     }
-
+                    userWriter.write("userID,password,neighborID,ignoreID\n");
                     for (RatingsWatcher<Movie> newUserData : currentUsers) {
                         String neighborID = "";
                         String ignoreID = "";
