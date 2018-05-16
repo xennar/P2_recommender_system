@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import javafx.scene.control.Button;
+
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,9 +35,12 @@ public class LoginController implements Initializable {
 
 
     public void LoginProcess(ActionEvent actionEvent) throws IOException {
-        //if(UsernameInput == )
-        Parent LoginParent = (Parent) FXMLLoader.load(this.getClass().getResource("MenuOptions.fxml"));
-        this.LoginScreen.getChildren().add(LoginParent);
+        FileReader ReadID = new FileReader("src\\Database\\Users.csv");
+        //for();
+        if (UsernameInput.getText().equals("1")) {
+            Parent LoginParent = (Parent) FXMLLoader.load(this.getClass().getResource("MenuOptions.fxml"));
+            this.LoginScreen.getChildren().add(LoginParent);
+        }
     }
 
     public void initialize(URL location, ResourceBundle resources) {
