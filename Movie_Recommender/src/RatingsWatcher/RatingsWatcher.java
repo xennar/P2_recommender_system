@@ -59,7 +59,7 @@ public class RatingsWatcher<T extends Basic_Characteristics> extends User {
         return IgnoreIDs;
     }
 
-    //adds a new product to the List of rated products.
+    //adds a new product to the List of rated products or changes an existing rating
     public void AddNewRatedProduct(T NewProduct, double rating) {
         UserRatings.put(NewProduct, rating);
     }

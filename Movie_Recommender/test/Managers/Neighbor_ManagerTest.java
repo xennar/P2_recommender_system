@@ -31,10 +31,12 @@ class Neighbor_ManagerTest {
         ListOfUsers = new ArrayList<>();
         ListOfMovies = product_manager.GetProductList();
         RatingsWatcher<Movie> watcher;
-        for (int counter = 672; counter < 687; counter++) {
+        //Because custom users are used during these tests, they need to be made. There are 15 test users.
+        for (int counter = 1; counter < 16; counter++) {
             watcher = new RatingsWatcher<Movie>(counter, "password");
             ListOfUsers.add(watcher);
         }
+        //Only the first 43 movies are used during these tests.
         for (int counter = 0; counter < 43; counter++) {
             ListOfMovies.add(product_manager.GetProductList().get(counter));
         }
@@ -61,7 +63,6 @@ class Neighbor_ManagerTest {
         ArrayList<RatingsWatcher<Movie>> testList = new ArrayList<>();
         for (int counter = 7; counter < 13; counter++)
             testList.add(ListOfUsers.get(counter));
-        //testList.add(ListOfUsers.get(13));
         ArrayList<RatingsWatcher<Movie>> NeighborsAsList = new ArrayList<>();
         for (ObjectScore<RatingsWatcher<Movie>> on : neighbors)
             NeighborsAsList.add(on.GetObject());

@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,9 +42,8 @@ class MovieTest {
 
     @Test
     void getTags() {
-        assertTrue(ListOfMovies.get(1).GetTags().contains("Adventure"));
-        assertTrue(ListOfMovies.get(1).GetTags().contains("Children"));
-        assertTrue(ListOfMovies.get(1).GetTags().contains("Fantasy"));
+        ArrayList<String> TestListOfStrings = new ArrayList<>(Arrays.asList("Adventure", "Children", "Fantasy"));
+        assertTrue(ListOfMovies.get(1).GetTags().containsAll(TestListOfStrings));
     }
 
     @Test
