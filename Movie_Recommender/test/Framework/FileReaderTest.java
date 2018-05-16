@@ -46,10 +46,6 @@ class FileReaderTest {
     }
 
     @Test
-    void readRatings() {
-    }
-
-    @Test
     void getUserFromID() {
         assertEquals(ListOfUsers.get(0), fileReader.GetUserFromID(1, ListOfUsers));
     }

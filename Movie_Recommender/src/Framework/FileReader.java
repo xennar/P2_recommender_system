@@ -100,26 +100,29 @@ public class FileReader {
 
                 //Each line contains the users ID, the Movies ID and the score.
                 //The "current"-user is set to the first from the list, because the ratings are sorted by user.
-                int userID, productID;
-                double rating;
+                int userID = 0, productID = 0;
+                double rating = 0;
                 RatingsWatcher<Movie> current = ListOfUsers.get(0);
 
                 //Each part of the split string are converted into integers or doubles.
                 while ((line = ratingsreader.readLine()) != null) {
-                    String[] line_part = line.split(",");
-                    userID = Integer.valueOf(line_part[0]);
-                    productID = Integer.valueOf(line_part[1]);
-                    rating = Double.valueOf(line_part[2]);
+                    try {
+                        String[] line_part = line.split(",");
+                        userID = Integer.valueOf(line_part[0]);
+                        productID = Integer.valueOf(line_part[1]);
+                        rating = Double.valueOf(line_part[2]);
 
-                    //Because all of one users ratings come at once, it is more economical to keep the current variable
-                    //between lines, until the next user is reached. The GetUserFromID and GetProductFromID returns the
-                    //object of the given class via the ID.
-                    if (userID != current.GetID())
-                        current = GetUserFromID(userID, ListOfUsers);
-                    Movie rated = GetProductFromID(productID, ListOfMovies);
-                    rated.AddRating(rating);
-                    current.AddNewRatedProduct(rated, rating);
+                        //Because all of one users ratings come at once, it is more economical to keep the current variable
+                        //between lines, until the next user is reached. The GetUserFromID and GetProductFromID returns the
+                        //object of the given class via the ID.
+                        if (userID != current.GetID())
+                            current = GetUserFromID(userID, ListOfUsers);
+                        Movie rated = GetProductFromID(productID, ListOfMovies);
+                        rated.AddRating(rating);
+                        current.AddNewRatedProduct(rated, rating);
+                    } catch (Exception ignore) {
 
+                    }
                 }
                 ratingsreader.close();
 

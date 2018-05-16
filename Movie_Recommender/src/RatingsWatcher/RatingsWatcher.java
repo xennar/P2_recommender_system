@@ -61,7 +61,7 @@ public class RatingsWatcher<T extends Basic_Characteristics> extends User {
 
     //adds a new product to the List of rated products or changes an existing rating
     public void AddNewRatedProduct(T NewProduct, double rating) {
-        if (rating >= 0 && rating <= 5) {
+        if (rating >= 1 && rating <= 5) {
             UserRatings.put(NewProduct, rating);
         }
     }
