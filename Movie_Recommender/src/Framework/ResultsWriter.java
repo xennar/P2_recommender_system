@@ -112,6 +112,9 @@ public class ResultsWriter {
                                 currentUsers.set(oldData.GetID() - 1, newData);
                             }
                         }
+                        if (!currentUsers.contains(newData)){
+                            currentUsers.add(newData);
+                        }
                     }
                     userWriter.write("userID,password,neighborID,ignoreID\n");
                     //appends all of the NeighborID together separated by a |
