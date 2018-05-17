@@ -14,21 +14,20 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
 class RatingsWatcherTest {
 
-    User_Manager user_manager;
-    Product_Manager product_manager;
-    Ratings_Manager ratings_manager;
-    String userPath;
-    String moviePath;
+    private User_Manager user_manager;
+    private Product_Manager product_manager;
 
-    ArrayList<RatingsWatcher<Movie>> ListOfUsers;
-    ArrayList<Movie> ListOfMovies;
+    private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
+    private ArrayList<Movie> ListOfMovies;
 
+    //Before each Test, all RatingsWatcher need to be initialized, and have all ratings added.
     @BeforeEach
     void SetUp() {
-        userPath = "src/Database/Users.csv";
-        moviePath = "src/Database/movies.csv";
+        String userPath = "src/Database/Users.csv";
+        String moviePath = "src/Database/movies.csv";
         FileReader filereader = new FileReader();
         user_manager = new User_Manager(filereader, userPath);
         product_manager = new Product_Manager(filereader, moviePath);
@@ -36,9 +35,10 @@ class RatingsWatcherTest {
         ListOfUsers = user_manager.GetListOfUsers();
         ListOfMovies = product_manager.GetProductList();
 
-        ratings_manager = new Ratings_Manager(filereader, ListOfUsers, ListOfMovies, "src/Database/adjratings.csv");
+        Ratings_Manager ratings_manager = new Ratings_Manager(filereader, ListOfUsers, ListOfMovies, "src/Database/adjratings.csv");
     }
 
+    //The following two tests test whether new RatingsWatchers are constructed correctly
     @Test
     void MakeRatingsWatcher01() {
         RatingsWatcher<Movie> watcher = new RatingsWatcher<Movie>(672, "672", "1|2|3|4");
@@ -63,23 +63,28 @@ class RatingsWatcherTest {
         assertTrue(user_manager.GetListOfUsers().get(0).GetRatedProducts().containsAll(TestList));
     }
 
+    //This tests whether GetProductRating returns the correct number.
     @Test
     void getProductRating() {
         assertEquals(2.5, ListOfUsers.get(0).GetProductRating(product_manager.getProductFromID(31)));
     }
 
+    //This test tests whether the method adds the movie to the users list of rated products or not.
     @Test
     void addNewRatedProduct01() {
         ListOfUsers.get(0).AddNewRatedProductDuringSession(ListOfMovies.get(0), 4);
         assertTrue(ListOfUsers.get(0).GetRatedProducts().contains(ListOfMovies.get(0)));
     }
 
+    //This test tests whether the correct rating is added or not.
     @Test
     void addNewRatedProduct02(){
         ListOfUsers.get(0).AddNewRatedProductDuringSession(ListOfMovies.get(0), 4);
         assertEquals(4 ,ListOfUsers.get(0).GetProductRating(ListOfMovies.get(0)));
     }
 
+
+    //The following two tests test if ratings outside the ratings can be added or not.
     @Test
     void addNewRatedProduct03(){
         ListOfUsers.get(0).AddNewRatedProductDuringSession(ListOfMovies.get(0), 0);
@@ -92,8 +97,9 @@ class RatingsWatcherTest {
         assertEquals(20 ,ListOfUsers.get(0).GetRatedProducts().size());
     }
 
+    //This test tests if the correct average score is calculated.
     @Test
     void getUsersAverageScore() {
-        assertEquals((double) 51 / 20, ListOfUsers.get(0).GetUsersAverageScore());
+        assertEquals( (double) 51 / 20, ListOfUsers.get(0).GetUsersAverageScore());
     }
 }
