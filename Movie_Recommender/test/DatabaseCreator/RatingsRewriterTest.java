@@ -10,18 +10,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RatingsRewriterTest {
 
-    private UserMaker userMaker;
     private RatingsRewriter ratingsRewriter;
 
     @BeforeEach
     void SetUp(){
-        userMaker = new UserMaker();
         ratingsRewriter = new RatingsRewriter();
         try{ratingsRewriter.RewriteRatings();}catch(IOException e){e.getMessage();}
     }
 
     @Test
-    void testgetNumberOfUsers() {
+    //Tests to make sure that there has been written ratings for 671 users
+    void getNumberOfUsers() {
         assertEquals(671, ratingsRewriter.getNumberOfUsers());
     }
 }

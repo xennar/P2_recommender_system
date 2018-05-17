@@ -45,6 +45,8 @@ public class ResultsWriter {
         if (!currentSessionRatingsData.isEmpty()) {
             Path dest = Paths.get(path);
             ArrayList<String> ratings = new ArrayList<>();
+            ArrayList<String> toRemove = new ArrayList<>();
+            int location = 0;
 
 
             if (Files.exists(dest)) {
@@ -63,10 +65,11 @@ public class ResultsWriter {
                         String[] splitNewData = s.split(",");
                         for (String oldData : ratings) {
                             String[] splitOldData = oldData.split(",");
-                            if (splitOldData[0].equals(splitNewData[0]) && splitOldData[1].equals(splitNewData[1])) {
-                                int location = ratings.indexOf(oldData);
+                            if (s.equals(oldData)){
+                                toRemove.add(oldData);
+                            }else if (splitOldData[0].equals(splitNewData[0]) && splitOldData[1].equals(splitNewData[1])) {
+                                location = ratings.indexOf(oldData);
                                 ratings.set(location, s);
-                                break;
                             }
                         }
                         if (!ratings.contains(s)) {
@@ -74,7 +77,7 @@ public class ResultsWriter {
                         }
                     }
                     FileWriter ratingsWriter = new FileWriter(path, false);
-
+                    ratings.removeAll(toRemove);
                     for (String newData : ratings) {
                         ratingsWriter.write(newData + "\n");
                     }

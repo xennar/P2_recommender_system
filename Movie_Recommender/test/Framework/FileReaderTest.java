@@ -24,6 +24,8 @@ class FileReaderTest {
 
     @BeforeEach
     void SetUp() {
+        /*sets up the paths, managers and filereader objects
+        * then uses the managers fill list of users and list of movies*/
         moviePath = "src/Database/movies.csv";
         ratingsPath = "src/Database/adjratings.csv";
         userPath = "src/Database/Users.csv";
@@ -34,15 +36,16 @@ class FileReaderTest {
         ListOfUsers = user_manager.GetListOfUsers();
         ListOfMovies = product_manager.GetProductList();
     }
-
     @Test
+    //Tests that the size of the product list is larger than or equals to the original copied movie.csv size
     void readProducts() {
-        assertEquals(9125, product_manager.GetProductList().size());
+        assertTrue(9125 <= product_manager.GetProductList().size());
     }
 
     @Test
+    //Tests that the size of the user list is larger than equals to the original copied Users.csv user size
     void readUsers() {
-        assertEquals(671, user_manager.GetListOfUsers().size());
+        assertTrue(671 <= user_manager.GetListOfUsers().size());
     }
 
     @Test

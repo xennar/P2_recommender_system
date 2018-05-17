@@ -35,16 +35,19 @@ class ObjectScoreTest {
     }
 
     @Test
+        //tests if the score is correct to the input
     void getScore1() {
         assertEquals(1, tester.GetScore());
     }
 
     @Test
+        //tests if the score is correct to the input
     void getScore2() {
         assertEquals(0, tester2.GetScore());
     }
 
     @Test
+        // makes sure that the two objectscore objects are not equal each other
     void getScore3() {
         assertNotEquals(tester, tester2);
     }
