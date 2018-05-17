@@ -50,13 +50,12 @@ public class LoginController implements Initializable {
     public void registerProcess(ActionEvent actionEvent) throws IOException {
         Framework.FileReader UserFileReader = new Framework.FileReader();
         User_Manager NewLogin = new User_Manager(UserFileReader, "src/Database/Users.csv");
-
         int NumOfUsers = NewLogin.GetListOfUsers().size() + 1;
         String LabelNumOfUsers = Integer.toString(NumOfUsers);
-        Parent LoginParent = (Parent) FXMLLoader.load(this.getClass().getResource("Register.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Register.fxml"));
+        fxmlLoader.setController(new RegisterController(LabelNumOfUsers));
+        Parent LoginParent = (Parent) fxmlLoader.load();
         this.LoginScreen.getChildren().add(LoginParent);
-        System.out.println(LoginParent.getChildrenUnmodifiable().size());
-
-
     }
 }

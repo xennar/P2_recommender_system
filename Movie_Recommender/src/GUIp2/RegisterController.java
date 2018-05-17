@@ -26,9 +26,10 @@ public class RegisterController implements Initializable {
     @FXML TextField newPassword;
     @FXML Button createButton;
     @FXML AnchorPane registerScreen;
-    String hello;
+    String NumberofUsers;
 
-    public RegisterController() {
+    public RegisterController(String NumberofUsers) {
+        this.NumberofUsers = NumberofUsers;
             }
 
     public void setGivenID(String NumbOfUsers) {
@@ -40,6 +41,7 @@ public class RegisterController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setGivenID(NumberofUsers);
     }
 
     public void registerPassword(ActionEvent actionEvent) {
