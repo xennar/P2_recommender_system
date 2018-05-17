@@ -37,15 +37,18 @@ class User_ManagerTest {
     }
 
     @Test
+    //Tests whether or not an exception is thrown when trying to create a user with an existing ID
     void addNewUser02(){
         assertThrows(RuntimeException.class, () -> user_manager.AddNewUser(11, "1"));
     }
     @Test
+    //Tests if the user 11 (index 10) is returned if ID 11 and password 11 is passed as login parameters
     void logIn01() {
         assertEquals(ListOfUsers.get(10),user_manager.LogIn(11, "11"));
     }
 
     @Test
+    //Tests whether or not an exception is thrown if the wrong password for userID 2 is entered
     void logIn02() {
         assertThrows(RuntimeException.class, () -> user_manager.LogIn(2, "5"));
     }
