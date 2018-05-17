@@ -120,6 +120,7 @@ class Neighbor_ManagerTest {
         assertEquals(6, ListOfUsers.get(0).GetNeighborIDs().size());
     }
 
+    //Tests whether "GetNeighborList" returns the correct List
     @Test
     void getNeighborList() {
         ArrayList<ObjectScore<RatingsWatcher<Movie>>> neighbors = neighbor_manager.GetNewNeighbors(ListOfUsers.get(0), 6);

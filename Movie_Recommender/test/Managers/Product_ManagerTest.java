@@ -32,7 +32,7 @@ class Product_ManagerTest {
         ListOfUsers = user_manager.GetListOfUsers();
         ListOfMovies = product_manager.GetProductList();
         RatingsWatcher<Movie> watcher;
-        for(int counter = 672; counter <686; counter++) {
+        for(int counter = 1; counter <16; counter++) {
             watcher = new RatingsWatcher<Movie>(counter, "Test");
             ListOfUsers.add(watcher);
         }
