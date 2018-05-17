@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class UserMakerTest {
 
     @Test
+    //Tests if the last written user in the file is equals to the ID 671
     void makeUsersFile() {
         UserMaker userMaker = new UserMaker();
         try{

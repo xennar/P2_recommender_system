@@ -25,13 +25,15 @@ class User_ManagerTest {
     }
     @Test
     void getListOfUsers() {
-        assertEquals(671, ListOfUsers.size());
+        assertTrue(671 <= ListOfUsers.size());
     }
 
     @Test
+    //adds a user and tests if the ID of the newly added user matches the created user
     void addNewUser01() {
-        user_manager.AddNewUser(672, "password");
-        assertEquals(672, ListOfUsers.get(ListOfUsers.size()-1).GetID());
+        int newUserID = user_manager.GetListOfUsers().size() + 1;
+        user_manager.AddNewUser(newUserID, "password");
+        assertEquals(newUserID, ListOfUsers.get(ListOfUsers.size()-1).GetID());
     }
 
     @Test

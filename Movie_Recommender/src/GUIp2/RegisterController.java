@@ -1,11 +1,13 @@
 package GUIp2;
 
+import Managers.User_Manager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -16,24 +18,28 @@ import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
 
+
     String newPasswordInput;
     String repeatPasswordInput;
-
-    @FXML
-    TextField repeatPassword;
-    @FXML
-    TextField newPassword;
-    @FXML
-    Button createButton;
-    @FXML
-    AnchorPane registerScreen;
+    @FXML Label GivenID;
+    @FXML TextField repeatPassword;
+    @FXML TextField newPassword;
+    @FXML Button createButton;
+    @FXML AnchorPane registerScreen;
+    String hello;
 
     public RegisterController() {
+            }
+
+    public void setGivenID(String NumbOfUsers) {
+        try {
+            GivenID.setText(NumbOfUsers);
+        }catch(Exception e){e.printStackTrace();}
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     public void registerPassword(ActionEvent actionEvent) {
@@ -44,8 +50,10 @@ public class RegisterController implements Initializable {
     }
 
     public void LoginProcess(ActionEvent actionEvent) throws IOException {
+        //int GivenID = Integer.parseInt(UsernameInput.getText());
+        //Framework.FileReader UserFileReader = new Framework.FileReader();
+        //User_Manager NewLogin = new User_Manager(UserFileReader, "src/Database/Users.csv");
 
-        System.out.println(newPassword.getText());
         Parent LoginParent = (Parent) FXMLLoader.load(this.getClass().getResource("Login.fxml"));
         this.registerScreen.getChildren().add(LoginParent);
     }

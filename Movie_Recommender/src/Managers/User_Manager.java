@@ -12,15 +12,15 @@ import java.util.HashMap;
 public class User_Manager {
 
     private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
-    private HashMap<Integer, RatingsWatcher<Movie>> UserIDMap;
+    private HashMap<Integer, RatingsWatcher<Movie>> IdToUserMap;
 
 
     //The constructor makes a map that takes IDs and returns the RatingsWatcher with that id
     public User_Manager(FileReader reader, String path) {
         ListOfUsers = reader.ReadUsers(path);
-        UserIDMap = new HashMap<>();
+        IdToUserMap = new HashMap<>();
         for (RatingsWatcher<Movie> u : ListOfUsers) {
-            UserIDMap.put(u.GetID(), u);
+            IdToUserMap.put(u.GetID(), u);
         }
     }
 
@@ -31,20 +31,25 @@ public class User_Manager {
 
     //Makes a new user and adds the user to the system. No Neighbor or ignore are used due to non-existence.
     public void AddNewUser(int ID, String Password) throws RuntimeException {
-        if (UserIDMap.keySet().contains(ID))
+        if (IdToUserMap.keySet().contains(ID))
             throw new RuntimeException("ID already exists");
-        RatingsWatcher<Movie> newUser = new RatingsWatcher<Movie>(ID, Password);
+        RatingsWatcher<Movie> newUser = new RatingsWatcher<>(ID, Password);
         ListOfUsers.add(newUser);
+        Session_Manager.addNewSessionUserChanges(newUser);
     }
 
 
     //This method is used to set the current active user my logging the user in. If ID and password fits, the user is set,
     // if not, then an exception is throw.
     public RatingsWatcher<Movie> LogIn(int ID, String Password) {
-        if (UserIDMap.containsKey(ID)) {
-            if (UserIDMap.get(ID).GetString().equals(Password))
-                return UserIDMap.get(ID);
+        if (IdToUserMap.containsKey(ID)) {
+            if (IdToUserMap.get(ID).GetString().equals(Password))
+                return IdToUserMap.get(ID);
         }
         throw new RuntimeException("UserID or Password is incorrect");
+    }
+
+    public RatingsWatcher<Movie> GetUserFromID(int ID){
+        return IdToUserMap.get(ID);
     }
 }
