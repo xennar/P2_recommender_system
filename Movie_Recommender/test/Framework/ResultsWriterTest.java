@@ -110,5 +110,18 @@ class ResultsWriterTest {
         ResultsWriter.WriteUserData(session_manager.getChangedUserData(), testUserPath);
     }
 
+    @Test
+    //creates a new user then writes that user to file, and tests if the password is right
+    void writeNewUser(){
+        Session_Manager session_manager = new Session_Manager();
+        User_Manager newUserManager = new User_Manager(filereader, testUserPath);
+        int newUserID = newUserManager.GetListOfUsers().size() + 1;
+        String newUserPassword = String.valueOf(newUserManager.GetListOfUsers().size() +1);
+        user_manager.AddNewUser(newUserID,newUserPassword );
+        ResultsWriter.WriteUserData(session_manager.getChangedUserData(), testUserPath);
+        User_Manager testUserManager = new User_Manager(filereader, testUserPath);
+        assertEquals(newUserPassword, testUserManager.GetUserFromID(newUserID).GetString());
+    }
+
 
 }

@@ -33,8 +33,9 @@ public class User_Manager {
     public void AddNewUser(int ID, String Password) throws RuntimeException {
         if (IdToUserMap.keySet().contains(ID))
             throw new RuntimeException("ID already exists");
-        RatingsWatcher<Movie> newUser = new RatingsWatcher<Movie>(ID, Password);
+        RatingsWatcher<Movie> newUser = new RatingsWatcher<>(ID, Password);
         ListOfUsers.add(newUser);
+        Session_Manager.addNewSessionUserChanges(newUser);
     }
 
 
