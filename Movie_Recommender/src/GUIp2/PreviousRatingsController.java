@@ -1,6 +1,8 @@
 package GUIp2;
 
+import Managers.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,32 +37,87 @@ public class PreviousRatingsController implements Initializable {
     @FXML
     AnchorPane PreviousRatingsScreen;
 
+    private User_Manager user_manager;
+    private Product_Manager product_manager;
+    private Ratings_Manager ratings_manager;
+    private Neighbor_Manager neighbor_manager;
+    private Session_Manager session_manager;
 
-    @Override
+    public PreviousRatingsController(User_Manager user_manager, Product_Manager product_manager, Ratings_Manager ratings_manager, Neighbor_Manager neighbor_manager, Session_Manager session_manager){
+        this.user_manager = user_manager;
+        this.product_manager = product_manager;
+        this.ratings_manager = ratings_manager;
+        this.neighbor_manager = neighbor_manager;
+        this.session_manager = session_manager;
+    }
+
+
+
     public void initialize(URL location, ResourceBundle resources) {
+        PreviousRatings.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PreviousRatings.fxml"));
+                fxmlLoader.setController(new PreviousRatingsController(user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
+                try {
+                    PreviousRatingsScreen.getChildren().add(fxmlLoader.load());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
-    }
-    public void PreviousRatingsButton(ActionEvent actionEvent) throws IOException {
-        Parent PreviousRatingsParent = (Parent) FXMLLoader.load(this.getClass().getResource("PreviousRatings.fxml"));
-        this.PreviousRatingsScreen.getChildren().add(PreviousRatingsParent);
-    }
+        GetRecommendation.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GetRecommendation.fxml"));
+                fxmlLoader.setController(new GetRecommendationController(user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
+                try {
+                    PreviousRatingsScreen.getChildren().add(fxmlLoader.load());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
-    public void goToRecommendation(ActionEvent actionEvent) throws IOException {
-        Parent PreviousRatingsParent = (Parent) FXMLLoader.load(this.getClass().getResource("GetRecommendation.fxml"));
-        this.PreviousRatingsScreen.getChildren().add(PreviousRatingsParent);
-    }
+        AddMovies.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddNewMovie.fxml"));
+                fxmlLoader.setController(new AddNewMovieController(user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
+                try {
+                    PreviousRatingsScreen.getChildren().add(fxmlLoader.load());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
-    public void addMoviesButton(ActionEvent actionEvent) throws IOException {
-        Parent PreviousRatingsParent = (Parent) FXMLLoader.load(this.getClass().getResource("AddNewMovie.fxml"));
-        this.PreviousRatingsScreen.getChildren().add(PreviousRatingsParent);
-    }
+        ListOfMovies.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SeeListOfMovies.fxml"));
+                fxmlLoader.setController(new SeeListOfMoviesController(user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
+                try {
+                    PreviousRatingsScreen.getChildren().add(fxmlLoader.load());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
-    public void ListOfMoviesButton(ActionEvent actionEvent) throws IOException {
-        Parent PreviousRatingsParent = (Parent) FXMLLoader.load(this.getClass().getResource("SeeListOfMovies.fxml"));
-        this.PreviousRatingsScreen.getChildren().add(PreviousRatingsParent);
-    }
-    public void BackToMenu(ActionEvent actionEvent) throws IOException {
-        Parent LoginParent = (Parent) FXMLLoader.load(this.getClass().getResource("MenuOptions.fxml"));
-        this.PreviousRatingsScreen.getChildren().add(LoginParent);
+        Back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+                fxmlLoader.setController(new MenuOptionsController(user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
+                try {
+                    PreviousRatingsScreen.getChildren().add(fxmlLoader.load());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }
+

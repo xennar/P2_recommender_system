@@ -64,9 +64,10 @@ public class LoginController implements Initializable {
             public void handle(ActionEvent event) {
                 int NewID = Integer.parseInt(UsernameInput.getText());
                 user_manager.LogIn(NewID, passwordInput.getText());
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+                fxmlLoader.setController(new MenuOptionsController(user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
                 try{
-                Parent LoginParent = FXMLLoader.load(this.getClass().getResource("MenuOptions.fxml"));
-                LoginScreen.getChildren().add(LoginParent);}catch (IOException e){e.printStackTrace();}
+                LoginScreen.getChildren().add(fxmlLoader.load());}catch (IOException e){e.printStackTrace();}
             }
         });
     }
