@@ -22,10 +22,13 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
+import javax.swing.event.CellEditorListener;
 import java.beans.JavaBean;
 import java.io.IOException;
 import java.net.URL;
@@ -33,7 +36,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PreviousRatingsController implements Initializable {
-
 
 
     @FXML
@@ -55,6 +57,8 @@ public class PreviousRatingsController implements Initializable {
     @FXML
     Button Back;
     @FXML
+    Button ChangeRating;
+    @FXML
     AnchorPane PreviousRatingsScreen;
 
 
@@ -65,7 +69,7 @@ public class PreviousRatingsController implements Initializable {
     private Session_Manager session_manager;
     private ArrayList<PreviousRatingPresent> RatedProducts;
 
-    public PreviousRatingsController(User_Manager user_manager, Product_Manager product_manager, Ratings_Manager ratings_manager, Neighbor_Manager neighbor_manager, Session_Manager session_manager){
+    public PreviousRatingsController(User_Manager user_manager, Product_Manager product_manager, Ratings_Manager ratings_manager, Neighbor_Manager neighbor_manager, Session_Manager session_manager) {
         this.user_manager = user_manager;
         this.product_manager = product_manager;
         this.ratings_manager = ratings_manager;
@@ -73,26 +77,29 @@ public class PreviousRatingsController implements Initializable {
         this.session_manager = session_manager;
         RatedProducts = new ArrayList<>();
         PreviousRatingPresent Rating;
-        for(Movie m : user_manager.getCurrent_user().GetRatedProducts()){
+        for (Movie m : user_manager.getCurrent_user().GetRatedProducts()) {
             Rating = new PreviousRatingPresent(m.GetID(), m.GetString(), user_manager.getCurrent_user().GetProductRating(m));
             RatedProducts.add(Rating);
         }
     }
 
 
-
     public void initialize(URL location, ResourceBundle resources) {
-        for(PreviousRatingPresent p : RatedProducts){
+        for (PreviousRatingPresent p : RatedProducts) {
             ListWithPreviousRatings.getItems().add(p);
         }
-            MovieColumm.setCellValueFactory(cellData ->  cellData.getValue().getTitle());
+        MovieColumm.setCellValueFactory(cellData -> cellData.getValue().getTitle());
 
-            MovieID.setCellValueFactory(cellData -> cellData.getValue().getID());
+        MovieID.setCellValueFactory(cellData -> cellData.getValue().getID());
 
-            RatingColumm.setCellValueFactory(cellData -> cellData.getValue().getRating());
+        RatingColumm.setCellValueFactory(cellData -> cellData.getValue().getRating());
+
+        ListWithPreviousRatings.setEditable(true);
 
 
+        RatingColumm.setCellFactory(TextFieldTableCell.forTableColumn());
         PreviousRatings.setOnAction(new EventHandler<ActionEvent>() {
+
             @Override
             public void handle(ActionEvent event) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PreviousRatings.fxml"));
@@ -104,18 +111,21 @@ public class PreviousRatingsController implements Initializable {
                 }
             }
         });
+        /*public void onEditChanged(TableColumn.CellEditEvent<PreviousRatingPresent, Double>){
+            ListWithPreviousRatings.getSelectionModel().getSelectedItem();
+        }*/
         GetRecommendation.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GetRecommendation.fxml"));
-                        fxmlLoader.setController(new GetRecommendationController(user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
-                        try {
-                            PreviousRatingsScreen.getChildren().add(fxmlLoader.load());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GetRecommendation.fxml"));
+                fxmlLoader.setController(new GetRecommendationController(user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
+                try {
+                    PreviousRatingsScreen.getChildren().add(fxmlLoader.load());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         AddMovies.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -152,10 +162,15 @@ public class PreviousRatingsController implements Initializable {
                 }
             }
         });
+        ChangeRating.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
 
     }
 
-    public void ChangeRating(ActionEvent actionEvent) {
-    }
+
 }
 

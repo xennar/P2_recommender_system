@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="PreviousRatingsScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #1a2942;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane fx:id="PreviousRatingsScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #1a2942;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label layoutX="300.0" layoutY="51.0" text="Movie" textFill="#17a7ee">
             <font>
@@ -75,7 +75,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="ChangeRating" layoutX="586.0" layoutY="454.0" mnemonicParsing="false" onAction="#ChangeRating" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #17a7ee;" text="Change Rating" textFill="#dad3d3">
+      <Button fx:id="ChangeRating" layoutX="586.0" layoutY="454.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #17a7ee;" text="Change Rating" textFill="#dad3d3">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
