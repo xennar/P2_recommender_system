@@ -1,6 +1,6 @@
 package GUIp2;
 
-import Managers.Product_Manager;
+import Managers.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +38,20 @@ public class AddNewMovieController implements Initializable {
     @FXML
     AnchorPane AddNewMovieScreen;
 
+    private User_Manager user_manager;
+    private Product_Manager product_manager;
+    private Ratings_Manager ratings_manager;
+    private Neighbor_Manager neighbor_manager;
+    private Session_Manager session_manager;
+
+    public AddNewMovieController(User_Manager user_manager, Product_Manager product_manager, Ratings_Manager ratings_manager, Neighbor_Manager neighbor_manager, Session_Manager session_manager) {
+        this.user_manager = user_manager;
+        this.product_manager = product_manager;
+        this.ratings_manager = ratings_manager;
+        this.neighbor_manager = neighbor_manager;
+        this.session_manager = session_manager;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -68,9 +82,7 @@ public class AddNewMovieController implements Initializable {
 
     public void AddNewMovie(ActionEvent actionEvent) {
 
-        Framework.FileReader MovieFileReader = new Framework.FileReader();
-        Product_Manager MovieList = new Product_Manager(MovieFileReader, "src/Database/Movies.csv");
-        MovieList.AddNewProduct(MovieList.GetProductList().size(), NameMovie.getText() +YearRelease.getText(),
+        product_manager.AddNewProduct(product_manager.GetProductList().size(), NameMovie.getText() +YearRelease.getText(),
                 TagsMovie.getText());
 
     }

@@ -1,8 +1,9 @@
 package GUIp2;
 
-import Managers.User_Manager;
+import Managers.*;
 import Framework.DatabaseReader;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,32 +30,44 @@ public class LoginController implements Initializable {
     @FXML
     AnchorPane LoginScreen;
 
-    public LoginController(){
+    private User_Manager user_manager;
+    private Product_Manager product_manager;
+    private Ratings_Manager ratings_manager;
+    private Neighbor_Manager neighbor_manager;
+    private Session_Manager session_manager;
 
-    }
-
-
-
-    public void LoginProcess(ActionEvent actionEvent) throws IOException {
-        int NewID = Integer.parseInt(UsernameInput.getText());
-        DatabaseReader userDatabaseReader = new DatabaseReader();
-        User_Manager NewLogin = new User_Manager(userDatabaseReader, "src/Database/Users.csv");
-        NewLogin.LogIn(NewID, passwordInput.getText());
-            Parent LoginParent = FXMLLoader.load(this.getClass().getResource("MenuOptions.fxml"));
-            this.LoginScreen.getChildren().add(LoginParent);
+    public LoginController(User_Manager user_manager, Product_Manager product_manager, Ratings_Manager ratings_manager, Neighbor_Manager neighbor_manager, Session_Manager session_manager){
+        this.user_manager = user_manager;
+        this.product_manager = product_manager;
+        this.ratings_manager = ratings_manager;
+        this.neighbor_manager = neighbor_manager;
+        this.session_manager = session_manager;
     }
 
     public void initialize(URL location, ResourceBundle resources) {
-    }
+        RegisterButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                int NumOfUsers = user_manager.GetListOfUsers().size() + 1;
+                String LabelNumOfUsers = Integer.toString(NumOfUsers);
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Register.fxml"));
+                fxmlLoader.setController(new RegisterController(LabelNumOfUsers, user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
+                try{
+                Parent LoginParent = (Parent) fxmlLoader.load();
+                LoginScreen.getChildren().add(LoginParent);}catch(IOException e){e.printStackTrace();}
 
-    public void registerProcess(ActionEvent actionEvent) throws IOException {
-        DatabaseReader userDatabaseReader = new DatabaseReader();
-        User_Manager NewLogin = new User_Manager(userDatabaseReader, "src/Database/Users.csv");
-        int NumOfUsers = NewLogin.GetListOfUsers().size() + 1;
-        String LabelNumOfUsers = Integer.toString(NumOfUsers);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Register.fxml"));
-        fxmlLoader.setController(new RegisterController(LabelNumOfUsers));
-        Parent LoginParent = (Parent) fxmlLoader.load();
-        this.LoginScreen.getChildren().add(LoginParent);
+            }
+        });
+
+        LoginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                int NewID = Integer.parseInt(UsernameInput.getText());
+                user_manager.LogIn(NewID, passwordInput.getText());
+                try{
+                Parent LoginParent = FXMLLoader.load(this.getClass().getResource("MenuOptions.fxml"));
+                LoginScreen.getChildren().add(LoginParent);}catch (IOException e){e.printStackTrace();}
+            }
+        });
     }
 }

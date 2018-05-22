@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="LoginScreen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #1a2942;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIp2.LoginController">
+<AnchorPane fx:id="LoginScreen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #1a2942;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="300.0" layoutY="51.0" text="Movie" textFill="#17a7ee">
          <font>
@@ -25,12 +25,12 @@
       </Label>
       <TextField fx:id="UsernameInput" layoutX="300.0" layoutY="200.0" prefHeight="25.0" prefWidth="199.0" promptText="Username" />
       <PasswordField fx:id="passwordInput" layoutX="300.0" layoutY="238.0" prefHeight="25.0" prefWidth="199.0" promptText="Password" />
-      <Button fx:id="LoginButton" layoutX="406.0" layoutY="273.0" mnemonicParsing="false" onAction="#LoginProcess" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #17a7ee;" text="Login" textFill="#dad3d3">
+      <Button fx:id="LoginButton" layoutX="406.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #17a7ee;" text="Login" textFill="#dad3d3">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="RegisterButton" layoutX="300.0" layoutY="273.0" mnemonicParsing="false" onAction="#registerProcess" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #17a7ee;" text="Register" textFill="#dad3d3">
+      <Button fx:id="RegisterButton" layoutX="300.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #17a7ee;" text="Register" textFill="#dad3d3">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

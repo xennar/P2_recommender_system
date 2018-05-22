@@ -1,7 +1,8 @@
 package GUIp2;
 
-import Managers.User_Manager;
+import Managers.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,25 +24,58 @@ public class RegisterController implements Initializable {
     String repeatPasswordInput;
     @FXML
     Label GivenID;
-    @FXML TextField repeatPassword;
-    @FXML TextField newPassword;
-    @FXML Button createButton;
-    @FXML AnchorPane registerScreen;
+    @FXML
+    TextField repeatPassword;
+    @FXML
+    TextField newPassword;
+    @FXML
+    Button createButton;
+    @FXML
+    AnchorPane registerScreen;
 
-    User_Manager user_manager;
     String NumberofUsers;
 
-    public RegisterController(String NumberofUsers, User_Manager user_manager) {
+    User_Manager user_manager;
+    private Product_Manager product_manager;
+    private Ratings_Manager ratings_manager;
+    private Neighbor_Manager neighbor_manager;
+    private Session_Manager session_manager;
+
+    public RegisterController(String NumberofUsers, User_Manager user_manager, Product_Manager product_manager, Ratings_Manager ratings_manager, Neighbor_Manager neighbor_manager, Session_Manager session_manager) {
+
         this.NumberofUsers = NumberofUsers;
         this.user_manager = user_manager;
-            }
+        this.product_manager = product_manager;
+        this.ratings_manager = ratings_manager;
+        this.neighbor_manager = neighbor_manager;
+        this.session_manager = session_manager;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         int NumOfUsers = user_manager.GetListOfUsers().size() + 1;
         String LabelNumOfUsers = Integer.toString(NumOfUsers);
         GivenID.setText(LabelNumOfUsers);
+
+        createButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                int IDToInt = Integer.parseInt(GivenID.getText());
+                if (newPassword.getText().equals(repeatPassword.getText())) {
+                    user_manager.AddNewUser(IDToInt, newPassword.getText());
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
+                        fxmlLoader.setController(new LoginController(user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
+
+                        registerScreen.getChildren().add(fxmlLoader.load());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
+
 
     public void registerPassword(ActionEvent actionEvent) {
 
@@ -50,9 +84,10 @@ public class RegisterController implements Initializable {
     public void registerRepeatPassword(ActionEvent actionEvent) {
     }
 
+
     public void LoginProcess(ActionEvent actionEvent) throws IOException {
         int IDToInt = Integer.parseInt(GivenID.getText());
-        if(newPassword.getText().equals(repeatPassword.getText())) {
+        if (newPassword.getText().equals(repeatPassword.getText())) {
             user_manager.AddNewUser(IDToInt, newPassword.getText());
 
             Parent LoginParent = (Parent) FXMLLoader.load(this.getClass().getResource("Login.fxml"));
@@ -86,3 +121,4 @@ public class RegisterController implements Initializable {
         return Objects.hash(newPasswordInput, repeatPasswordInput);
     }
 }
+

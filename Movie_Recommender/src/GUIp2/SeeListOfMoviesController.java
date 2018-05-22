@@ -37,7 +37,12 @@ public class SeeListOfMoviesController implements Initializable {
     @FXML
     AnchorPane SeeListMovies;
 
-    public SeeListOfMoviesController() {
+    User_Manager user_manager;
+    Product_Manager product_manager;
+
+    public SeeListOfMoviesController(User_Manager user_manager, Product_Manager product_manager) {
+        this.user_manager = user_manager;
+        this.product_manager = product_manager;
     }
 
     public void PreviousRatingsButton(ActionEvent actionEvent) throws IOException {
@@ -62,15 +67,7 @@ public class SeeListOfMoviesController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Framework.FileReader MovieFileReader = new Framework.FileReader();
-        //Product_Manager MovieList = new Product_Manager(MovieFileReader, "src/Database/Movies.csv");
-        User_Manager UserManager = new User_Manager(MovieFileReader, "src/Database/Users.csv");
-
-        Ratings_Manager MovieList = new Ratings_Manager(MovieFileReader,
-                UserManager.GetListOfUsers(),
-                MovieFileReader.ReadProducts("src/Database/Movies.csv"),
-                "src/Database/Ratings.csv");
-        ObservableList<Movie> ListOfProducts = FXCollections.observableArrayList(MovieList.GetListOfMovies());
+        ObservableList<Movie> ListOfProducts = FXCollections.observableArrayList(product_manager.GetProductList());
 
         //List<String> strings = ListOfProducts.stream()
           //      .map(object -> Objects.toString(object, null))
