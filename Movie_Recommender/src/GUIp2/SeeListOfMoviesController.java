@@ -16,6 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
@@ -67,19 +68,11 @@ public class SeeListOfMoviesController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         ObservableList<Movie> ListOfProducts = FXCollections.observableArrayList(product_manager.GetProductList());
-
-        //List<String> strings = ListOfProducts.stream()
-          //      .map(object -> Objects.toString(object, null))
-            //    .collect(Collectors.toList());
-
-        //listWithMovies.getItems().addAll(strings);
-        //listWithMovies.setItems(ListOfProducts);
-        for (Movie s : ListOfProducts){
+        for (Movie s : ListOfProducts) {
             listWithMovies.getItems().add(s.GetString());
         }
-
-
     }
 
     public void BackToMenu(ActionEvent actionEvent) throws IOException {
