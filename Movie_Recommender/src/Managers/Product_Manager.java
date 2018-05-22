@@ -1,9 +1,8 @@
 package Managers;
 
-import Framework.FileReader;
+import Framework.DatabaseReader;
 import Movie.Movie;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,7 +12,7 @@ public class Product_Manager {
     private HashMap<Integer, Movie> ProductMap;
 
     //The constructor makes a Map of IDs and Movies.
-    public Product_Manager(FileReader reader, String path) {
+    public Product_Manager(DatabaseReader reader, String path) {
         ProductList = reader.ReadProducts(path);
             ProductMap = new HashMap<>();
             for(Movie m : ProductList)

@@ -1,6 +1,6 @@
 package Managers;
 
-import Framework.FileReader;
+import Framework.DatabaseReader;
 import Framework.ObjectScore;
 import Movie.Movie;
 import RatingsWatcher.RatingsWatcher;
@@ -19,7 +19,7 @@ class Neighbor_ManagerTest {
     @BeforeEach
     void SetUp() {
         String moviePath = "test/moviesTest.csv";
-        FileReader filereader = new FileReader();
+        DatabaseReader filereader = new DatabaseReader();
         Product_Manager product_manager = new Product_Manager(filereader, moviePath);
 
 
@@ -120,6 +120,7 @@ class Neighbor_ManagerTest {
         assertEquals(6, ListOfUsers.get(0).GetNeighborIDs().size());
     }
 
+    //Tests whether "GetNeighborList" returns the correct List
     @Test
     void getNeighborList() {
         ArrayList<ObjectScore<RatingsWatcher<Movie>>> neighbors = neighbor_manager.GetNewNeighbors(ListOfUsers.get(0), 6);

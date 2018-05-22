@@ -99,7 +99,7 @@ public class ResultsWriter {
     static public void WriteUserData(ArrayList<RatingsWatcher<Movie>> currentSessionUserData, String path) {
         if (!currentSessionUserData.isEmpty()) {
             Path dest = Paths.get(path);
-            ArrayList<RatingsWatcher<Movie>> currentUsers = new FileReader().ReadUsers(path);
+            ArrayList<RatingsWatcher<Movie>> currentUsers = new DatabaseReader().ReadUsers(path);
             //Reads the entire list of users into an arraylist for editing
             if (Files.exists(dest)) {
                 try {

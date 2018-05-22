@@ -1,7 +1,6 @@
 package Managers;
 
-import Framework.Basic_Characteristics;
-import Framework.FileReader;
+import Framework.DatabaseReader;
 import Movie.Movie;
 import RatingsWatcher.RatingsWatcher;
 
@@ -16,7 +15,7 @@ public class User_Manager {
 
 
     //The constructor makes a map that takes IDs and returns the RatingsWatcher with that id
-    public User_Manager(FileReader reader, String path) {
+    public User_Manager(DatabaseReader reader, String path) {
         ListOfUsers = reader.ReadUsers(path);
         IdToUserMap = new HashMap<>();
         for (RatingsWatcher<Movie> u : ListOfUsers) {
@@ -33,7 +32,7 @@ public class User_Manager {
     public void AddNewUser(int ID, String Password) throws RuntimeException {
         if (IdToUserMap.keySet().contains(ID))
             throw new RuntimeException("ID already exists");
-        RatingsWatcher<Movie> newUser = new RatingsWatcher<>(ID, Password);
+        RatingsWatcher<Movie> newUser = new RatingsWatcher<Movie>(ID, Password);
         ListOfUsers.add(newUser);
         IdToUserMap.put(ID, newUser);
         Session_Manager.addNewSessionUserChanges(newUser);

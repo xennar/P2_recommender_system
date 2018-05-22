@@ -1,6 +1,6 @@
 package Managers;
 
-import Framework.FileReader;
+import Framework.DatabaseReader;
 import Framework.ObjectScore;
 import Movie.Movie;
 import RatingsWatcher.RatingsWatcher;
@@ -16,7 +16,7 @@ public class Ratings_Manager {
     private ArrayList<Movie> ListOfMovies;
     private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
 
-    public Ratings_Manager(FileReader reader, ArrayList<RatingsWatcher<Movie>> ListOfUsers, ArrayList<Movie> ListOfMovies, String PathToRatings) {
+    public Ratings_Manager(DatabaseReader reader, ArrayList<RatingsWatcher<Movie>> ListOfUsers, ArrayList<Movie> ListOfMovies, String PathToRatings) {
         reader.ReadRatings(ListOfUsers, ListOfMovies, PathToRatings);
 
         this.ListOfMovies = ListOfMovies;

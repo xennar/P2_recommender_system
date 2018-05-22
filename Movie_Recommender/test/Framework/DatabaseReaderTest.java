@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FileReaderTest {
+class DatabaseReaderTest {
     private User_Manager user_manager;
     private Product_Manager product_manager;
-    private FileReader fileReader;
+    private DatabaseReader databaseReader;
     String moviePath;
     String ratingsPath;
     String userPath;
@@ -29,9 +29,9 @@ class FileReaderTest {
         moviePath = "src/Database/movies.csv";
         ratingsPath = "src/Database/adjratings.csv";
         userPath = "src/Database/Users.csv";
-        fileReader = new FileReader();
-        user_manager = new User_Manager(fileReader, userPath);
-        product_manager = new Product_Manager(fileReader, moviePath);
+        databaseReader = new DatabaseReader();
+        user_manager = new User_Manager(databaseReader, userPath);
+        product_manager = new Product_Manager(databaseReader, moviePath);
 
         ListOfUsers = user_manager.GetListOfUsers();
         ListOfMovies = product_manager.GetProductList();
@@ -50,11 +50,11 @@ class FileReaderTest {
 
     @Test
     void getUserFromID() {
-        assertEquals(ListOfUsers.get(0), fileReader.GetUserFromID(1, ListOfUsers));
+        assertEquals(ListOfUsers.get(0), databaseReader.GetUserFromID(1, ListOfUsers));
     }
 
     @Test
     void getProductFromID() {
-        assertEquals(ListOfMovies.get(0), fileReader.GetProductFromID(1, ListOfMovies));
+        assertEquals(ListOfMovies.get(0), databaseReader.GetProductFromID(1, ListOfMovies));
     }
 }

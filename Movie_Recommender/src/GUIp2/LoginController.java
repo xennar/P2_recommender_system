@@ -1,7 +1,7 @@
 package GUIp2;
 
 import Managers.User_Manager;
-import Framework.FileReader;
+import Framework.DatabaseReader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,8 +37,8 @@ public class LoginController implements Initializable {
 
     public void LoginProcess(ActionEvent actionEvent) throws IOException {
         int NewID = Integer.parseInt(UsernameInput.getText());
-        Framework.FileReader UserFileReader = new Framework.FileReader();
-        User_Manager NewLogin = new User_Manager(UserFileReader, "src/Database/Users.csv");
+        DatabaseReader userDatabaseReader = new DatabaseReader();
+        User_Manager NewLogin = new User_Manager(userDatabaseReader, "src/Database/Users.csv");
         NewLogin.LogIn(NewID, passwordInput.getText());
             Parent LoginParent = FXMLLoader.load(this.getClass().getResource("MenuOptions.fxml"));
             this.LoginScreen.getChildren().add(LoginParent);
@@ -48,11 +48,13 @@ public class LoginController implements Initializable {
     }
 
     public void registerProcess(ActionEvent actionEvent) throws IOException {
-
-        Parent LoginParent = (Parent) FXMLLoader.load(this.getClass().getResource("Register.fxml"));
+        DatabaseReader userDatabaseReader = new DatabaseReader();
+        User_Manager NewLogin = new User_Manager(userDatabaseReader, "src/Database/Users.csv");
+        int NumOfUsers = NewLogin.GetListOfUsers().size() + 1;
+        String LabelNumOfUsers = Integer.toString(NumOfUsers);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Register.fxml"));
+        fxmlLoader.setController(new RegisterController(LabelNumOfUsers));
+        Parent LoginParent = (Parent) fxmlLoader.load();
         this.LoginScreen.getChildren().add(LoginParent);
-        System.out.println(LoginParent.getChildrenUnmodifiable().size());
-
-
     }
 }
