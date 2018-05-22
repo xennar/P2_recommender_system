@@ -35,6 +35,7 @@ public class User_Manager {
             throw new RuntimeException("ID already exists");
         RatingsWatcher<Movie> newUser = new RatingsWatcher<>(ID, Password);
         ListOfUsers.add(newUser);
+        IdToUserMap.put(ID, newUser);
         Session_Manager.addNewSessionUserChanges(newUser);
     }
 

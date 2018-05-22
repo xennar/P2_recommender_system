@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -15,6 +16,12 @@ import java.util.ResourceBundle;
 public class PreviousRatingsController implements Initializable {
 
 
+    @FXML
+    TableColumn MovieColumm;
+    @FXML
+    TableColumn RatingColumm;
+    @FXML
+    TableColumn ChangeRatingColumm;
     @FXML
     Button GetRecommendation;
     @FXML

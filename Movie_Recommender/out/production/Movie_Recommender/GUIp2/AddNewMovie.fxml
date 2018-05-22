@@ -70,9 +70,8 @@
                 </Button>
             </children>
         </VBox>
-      <TextField layoutX="248.0" layoutY="110.0" promptText="Movie Name" />
-      <TextField layoutX="248.0" layoutY="170.0" promptText="Release Year" />
-      <TextField layoutX="248.0" layoutY="231.0" promptText="Tags" />
-      <TextField layoutX="248.0" layoutY="287.0" promptText="Personal Rating" />
+      <TextField fx:id="NameMovie" layoutX="248.0" layoutY="110.0" promptText="Movie Name" />
+      <TextField fx:id="YearRelease" layoutX="248.0" layoutY="170.0" promptText="Release Year" />
+      <TextField fx:id="TagsMovie" layoutX="248.0" layoutY="231.0" promptText="Tags" />
     </children>
 </AnchorPane>

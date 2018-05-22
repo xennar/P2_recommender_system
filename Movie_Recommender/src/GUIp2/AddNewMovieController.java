@@ -1,11 +1,13 @@
 package GUIp2;
 
+import Managers.Product_Manager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -15,6 +17,14 @@ import java.util.ResourceBundle;
 public class AddNewMovieController implements Initializable {
 
 
+    @FXML
+    TextField NameMovie;
+    @FXML
+    TextField YearRelease;
+    @FXML
+    TextField TagsMovie;
+    @FXML
+    TextField RatingPersonal;
     @FXML
     Button Back;
     @FXML
@@ -57,5 +67,11 @@ public class AddNewMovieController implements Initializable {
     }
 
     public void AddNewMovie(ActionEvent actionEvent) {
+
+        Framework.FileReader MovieFileReader = new Framework.FileReader();
+        Product_Manager MovieList = new Product_Manager(MovieFileReader, "src/Database/Movies.csv");
+        MovieList.AddNewProduct(MovieList.GetProductList().size(), NameMovie.getText() +YearRelease.getText(),
+                TagsMovie.getText());
+
     }
 }

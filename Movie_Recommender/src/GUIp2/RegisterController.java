@@ -21,25 +21,28 @@ public class RegisterController implements Initializable {
 
     String newPasswordInput;
     String repeatPasswordInput;
-    @FXML Label GivenID;
+    @FXML
+    Label GivenID;
     @FXML TextField repeatPassword;
     @FXML TextField newPassword;
     @FXML Button createButton;
     @FXML AnchorPane registerScreen;
-    String hello;
+    @FXML
+    private void initialize() {
+        GivenID.setText("I'm a Label.");
+    }
 
     public RegisterController() {
             }
 
-    public void setGivenID(String NumbOfUsers) {
-        try {
-            GivenID.setText(NumbOfUsers);
-        }catch(Exception e){e.printStackTrace();}
-    }
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Framework.FileReader UserFileReader = new Framework.FileReader();
+        User_Manager NewLogin = new User_Manager(UserFileReader, "src/Database/Users.csv");
+
+        int NumOfUsers = NewLogin.GetListOfUsers().size() + 1;
+        String LabelNumOfUsers = Integer.toString(NumOfUsers);
+        GivenID.setText(LabelNumOfUsers);
     }
 
     public void registerPassword(ActionEvent actionEvent) {
@@ -50,12 +53,15 @@ public class RegisterController implements Initializable {
     }
 
     public void LoginProcess(ActionEvent actionEvent) throws IOException {
-        //int GivenID = Integer.parseInt(UsernameInput.getText());
-        //Framework.FileReader UserFileReader = new Framework.FileReader();
-        //User_Manager NewLogin = new User_Manager(UserFileReader, "src/Database/Users.csv");
+        int IDToInt = Integer.parseInt(GivenID.getText());
+        Framework.FileReader UserFileReader = new Framework.FileReader();
+        User_Manager NewLogin = new User_Manager(UserFileReader, "src/Database/Users.csv");
+        if(newPassword.getText().equals(repeatPassword.getText())) {
+            NewLogin.AddNewUser(IDToInt, newPassword.getText());
 
-        Parent LoginParent = (Parent) FXMLLoader.load(this.getClass().getResource("Login.fxml"));
-        this.registerScreen.getChildren().add(LoginParent);
+            Parent LoginParent = (Parent) FXMLLoader.load(this.getClass().getResource("Login.fxml"));
+            this.registerScreen.getChildren().add(LoginParent);
+        }
     }
 
     public void registerProcess(ActionEvent actionEvent) throws IOException {
