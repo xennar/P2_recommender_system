@@ -44,7 +44,7 @@ class User_ManagerTest {
     @Test
     //Tests if the user 11 (index 10) is returned if ID 11 and password 11 is passed as login parameters
     void logIn01() {
-        assertEquals(ListOfUsers.get(10),user_manager.LogIn(11, "11"));
+        assertNotNull(user_manager.getCurrent_user());
     }
 
     @Test

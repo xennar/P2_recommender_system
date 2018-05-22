@@ -1,10 +1,13 @@
 package GUIp2;
 
 
+import Framework.ObjectScore;
 import Framework.Recommendation;
 import Framework.User;
 import Movie.Movie;
 import RatingsWatcher.RatingsWatcher;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
+import java.beans.JavaBean;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,13 +37,13 @@ public class PreviousRatingsController implements Initializable {
 
 
     @FXML
-    TableView<Movie> ListWithPreviousRatings;
+    TableView<PreviousRatingPresent> ListWithPreviousRatings;
     @FXML
-    TableColumn<Movie, Integer> MovieID;
+    TableColumn<PreviousRatingPresent, Number> MovieID;
     @FXML
-    TableColumn<Movie, String> MovieColumm;
+    TableColumn<PreviousRatingPresent, String> MovieColumm;
     @FXML
-    TableColumn<RatingsWatcher<Movie>, Double> RatingColumm;
+    TableColumn<PreviousRatingPresent, String> RatingColumm;
     @FXML
     Button GetRecommendation;
     @FXML
@@ -59,6 +63,7 @@ public class PreviousRatingsController implements Initializable {
     private Ratings_Manager ratings_manager;
     private Neighbor_Manager neighbor_manager;
     private Session_Manager session_manager;
+    private ArrayList<PreviousRatingPresent> RatedProducts;
 
     public PreviousRatingsController(User_Manager user_manager, Product_Manager product_manager, Ratings_Manager ratings_manager, Neighbor_Manager neighbor_manager, Session_Manager session_manager){
         this.user_manager = user_manager;
@@ -66,35 +71,25 @@ public class PreviousRatingsController implements Initializable {
         this.ratings_manager = ratings_manager;
         this.neighbor_manager = neighbor_manager;
         this.session_manager = session_manager;
+        RatedProducts = new ArrayList<>();
+        PreviousRatingPresent Rating;
+        for(Movie m : user_manager.getCurrent_user().GetRatedProducts()){
+            Rating = new PreviousRatingPresent(m.GetID(), m.GetString(), user_manager.getCurrent_user().GetProductRating(m));
+            RatedProducts.add(Rating);
+        }
     }
 
 
 
     public void initialize(URL location, ResourceBundle resources) {
-            MovieColumm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Movie, String>, ObservableValue<String>>() {
-                public ObservableValue<String> call(TableColumn.CellDataFeatures<Movie, String> p) {
-                    // p.getValue() returns the Person instance for a particular TableView row
-                    return new ReadOnlyObjectWrapper(p.getValue().GetString());
-                }
-            });
+        for(PreviousRatingPresent p : RatedProducts){
+            ListWithPreviousRatings.getItems().add(p);
+        }
+            MovieColumm.setCellValueFactory(cellData ->  cellData.getValue().getTitle());
 
-            MovieID.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Movie, Integer>, ObservableValue<Integer>>() {
-                public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Movie, Integer> p) {
-                    // p.getValue() returns the Person instance for a particular TableView row
-                    return new ReadOnlyObjectWrapper(p.getValue().GetID());
-                }
-            });
+            MovieID.setCellValueFactory(cellData -> cellData.getValue().getID());
 
-/*        RatingColumm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<RatingsWatcher<Movie>, Double>, ObservableValue<Double>>() {
-            public ObservableValue<Double> call(TableColumn.CellDataFeatures<RatingsWatcher<Movie>, Double> p) {
-                // p.getValue() returns the Person instance for a particular TableView row
-                return new ReadOnlyObjectWrapper(p.getValue().GetProductRating(product_manager.getProductFromID(1)));
-            }
-        });*/
-        ObservableList<Movie> data = FXCollections.observableArrayList(user_manager.GetUserFromID(1).GetRatedProducts());
-        ListWithPreviousRatings.setItems(data);
-
-
+            RatingColumm.setCellValueFactory(cellData -> cellData.getValue().getRating());
 
 
         PreviousRatings.setOnAction(new EventHandler<ActionEvent>() {

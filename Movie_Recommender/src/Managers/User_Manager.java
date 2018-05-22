@@ -12,6 +12,7 @@ public class User_Manager {
 
     private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     private HashMap<Integer, RatingsWatcher<Movie>> IdToUserMap;
+    RatingsWatcher<Movie> Current_user;
 
 
     //The constructor makes a map that takes IDs and returns the RatingsWatcher with that id
@@ -41,12 +42,16 @@ public class User_Manager {
 
     //This method is used to set the current active user my logging the user in. If ID and password fits, the user is set,
     // if not, then an exception is throw.
-    public RatingsWatcher<Movie> LogIn(int ID, String Password) {
+    public void LogIn(int ID, String Password) {
         if (IdToUserMap.containsKey(ID)) {
             if (IdToUserMap.get(ID).GetString().equals(Password))
-                return IdToUserMap.get(ID);
+                Current_user = IdToUserMap.get(ID);
         }
-        throw new RuntimeException("UserID or Password is incorrect");
+        else throw new RuntimeException("UserID or Password is incorrect");
+    }
+
+    public RatingsWatcher<Movie> getCurrent_user() {
+        return Current_user;
     }
 
     public RatingsWatcher<Movie> GetUserFromID(int ID){
