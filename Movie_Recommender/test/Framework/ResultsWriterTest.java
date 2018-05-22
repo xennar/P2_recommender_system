@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ResultsWriterTest {
     private User_Manager user_manager;
     private Product_Manager product_manager;
-    private FileReader filereader;
+    private DatabaseReader filereader;
     private String ratingsPath;
     private String testMoviePath;
     private String testAdjratingsPath;
@@ -36,7 +36,7 @@ class ResultsWriterTest {
         String userPath = "src/Database/Users.csv";
 
         currentSession = new Session_Manager();
-        filereader = new FileReader();
+        filereader = new DatabaseReader();
         user_manager = new User_Manager(filereader, userPath);
         product_manager = new Product_Manager(filereader, moviePath);
 
@@ -52,7 +52,7 @@ class ResultsWriterTest {
         ResultsWriter.WriteProductData(currentSession.getNewlyAddedProducts(), testMoviePath);
 
         //creates a new manager to reRead the file, that has the new product in
-        Product_Manager testmanager = new Product_Manager(new FileReader(), testMoviePath);
+        Product_Manager testmanager = new Product_Manager(new DatabaseReader(), testMoviePath);
         assertEquals("test movie for ResultsWriter",
                 testmanager.GetProductList().get(testmanager.GetProductList().size()-1).GetString());
     }
@@ -64,7 +64,7 @@ class ResultsWriterTest {
         ResultsWriter.WriteRatingsData(currentSession.getChangedRatings(), testAdjratingsPath);
 
         //Creates new objects to read the new modified file
-        FileReader testReader = new FileReader();
+        DatabaseReader testReader = new DatabaseReader();
         User_Manager testUserManager = new User_Manager(testReader, testUserPath);
         Product_Manager testProductManager = new Product_Manager(testReader, testMoviePath);
         testReader.ReadRatings(testUserManager.GetListOfUsers(), testProductManager.GetProductList(), testAdjratingsPath);
@@ -81,7 +81,7 @@ class ResultsWriterTest {
         ResultsWriter.WriteRatingsData(currentSession.getChangedRatings(), testAdjratingsPath);
 
         //Creates new objects to read the altered file
-        FileReader testReader = new FileReader();
+        DatabaseReader testReader = new DatabaseReader();
         User_Manager testUserManager = new User_Manager(testReader, testUserPath);
         Product_Manager testProductManager = new Product_Manager(testReader, testMoviePath);
         testReader.ReadRatings(testUserManager.GetListOfUsers(), testProductManager.GetProductList(), testAdjratingsPath);

@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 //This class is the Readers which read the data in the three .csv files in the Database directory.
 //Each method reads one specific file.
-public class FileReader {
-    public FileReader() {
+public class DatabaseReader {
+    public DatabaseReader() {
     }
 
     //This method reads movies.csv, and adds the information to Movie objects which are stored on the ArrayList that is returned.

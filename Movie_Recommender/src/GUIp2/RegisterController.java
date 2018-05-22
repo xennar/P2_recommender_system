@@ -53,7 +53,7 @@ public class RegisterController implements Initializable {
 
     public void LoginProcess(ActionEvent actionEvent) throws IOException {
         //int GivenID = Integer.parseInt(UsernameInput.getText());
-        //Framework.FileReader UserFileReader = new Framework.FileReader();
+        //Framework.DatabaseReader UserFileReader = new Framework.DatabaseReader();
         //User_Manager NewLogin = new User_Manager(UserFileReader, "src/Database/Users.csv");
 
         Parent LoginParent = (Parent) FXMLLoader.load(this.getClass().getResource("Login.fxml"));

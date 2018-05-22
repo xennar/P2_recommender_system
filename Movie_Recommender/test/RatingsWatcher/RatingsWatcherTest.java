@@ -1,6 +1,6 @@
 package RatingsWatcher;
 
-import Framework.FileReader;
+import Framework.DatabaseReader;
 import Managers.Product_Manager;
 import Managers.Ratings_Manager;
 import Managers.User_Manager;
@@ -28,7 +28,7 @@ class RatingsWatcherTest {
     void SetUp() {
         String userPath = "src/Database/Users.csv";
         String moviePath = "src/Database/movies.csv";
-        FileReader filereader = new FileReader();
+        DatabaseReader filereader = new DatabaseReader();
         user_manager = new User_Manager(filereader, userPath);
         product_manager = new Product_Manager(filereader, moviePath);
 

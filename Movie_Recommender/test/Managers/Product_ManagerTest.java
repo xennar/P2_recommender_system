@@ -1,6 +1,6 @@
 package Managers;
 
-import Framework.FileReader;
+import Framework.DatabaseReader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ class Product_ManagerTest {
     @BeforeEach
     void SetUp(){
         String moviePath = "test/moviesTest.csv";
-        FileReader filereader = new FileReader();
+        DatabaseReader filereader = new DatabaseReader();
         product_manager = new Product_Manager(filereader, moviePath);
     }
 

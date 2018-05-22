@@ -1,6 +1,6 @@
 package Managers;
 
-import Framework.FileReader;
+import Framework.DatabaseReader;
 import RatingsWatcher.RatingsWatcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,8 +19,8 @@ class User_ManagerTest {
     @BeforeEach
     void SetUp(){
         userPath = "test/UsersTest.csv";
-        FileReader fileReader = new FileReader();
-        user_manager = new User_Manager(fileReader, userPath);
+        DatabaseReader databaseReader = new DatabaseReader();
+        user_manager = new User_Manager(databaseReader, userPath);
         ListOfUsers = user_manager.GetListOfUsers();
     }
     @Test
