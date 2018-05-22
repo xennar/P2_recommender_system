@@ -1,35 +1,17 @@
 package GUIp2;
 
 
-import Framework.ObjectScore;
-import Framework.Recommendation;
-import Framework.User;
 import Movie.Movie;
-import RatingsWatcher.RatingsWatcher;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import Managers.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Callback;
 
-import javax.swing.event.CellEditorListener;
-import java.beans.JavaBean;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -88,13 +70,28 @@ public class PreviousRatingsController implements Initializable {
         for (PreviousRatingPresent p : RatedProducts) {
             ListWithPreviousRatings.getItems().add(p);
         }
-        MovieColumm.setCellValueFactory(cellData -> cellData.getValue().getTitle());
+        MovieColumm.setCellValueFactory(cellData -> cellData.getValue().getPropTitle());
 
-        MovieID.setCellValueFactory(cellData -> cellData.getValue().getID());
+        MovieID.setCellValueFactory(cellData -> cellData.getValue().getPropID());
 
-        RatingColumm.setCellValueFactory(cellData -> cellData.getValue().getRating());
+        RatingColumm.setCellValueFactory(cellData -> cellData.getValue().getPropRating());
 
         ListWithPreviousRatings.setEditable(true);
+
+        ChangeRating.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                TablePosition pos = ListWithPreviousRatings.getSelectionModel().getSelectedCells().get(0);
+                int row = pos.getRow();
+
+                PreviousRatingPresent rating = ListWithPreviousRatings.getItems().get(row);
+                System.out.println(user_manager.getCurrent_user().GetProductRating(product_manager.getProductFromID(rating.getID())));
+                rating.SetRatingToPropRating();
+                user_manager.getCurrent_user().AddNewRatedProductDuringSession(product_manager.getProductFromID(rating.getID()), rating.getRating());
+                System.out.println(user_manager.getCurrent_user().GetProductRating(product_manager.getProductFromID(rating.getID())));
+            }
+        });
+
 
 
         RatingColumm.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -160,12 +157,6 @@ public class PreviousRatingsController implements Initializable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-        });
-        ChangeRating.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
             }
         });
 

@@ -5,27 +5,49 @@ import javafx.beans.property.*;
 import javafx.beans.value.ObservableDoubleValue;
 
 public class PreviousRatingPresent {
-    private IntegerProperty ID;
-    private StringProperty title;
-    private StringProperty rating;
+    private IntegerProperty IDprop;
+    private int ID;
+    private StringProperty titleprop;
+    private String title;
+    private StringProperty ratingprop;
+    private double rating;
 
 
 
-    public PreviousRatingPresent(int ID, String title, double rating){
-        this.ID = new SimpleIntegerProperty(ID);
-        this.title = new SimpleStringProperty(title);
-        this.rating = new SimpleStringProperty(String.valueOf(rating));
+    PreviousRatingPresent(int ID, String title, double rating){
+        this.IDprop = new SimpleIntegerProperty(ID);
+        this.titleprop = new SimpleStringProperty(title);
+        this.ratingprop = new SimpleStringProperty(String.valueOf(rating));
+        this.ID = ID;
+        this.title = title;
+        this.rating = rating;
     }
 
-    public IntegerProperty getID() {
+    IntegerProperty getPropID() {
+        return IDprop;
+    }
+
+    StringProperty getPropTitle() {
+        return titleprop;
+    }
+
+    StringProperty getPropRating() {
+        return ratingprop;
+    }
+
+    public int getID() {
         return ID;
     }
 
-    public StringProperty getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public StringProperty getRating() {
+    public double getRating() {
         return rating;
+    }
+
+    void SetRatingToPropRating(){
+        rating = Double.valueOf(ratingprop.getValue());
     }
 }
