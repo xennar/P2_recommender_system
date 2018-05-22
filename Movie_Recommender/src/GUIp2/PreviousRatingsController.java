@@ -1,7 +1,12 @@
 package GUIp2;
 
 
+import Framework.Recommendation;
+import Framework.User;
 import Movie.Movie;
+import RatingsWatcher.RatingsWatcher;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Managers.*;
@@ -16,9 +21,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PreviousRatingsController implements Initializable {
@@ -32,7 +39,7 @@ public class PreviousRatingsController implements Initializable {
     @FXML
     TableColumn<Movie, String> MovieColumm;
     @FXML
-    TableColumn<Movie, Double> RatingColumm;
+    TableColumn<RatingsWatcher<Movie>, Double> RatingColumm;
     @FXML
     Button GetRecommendation;
     @FXML
@@ -64,12 +71,31 @@ public class PreviousRatingsController implements Initializable {
 
 
     public void initialize(URL location, ResourceBundle resources) {
+            MovieColumm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Movie, String>, ObservableValue<String>>() {
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<Movie, String> p) {
+                    // p.getValue() returns the Person instance for a particular TableView row
+                    return new ReadOnlyObjectWrapper(p.getValue().GetString());
+                }
+            });
 
-        MovieColumm.setCellValueFactory(new PropertyValueFactory<Movie, String>("Name"));
-        MovieID.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("ID"));
-        RatingColumm.setCellValueFactory(new PropertyValueFactory<Movie, Double>("Ratings"));
+            MovieID.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Movie, Integer>, ObservableValue<Integer>>() {
+                public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Movie, Integer> p) {
+                    // p.getValue() returns the Person instance for a particular TableView row
+                    return new ReadOnlyObjectWrapper(p.getValue().GetID());
+                }
+            });
 
-        ListWithPreviousRatings.getItems().setAll(product_manager.GetProductList());
+/*        RatingColumm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<RatingsWatcher<Movie>, Double>, ObservableValue<Double>>() {
+            public ObservableValue<Double> call(TableColumn.CellDataFeatures<RatingsWatcher<Movie>, Double> p) {
+                // p.getValue() returns the Person instance for a particular TableView row
+                return new ReadOnlyObjectWrapper(p.getValue().GetProductRating(product_manager.getProductFromID(1)));
+            }
+        });*/
+        ObservableList<Movie> data = FXCollections.observableArrayList(user_manager.GetUserFromID(1).GetRatedProducts());
+        ListWithPreviousRatings.setItems(data);
+
+
+
 
         PreviousRatings.setOnAction(new EventHandler<ActionEvent>() {
             @Override
