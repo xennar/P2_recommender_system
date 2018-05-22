@@ -31,6 +31,8 @@ public class RegisterController implements Initializable {
     @FXML
     Button createButton;
     @FXML
+    Button cancelbutton;
+    @FXML
     AnchorPane registerScreen;
 
     String NumberofUsers;
@@ -71,6 +73,20 @@ public class RegisterController implements Initializable {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                }
+            }
+        });
+
+        cancelbutton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
+                    fxmlLoader.setController(new LoginController(user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
+                    try {
+                    registerScreen.getChildren().add(fxmlLoader.load());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });
