@@ -12,7 +12,7 @@ public class User_Manager {
 
     private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
     private HashMap<Integer, RatingsWatcher<Movie>> IdToUserMap;
-    RatingsWatcher<Movie> Current_user;
+    private RatingsWatcher<Movie> Current_user;
 
 
     //The constructor makes a map that takes IDs and returns the RatingsWatcher with that id
