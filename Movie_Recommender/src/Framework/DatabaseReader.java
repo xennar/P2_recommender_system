@@ -37,10 +37,20 @@ public class DatabaseReader {
                 while ((line = MovieReader.readLine()) != null) {
                     String[] line_parts = line.split(",");
                     try {
+                        Movie On_Line;
                         int ID = Integer.valueOf(line_parts[0]);
-                        Movie On_Line = new Movie(ID, line_parts[1], line_parts[2]);
 
-                        ListOfMovies.add(On_Line);
+                        if (line_parts.length == 4){
+                            String[] splitLine = line_parts[2].split(" ");
+                            String combinedName = splitLine[1] + " " + line_parts[1] + " " +  splitLine[2];
+                            System.out.println(ID + "," + combinedName + "," + line_parts[3]);
+                            On_Line = new Movie(ID, combinedName, line_parts[3]);
+                            ListOfMovies.add(On_Line);
+                        }else if (line_parts.length == 3){
+                            On_Line = new Movie(ID, line_parts[1], line_parts[2]);
+                            ListOfMovies.add(On_Line);
+                        }
+
                     } catch (Exception ignore) {
 
                     }
