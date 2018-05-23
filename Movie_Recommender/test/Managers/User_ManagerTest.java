@@ -22,6 +22,7 @@ class User_ManagerTest {
         DatabaseReader databaseReader = new DatabaseReader();
         user_manager = new User_Manager(databaseReader, userPath);
         ListOfUsers = user_manager.GetListOfUsers();
+        user_manager.LogIn(1, "1");
     }
     @Test
     void getListOfUsers() {
@@ -44,7 +45,7 @@ class User_ManagerTest {
     @Test
     //Tests if the user 11 (index 10) is returned if ID 11 and password 11 is passed as login parameters
     void logIn01() {
-        assertNotNull(user_manager.getCurrent_user());
+        assertEquals(user_manager.GetListOfUsers().get(0), user_manager.getCurrent_user());
     }
 
     @Test

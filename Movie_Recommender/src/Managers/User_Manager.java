@@ -46,6 +46,8 @@ public class User_Manager {
         if (IdToUserMap.containsKey(ID)) {
             if (IdToUserMap.get(ID).GetString().equals(Password))
                 Current_user = IdToUserMap.get(ID);
+            else
+                throw new RuntimeException("UserID or Password is incorrect");
         }
         else throw new RuntimeException("UserID or Password is incorrect");
     }

@@ -5,16 +5,14 @@ import Framework.ObjectScore;
 import Movie.Movie;
 import RatingsWatcher.RatingsWatcher;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 //This class controls the ratings and recommendations that the program uses and makes.
 public class Ratings_Manager {
 
     private ArrayList<Movie> ListOfMovies;
     private ArrayList<RatingsWatcher<Movie>> ListOfUsers;
+
 
     public Ratings_Manager(DatabaseReader reader, ArrayList<RatingsWatcher<Movie>> ListOfUsers, ArrayList<Movie> ListOfMovies, String PathToRatings) {
         reader.ReadRatings(ListOfUsers, ListOfMovies, PathToRatings);
@@ -35,6 +33,8 @@ public class Ratings_Manager {
     //The following method is used to make a recommendation to the current user.
     public Movie GetRecommendation(RatingsWatcher<Movie> CurrentUser, Neighbor_Manager neighbor_manager, int NumberOfNeighbors) {
 
+
+
         //Lists and variables are initialized and prepared for use.
         ObjectScore<Movie> RecommendationScore;
         ArrayList<ObjectScore<Movie>> ListOfRecommendableMovies = new ArrayList<>();
@@ -42,6 +42,17 @@ public class Ratings_Manager {
         HashSet<Movie> MoviesInCommon = new HashSet<>();
         double SumOfNeighborContribution;
         double SumOfNeighborSimilarities;
+
+        //If the user has not seen any movies, then the movie with the highest average rating is recommended.
+        if(CurrentUser.GetRatedProducts().size() == 0){
+            for(Movie m : ListOfMovies){
+                if(m.GetAverage_Rating() > 1){
+                RecommendationScore = new ObjectScore<Movie>(m, m.GetAverage_Rating());
+                ListOfRecommendableMovies.add(RecommendationScore);}
+            }
+            ListOfRecommendableMovies.sort(new RecommendationComparator());
+            return ListOfRecommendableMovies.get(ListOfRecommendableMovies.size()-1).GetObject();
+        }
 
         //To ensure that the correct neighbors are picked, the method gets the newest set by calling the method for getting neighbors.
         ArrayList<ObjectScore<RatingsWatcher<Movie>>> ListOfNeighbors = neighbor_manager.GetNewNeighbors(CurrentUser, NumberOfNeighbors);
