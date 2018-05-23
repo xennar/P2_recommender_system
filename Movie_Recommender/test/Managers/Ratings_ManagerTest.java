@@ -21,12 +21,11 @@ class Ratings_ManagerTest {
 
     @BeforeEach
     void SetUp() {
-        String moviePath = "test/moviesTest.csv";
+        String moviePath = "src/Database/movies.csv";
         DatabaseReader filereader = new DatabaseReader();
         product_manager = new Product_Manager(filereader, moviePath);
-
+        ListOfMovies = new ArrayList<>();
         ListOfUsers = new ArrayList<>();
-        ListOfMovies = product_manager.GetProductList();
         RatingsWatcher<Movie> watcher;
 
         //Because custom users are used during these tests, they need to be made. There are 15 test users.
@@ -34,9 +33,11 @@ class Ratings_ManagerTest {
             watcher = new RatingsWatcher<Movie>(counter, "password");
             ListOfUsers.add(watcher);
         }
+        int who;
         //Only the first 43 movies are used during these tests.
         for (int counter = 0; counter < 43; counter++) {
             ListOfMovies.add(product_manager.GetProductList().get(counter));
+            who = counter;
         }
         neighbor_manager = new Neighbor_Manager(ListOfUsers);
         ratings_manager = new Ratings_Manager(filereader, ListOfUsers, ListOfMovies, "test/Managers/testRatings.csv");
