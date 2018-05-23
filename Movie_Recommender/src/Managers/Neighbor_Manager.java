@@ -37,8 +37,13 @@ public class Neighbor_Manager {
         ArrayList<ObjectScore<RatingsWatcher<Movie>>> ListOfNeighbors = new ArrayList<>();
 
         //The method then adds the most similar neighbors, found in the end of the list, to the new list, with the number specified by the wished number of neighbors.
-        for (int counter = ListOfNeighborsAndScores.size() - 1; counter > ListOfNeighborsAndScores.size() - (NumberOfNeighbors + 1); counter--)
+        for (int counter = ListOfNeighborsAndScores.size() - 1; counter > ListOfNeighborsAndScores.size() - (NumberOfNeighbors + 1); counter--) {
+            if (Double.isNaN(ListOfNeighborsAndScores.get(counter).GetScore())) {
+                NumberOfNeighbors = NumberOfNeighbors + 1;
+            }
+            else
             ListOfNeighbors.add(ListOfNeighborsAndScores.get(counter));
+        }
         Neighbor_Lists.put(Current_User, ListOfNeighbors);
 
         //The new neighbor IDs are added to the user's List.

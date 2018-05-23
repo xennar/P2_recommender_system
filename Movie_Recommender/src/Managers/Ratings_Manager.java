@@ -5,7 +5,10 @@ import Framework.ObjectScore;
 import Movie.Movie;
 import RatingsWatcher.RatingsWatcher;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 
 //This class controls the ratings and recommendations that the program uses and makes.
 public class Ratings_Manager {
@@ -31,8 +34,7 @@ public class Ratings_Manager {
     }
 
     //The following method is used to make a recommendation to the current user.
-    public Movie GetRecommendation(RatingsWatcher<Movie> CurrentUser, Neighbor_Manager neighbor_manager, int NumberOfNeighbors) {
-
+    public Movie GetRecommendation(RatingsWatcher<Movie> CurrentUser, Neighbor_Manager neighbor_manager, int NumberOfNeighbors) throws RuntimeException {
 
 
         //Lists and variables are initialized and prepared for use.
@@ -44,14 +46,20 @@ public class Ratings_Manager {
         double SumOfNeighborSimilarities;
 
         //If the user has not seen any movies, then the movie with the highest average rating is recommended.
-        if(CurrentUser.GetRatedProducts().size() == 0){
-            for(Movie m : ListOfMovies){
-                if(m.GetAverage_Rating() > 1){
-                RecommendationScore = new ObjectScore<Movie>(m, m.GetAverage_Rating());
-                ListOfRecommendableMovies.add(RecommendationScore);}
+        if (CurrentUser.GetRatedProducts().size() == 0) {
+            for (Movie m : ListOfMovies) {
+                if (m.GetAverage_Rating() > 1 && m.GetRatings().size() > 1 && !CurrentUser.GetIgnoreIDs().contains(m.GetID())) {
+                    RecommendationScore = new ObjectScore<Movie>(m, m.GetAverage_Rating());
+                    ListOfRecommendableMovies.add(RecommendationScore);
+                }
             }
             ListOfRecommendableMovies.sort(new RecommendationComparator());
-            return ListOfRecommendableMovies.get(ListOfRecommendableMovies.size()-1).GetObject();
+            int counter = 0;
+            if (CurrentUser.GetRatedProducts().contains(ListOfRecommendableMovies.get(counter).GetObject()))
+                while (CurrentUser.GetRatedProducts().contains(ListOfRecommendableMovies.get(counter).GetObject()))
+                    counter++;
+
+            return ListOfRecommendableMovies.get(counter).GetObject();
         }
 
         //To ensure that the correct neighbors are picked, the method gets the newest set by calling the method for getting neighbors.
@@ -84,13 +92,13 @@ public class Ratings_Manager {
         ListOfRecommendableMovies.sort(Comparator.comparing(ObjectScore::GetScore));
 
         //If, however, the user has said that they don't want a specific movie, then it will not be recommended.
-        Movie RecommendedProduct = ListOfRecommendableMovies.get(0).GetObject();
-        int counter = 1;
+        Movie RecommendedProduct = ListOfRecommendableMovies.get(ListOfRecommendableMovies.size()-1).GetObject();
+        int counter = 2;
         if (CurrentUser.GetIgnoreIDs().size() != 0)
-            if (CurrentUser.GetIgnoreIDs().size() == 1)
+            if (NumberOfNeighbors == 1 && CurrentUser.GetIgnoreIDs().contains(RecommendedProduct.GetID()))
                 throw new RuntimeException("Can't recommend any movies due to ignores");
         while (CurrentUser.GetIgnoreIDs().contains(RecommendedProduct.GetID())) {
-            RecommendedProduct = ListOfRecommendableMovies.get(counter).GetObject();
+            RecommendedProduct = ListOfRecommendableMovies.get(ListOfRecommendableMovies.size() - counter).GetObject();
             counter++;
         }
         if (CurrentUser.GetIgnoreIDs().contains(RecommendedProduct.GetID()))
