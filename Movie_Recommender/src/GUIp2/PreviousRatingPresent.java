@@ -47,7 +47,11 @@ public class PreviousRatingPresent {
         return rating;
     }
 
-    void SetRatingToPropRating(){
-        rating = Double.valueOf(ratingprop.getValue());
+    void SetRating(double change){
+        rating = change;
+    }
+
+    void SetRatingpropToRating(){
+        ratingprop = new SimpleStringProperty(String.valueOf(rating));
     }
 }

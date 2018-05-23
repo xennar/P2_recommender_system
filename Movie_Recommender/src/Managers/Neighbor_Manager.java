@@ -27,10 +27,10 @@ public class Neighbor_Manager {
             IdToUserMap.put(u.GetID(), u);
     }
 
-    //This method finds the neighbors of an user.
+    //This method finds the Pearson similarity score for each user in the system, according to the active user.
     public ArrayList<ObjectScore<RatingsWatcher<Movie>>> GetNewNeighbors(RatingsWatcher<Movie> Current_User, int NumberOfNeighbors) {
         //The method "GetSimilarityScores" is called to get the similarity scores in the from of ObjectScore objects containing the user and the score associated with that user.
-        ArrayList<ObjectScore<RatingsWatcher<Movie>>> ListOfNeighborsAndScores = GetSimilarityScores(Current_User, ListOfUsers, NumberOfNeighbors);
+        ArrayList<ObjectScore<RatingsWatcher<Movie>>> ListOfNeighborsAndScores = GetSimilarityScores(Current_User, ListOfUsers);
 
         //The list is sorted by score so that the least similar neighbors are first.
         ListOfNeighborsAndScores.sort(Comparator.comparing(ObjectScore::GetScore));
@@ -59,7 +59,7 @@ public class Neighbor_Manager {
         }
 
         //The neighbors receive their similarity scores.
-        ArrayList<ObjectScore<RatingsWatcher<Movie>>> ListOfNeighborsAndScores = GetSimilarityScores(Current_User, ListOfExistingNeighbors, NumberOfNeighbors);
+        ArrayList<ObjectScore<RatingsWatcher<Movie>>> ListOfNeighborsAndScores = GetSimilarityScores(Current_User, ListOfExistingNeighbors);
 
         //The list is sorted by score so that the least similar neighbors are first.
         ListOfNeighborsAndScores.sort(Comparator.comparing(ObjectScore::GetScore));
@@ -70,16 +70,11 @@ public class Neighbor_Manager {
             ListOfNeighbors.add(ListOfNeighborsAndScores.get(counter));
         Neighbor_Lists.put(Current_User, ListOfNeighbors);
 
-        //The new neighbor IDs are added to the users List.
-        Current_User.GetNeighborIDs().clear();
-        for (ObjectScore<RatingsWatcher<Movie>> os : ListOfNeighbors)
-            Current_User.GetNeighborIDs().add(os.GetObject().GetID());
-
         return ListOfNeighbors;
     }
 
     //This method finds all the similarity scores for all users that get passed through ListOfUsers, and returns a list of ObjectScore with the score and the User.
-    private ArrayList<ObjectScore<RatingsWatcher<Movie>>> GetSimilarityScores(RatingsWatcher<Movie> Current_User, ArrayList<RatingsWatcher<Movie>> ListOfUsers, int NumberOfNeighbors) {
+    private ArrayList<ObjectScore<RatingsWatcher<Movie>>> GetSimilarityScores(RatingsWatcher<Movie> Current_User, ArrayList<RatingsWatcher<Movie>> ListOfUsers) {
 
         //The first thing done is making all the variables needed to hold all information.
         ArrayList<Movie> Movies_in_common = new ArrayList<>();

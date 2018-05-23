@@ -1,8 +1,8 @@
 package GUIp2;
 
 
-import Movie.Movie;
 import Managers.*;
+import Movie.Movie;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PreviousRatingsController implements Initializable {
@@ -76,7 +77,6 @@ public class PreviousRatingsController implements Initializable {
 
         RatingColumm.setCellValueFactory(cellData -> cellData.getValue().getPropRating());
 
-        ListWithPreviousRatings.setEditable(true);
 
         ChangeRating.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -85,13 +85,22 @@ public class PreviousRatingsController implements Initializable {
                 int row = pos.getRow();
 
                 PreviousRatingPresent rating = ListWithPreviousRatings.getItems().get(row);
-                System.out.println(user_manager.getCurrent_user().GetProductRating(product_manager.getProductFromID(rating.getID())));
-                rating.SetRatingToPropRating();
-                user_manager.getCurrent_user().AddNewRatedProductDuringSession(product_manager.getProductFromID(rating.getID()), rating.getRating());
-                System.out.println(user_manager.getCurrent_user().GetProductRating(product_manager.getProductFromID(rating.getID())));
+                TextInputDialog dialog = new TextInputDialog("New Rating");
+                dialog.setTitle("Change Rating");
+                dialog.setContentText("Please input your new rating");
+                Optional<String> change = dialog.showAndWait();
+                double change_as_double;
+                if (change.isPresent()) {
+                    change_as_double = Double.valueOf(change.get());
+                    if (change_as_double > 0 && change_as_double <= 5) {
+                        user_manager.getCurrent_user().AddNewRatedProductDuringSession(product_manager.getProductFromID(rating.getID()), change_as_double);
+                        rating.SetRating(change_as_double);
+                        rating.SetRatingpropToRating();
+                        ListWithPreviousRatings.refresh();
+                    }
+                }
             }
         });
-
 
 
         RatingColumm.setCellFactory(TextFieldTableCell.forTableColumn());

@@ -59,8 +59,8 @@ public class Ratings_Manager {
                 for (ObjectScore<RatingsWatcher<Movie>> o_n : ListOfNeighbors) {
                     //If the neighbor has not seen the movie, then they are skipped
                     if (o_n.GetObject().GetRatedProducts().contains(m)) {
-                        SumOfNeighborContribution = +o_n.GetScore() * o_n.GetObject().GetProductRating(m) - o_n.GetObject().GetUsersAverageScore();
-                        SumOfNeighborSimilarities = +o_n.GetScore();
+                        SumOfNeighborContribution += o_n.GetScore() * o_n.GetObject().GetProductRating(m) - o_n.GetObject().GetUsersAverageScore();
+                        SumOfNeighborSimilarities += +o_n.GetScore();
                     }
                 }
                 //An Object with the score is initialized and added to the list and Map.
@@ -76,12 +76,14 @@ public class Ratings_Manager {
         Movie RecommendedProduct = ListOfRecommendableMovies.get(0).GetObject();
         int counter = 1;
         if (CurrentUser.GetIgnoreIDs().size() != 0)
-            if(CurrentUser.GetIgnoreIDs().size() == 1)
+            if (CurrentUser.GetIgnoreIDs().size() == 1)
                 throw new RuntimeException("Can't recommend any movies due to ignores");
-            while (CurrentUser.GetIgnoreIDs().contains(RecommendedProduct.GetID())) {
-                RecommendedProduct = ListOfRecommendableMovies.get(counter).GetObject();
-                counter++;
-            }
+        while (CurrentUser.GetIgnoreIDs().contains(RecommendedProduct.GetID())) {
+            RecommendedProduct = ListOfRecommendableMovies.get(counter).GetObject();
+            counter++;
+        }
+        if (CurrentUser.GetIgnoreIDs().contains(RecommendedProduct.GetID()))
+            throw new RuntimeException("Can't recommend any movies due to ignores");
 
         return RecommendedProduct;
     }
@@ -91,7 +93,7 @@ public class Ratings_Manager {
         Session_Manager.addNewSessionUserChanges(Current_User);
     }
 
-    public void RemoveIgnoreFromUser(RatingsWatcher<Movie> Current_User, Movie ToBeIgnored){
+    public void RemoveIgnoreFromUser(RatingsWatcher<Movie> Current_User, Movie ToBeIgnored) {
         Current_User.GetIgnoreIDs().remove(Current_User.GetIgnoreIDs().indexOf(ToBeIgnored.GetID()));
         Session_Manager.addNewSessionUserChanges(Current_User);
     }

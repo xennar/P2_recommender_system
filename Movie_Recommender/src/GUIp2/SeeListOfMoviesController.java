@@ -2,6 +2,7 @@ package GUIp2;
 
 import Managers.*;
 import Movie.Movie;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,23 +10,20 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class SeeListOfMoviesController implements Initializable {
 
     @FXML
-    ListView listWithMovies;
+    TableView<Movie> listWithMovies;
+    @FXML
+    TableColumn<Movie, String> MovieColumn;
     @FXML
     Button AddMovies;
     @FXML
@@ -35,6 +33,8 @@ public class SeeListOfMoviesController implements Initializable {
     @FXML
     Button GetRecommendation1;
     @FXML
+    Button AddRating;
+    @FXML
     AnchorPane SeeListMovies;
 
     private User_Manager user_manager;
@@ -43,7 +43,7 @@ public class SeeListOfMoviesController implements Initializable {
     private Neighbor_Manager neighbor_manager;
     private Session_Manager session_manager;
 
-    public SeeListOfMoviesController(User_Manager user_manager, Product_Manager product_manager, Ratings_Manager ratings_manager, Neighbor_Manager neighbor_manager, Session_Manager session_manager){
+    public SeeListOfMoviesController(User_Manager user_manager, Product_Manager product_manager, Ratings_Manager ratings_manager, Neighbor_Manager neighbor_manager, Session_Manager session_manager) {
         this.user_manager = user_manager;
         this.product_manager = product_manager;
         this.ratings_manager = ratings_manager;
@@ -53,12 +53,36 @@ public class SeeListOfMoviesController implements Initializable {
 
 
     public void initialize(URL location, ResourceBundle resources) {
-
-
         ObservableList<Movie> ListOfProducts = FXCollections.observableArrayList(product_manager.GetProductList());
         for (Movie s : ListOfProducts) {
-            listWithMovies.getItems().add(s.GetString());
+            if(!user_manager.getCurrent_user().GetRatedProducts().contains(s))
+            listWithMovies.getItems().add(s);
         }
+
+        MovieColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().GetString()));
+
+        AddRating.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                TablePosition pos = listWithMovies.getSelectionModel().getSelectedCells().get(0);
+                int row = pos.getRow();
+
+                Movie NewlyWatched = listWithMovies.getItems().get(row);
+                TextInputDialog dialog = new TextInputDialog("Rating");
+                dialog.setTitle("New Watched Movie");
+                dialog.setContentText("Please input your rating for the movie");
+                Optional<String> change = dialog.showAndWait();
+                double change_as_double;
+                if (change.isPresent()) {
+                    change_as_double = Double.valueOf(change.get());
+                    if (change_as_double > 0 && change_as_double <= 5) {
+                        user_manager.getCurrent_user().AddNewRatedProductDuringSession(product_manager.getProductFromID(NewlyWatched.GetID()), change_as_double);
+                        listWithMovies.getItems().remove(NewlyWatched);
+                        listWithMovies.refresh();
+                    }
+                }
+            }
+        });
 
         PreviousRatings.setOnAction(new EventHandler<ActionEvent>() {
             @Override
