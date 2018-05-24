@@ -81,7 +81,10 @@ public class RatingsWatcher<T extends Basic_Characteristics> extends User {
         }
     }
 
-
+    @Override
+    public String toString(){
+        return String.valueOf(GetID());
+    }
 
     //Basic getter.
     public ArrayList<Integer> GetNeighborIDs() {

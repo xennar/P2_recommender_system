@@ -43,7 +43,6 @@ public class DatabaseReader {
                         if (line_parts.length == 4){
                             String[] splitLine = line_parts[2].split(" ");
                             String combinedName = splitLine[1] + " " + line_parts[1] + " " +  splitLine[2];
-                            System.out.println(ID + "," + combinedName + "," + line_parts[3]);
                             On_Line = new Movie(ID, combinedName, line_parts[3]);
                             ListOfMovies.add(On_Line);
                         }else if (line_parts.length == 3){

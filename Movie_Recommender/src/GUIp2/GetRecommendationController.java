@@ -1,13 +1,12 @@
 package GUIp2;
 
 import Managers.*;
+import Movie.Movie;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import Movie.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,6 +29,8 @@ public class GetRecommendationController implements Initializable {
     @FXML
     Button GetRecommendation;
     @FXML
+    Button WhoLikesMovie;
+    @FXML
     Button IgnoreThisMovie;
     @FXML
     Button GetNextRecommendation;
@@ -47,7 +48,7 @@ public class GetRecommendationController implements Initializable {
     private Session_Manager session_manager;
     private Movie Recommended_Movie;
 
-    public GetRecommendationController(User_Manager user_manager, Product_Manager product_manager, Ratings_Manager ratings_manager, Neighbor_Manager neighbor_manager, Session_Manager session_manager){
+    public GetRecommendationController(User_Manager user_manager, Product_Manager product_manager, Ratings_Manager ratings_manager, Neighbor_Manager neighbor_manager, Session_Manager session_manager) {
         this.user_manager = user_manager;
         this.product_manager = product_manager;
         this.ratings_manager = ratings_manager;
@@ -60,12 +61,12 @@ public class GetRecommendationController implements Initializable {
         GetNextRecommendation.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                try{
+                try {
                     Recommended_Movie = ratings_manager.GetRecommendation(user_manager.getCurrent_user(), neighbor_manager, 20);
                     NameOfMovie.setText(Recommended_Movie.GetString());
                     String tags = String.join(" | ", Recommended_Movie.GetTags());
                     MovieTags.setText(tags);
-                }catch(RuntimeException e){
+                } catch (RuntimeException e) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Can't Open menu");
                     alert.setContentText("You cannot get any more recommendations currently, because of your ignores");
@@ -77,6 +78,19 @@ public class GetRecommendationController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 ratings_manager.AddIgnoreToUser(user_manager.getCurrent_user(), Recommended_Movie);
+            }
+        });
+
+        WhoLikesMovie.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Neighbors.fxml"));
+                fxmlLoader.setController(new NeighborController(user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
+                try {
+                    RecommendationPane.getChildren().add(fxmlLoader.load());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
