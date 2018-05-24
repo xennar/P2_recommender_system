@@ -49,7 +49,7 @@ public class DatabaseReader {
                         }
                         else if (line_parts.length == 4){
                             String[] splitLine = line_parts[2].split(" ");
-                            String combinedName = splitLine[1] + " " + line_parts[1] + " " +  splitLine[2];
+                            String combinedName = splitLine[1] + " " + line_parts[1] + " " +  line_parts[2].substring(splitLine[1].length() + 1);
                             On_Line = new Movie(ID, combinedName, line_parts[3]);
                             ListOfMovies.add(On_Line);
                         }
