@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="NeighborView" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="NeighborView" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <TabPane fx:id="NeighborViewTabs" layoutX="0.0" layoutY="0.0" prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
@@ -27,7 +27,7 @@
         </Tab>
         <Tab fx:id="CorrelationGraphTab" text="Correlation Graph">
           <content>
-            <ScatterChart id="ScatterChart" fx:id="ScatterRatings" prefHeight="517.0" prefWidth="884.0">
+            <ScatterChart id="ScatterChart" fx:id="ScatterRatings" legendVisible="false">
               <xAxis>
                 <NumberAxis fx:id="UserAxis" label="Your Ratings" lowerBound="1.0" prefHeight="0.0" prefWidth="624.0" side="BOTTOM" upperBound="5.5" />
               </xAxis>
