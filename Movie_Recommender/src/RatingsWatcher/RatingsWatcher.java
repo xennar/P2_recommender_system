@@ -78,6 +78,8 @@ public class RatingsWatcher<T extends Basic_Characteristics> extends User {
         if (rating >= 1 && rating <= 5) {
             UserRatings.put(NewProduct, rating);
             Session_Manager.addNewSessionRatings(this.GetID() + "," + NewProduct.GetID() + "," + rating);
+            Movie movie = (Movie) NewProduct;
+            movie.AddRating(rating);
         }
     }
 
