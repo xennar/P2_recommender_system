@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +25,8 @@ public class AddNewMovieController implements Initializable {
     TextField TagsMovie;
     @FXML
     TextField RatingPersonal;
+    @FXML
+    Button AddMovieButton;
     @FXML
     Button Back;
     @FXML
@@ -118,12 +119,15 @@ public class AddNewMovieController implements Initializable {
                 }
             }
         });
-    }
 
-    public void AddNewMovie(ActionEvent actionEvent) {
-
-        product_manager.AddNewProduct(product_manager.GetProductList().size(), NameMovie.getText() +YearRelease.getText(),
-                TagsMovie.getText());
+        AddMovieButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                product_manager.AddNewProduct(product_manager.GetProductList().get(product_manager.GetProductList().size()-1).GetID()+1, NameMovie.getText() + YearRelease.getText(),
+                        TagsMovie.getText());
+            }
+        });
 
     }
 }
+

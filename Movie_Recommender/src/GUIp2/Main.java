@@ -33,7 +33,6 @@ public class Main extends Application {
 
             primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 public void handle(WindowEvent we) {
-                    System.out.println("Heya");
                     ResultsWriter.WriteUserData(session_manager.getChangedUserData(), "src/Database/Users.csv");
                     ResultsWriter.WriteProductData(session_manager.getNewlyAddedProducts(), "src/Database/movies.csv");
                     ResultsWriter.WriteRatingsData(session_manager.getChangedRatings(), "src/Database/adjratings.csv");
