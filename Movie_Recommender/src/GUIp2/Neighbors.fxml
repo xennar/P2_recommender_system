@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.ScatterChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="NeighborView" prefHeight="500.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane fx:id="NeighborView" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <TabPane fx:id="NeighborViewTabs" layoutX="0.0" layoutY="0.0" prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
@@ -20,21 +18,21 @@
           <content>
             <TableView fx:id="MoviesInCommonTable" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="267.0" text="Movie" fx:id="MoviesInCommonMovie" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="267.0" text="Your Rating" fx:id="CurrentUserMovieRating" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="266.0" text="Neighbor Rating" fx:id="NeighborMovieRatings" />
+                <TableColumn fx:id="MoviesInCommonMovie" maxWidth="5000.0" minWidth="10.0" prefWidth="267.0" text="Movie" />
+                <TableColumn fx:id="CurrentUserMovieRating" maxWidth="5000.0" minWidth="10.0" prefWidth="267.0" text="Your Rating" />
+                <TableColumn fx:id="NeighborMovieRatings" maxWidth="5000.0" minWidth="10.0" prefWidth="266.0" text="Neighbor Rating" />
               </columns>
             </TableView>
           </content>
         </Tab>
         <Tab fx:id="CorrelationGraphTab" text="Correlation Graph">
           <content>
-            <ScatterChart id="ScatterChart">
+            <ScatterChart id="ScatterChart" fx:id="ScatterRatings" prefHeight="517.0" prefWidth="884.0">
               <xAxis>
-                <NumberAxis lowerBound="1.0" label="Your Ratings" side="BOTTOM" upperBound="5.5" />
+                <NumberAxis fx:id="UserAxis" label="Your Ratings" lowerBound="1.0" prefHeight="0.0" prefWidth="624.0" side="BOTTOM" upperBound="5.5" />
               </xAxis>
               <yAxis>
-                <NumberAxis lowerBound="1.0" side="LEFT" tickLength="8.0" tickUnit="10.0" upperBound="5.5" />
+                <NumberAxis fx:id="NeighborAxis" label="Neighbor's Ratings" lowerBound="1.0" side="LEFT" tickLength="8.0" tickUnit="10.0" upperBound="5.5" />
               </yAxis>
             </ScatterChart>
           </content>

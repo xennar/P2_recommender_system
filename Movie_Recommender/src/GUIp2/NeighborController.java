@@ -40,6 +40,7 @@ public class NeighborController implements Initializable {
     TableColumn<NeighborUserScorePresent, String> CurrentUserMovieRating;
     @FXML
     TableColumn<NeighborUserScorePresent, String> NeighborMovieRatings;
+
     @FXML
     Tab CorrelationGraphTab;
     @FXML
@@ -47,15 +48,11 @@ public class NeighborController implements Initializable {
     @FXML
     LineChart CorrelationGraphLineView;
     @FXML
-    ScatterChart<Double, Double> CorrelationGraphScatterChart;
+    ScatterChart<Double, Double> ScatterRatings;
     @FXML
-    NumberAxis CurrentUserScoresLine;
+    NumberAxis UserAxis;
     @FXML
-    NumberAxis NeighborScoresLine;
-    @FXML
-    NumberAxis CurrentUserScoresScatter;
-    @FXML
-    NumberAxis NeighborScoresScatter;
+    NumberAxis NeighborAxis;
     @FXML
     Button BackToMenu;
     @FXML
@@ -100,7 +97,20 @@ public class NeighborController implements Initializable {
             ListOfNeighbors.add(user_manager.GetUserFromID(i));
         DropDownNeighbor.getItems().addAll(ListOfNeighbors);
 
-        XYChart.Series series = new XYChart.Series<Double, Double>();
+
+        UserAxis.setAutoRanging(false);
+        UserAxis.setLowerBound(0);
+        UserAxis.setUpperBound(5.5);
+        UserAxis.setTickUnit(0.5);
+
+        NeighborAxis.setAutoRanging(false);
+        NeighborAxis.setLowerBound(0);
+        NeighborAxis.setUpperBound(5.5);
+        NeighborAxis.setTickUnit(0.5);
+
+        ScatterChart.Series<Double, Double> series = new ScatterChart.Series<Double, Double>();
+        ScatterRatings.getData().addAll(series);
+        series.setName("Neighbor-User");
 
         DropDownNeighbor.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -114,9 +124,13 @@ public class NeighborController implements Initializable {
                 NeighborMovieRatings.setCellValueFactory(cellData -> cellData.getValue().getNeighborscore());
 
                 series.getData().clear();
+                ScatterRatings.getData().clear();
+
+
                 for(NeighborUserScorePresent n : MapOfneighborsAndScores.get(Current_neighbor))
-                    series.getData().add(new XYChart.Data(n.GetUserrating(), n.GetNeighborRating()));
-                CorrelationGraphScatterChart.getData().add(series);
+                    series.getData().add(new XYChart.Data<>(n.GetUserrating(), n.GetNeighborRating()));
+                ScatterRatings.getData().addAll(series);
+                ScatterRatings.autosize();
             }
         });
 
