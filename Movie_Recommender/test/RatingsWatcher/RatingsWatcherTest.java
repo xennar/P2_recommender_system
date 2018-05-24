@@ -87,7 +87,7 @@ class RatingsWatcherTest {
     //The following two tests test if ratings outside the ratings can be added or not.
     @Test
     void addNewRatedProduct03(){
-        ListOfUsers.get(0).AddNewRatedProductDuringSession(ListOfMovies.get(0), 0);
+        ListOfUsers.get(0).AddNewRatedProductDuringSession(ListOfMovies.get(0), -1);
         assertEquals(20 ,ListOfUsers.get(0).GetRatedProducts().size());
     }
 

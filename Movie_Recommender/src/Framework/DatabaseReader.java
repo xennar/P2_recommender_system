@@ -41,7 +41,7 @@ public class DatabaseReader {
                         int ID = Integer.valueOf(line_parts[0]);
                         if (line_parts.length > 4){
                             String combinedName = "";
-                            for (int i = 1; i < line_parts.length; i++){
+                            for (int i = 1; i < line_parts.length - 1; i++){
                                 combinedName += line_parts[i];
                             }
                             On_Line = new Movie(ID, combinedName, line_parts[line_parts.length - 1]);

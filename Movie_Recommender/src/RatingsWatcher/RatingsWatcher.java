@@ -69,13 +69,13 @@ public class RatingsWatcher<T extends Basic_Characteristics> extends User {
 
     public void AddNewRatedProductDuringFileReader(T NewProduct, double rating) {
     //adds a new product to the List of rated products.
-            if (rating >= 1 && rating <= 5) {
+            if (rating >= 0 && rating <= 5) {
                 UserRatings.put(NewProduct, rating);
             }
 
     }
     public void AddNewRatedProductDuringSession(T NewProduct, double rating){
-        if (rating >= 1 && rating <= 5) {
+        if (rating >= 0 && rating <= 5) {
             UserRatings.put(NewProduct, rating);
             Session_Manager.addNewSessionRatings(this.GetID() + "," + NewProduct.GetID() + "," + rating);
             Movie movie = (Movie) NewProduct;

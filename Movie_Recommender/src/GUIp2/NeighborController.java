@@ -111,7 +111,7 @@ public class NeighborController implements Initializable {
         ScatterChart.Series<Double, Double> series = new ScatterChart.Series<Double, Double>();
         ScatterRatings.getData().addAll(series);
         series.setName("Neighbor-User");
-
+        DropDownNeighbor.setTooltip(new Tooltip("Select neighbor to compare"));
         DropDownNeighbor.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {

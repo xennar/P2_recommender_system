@@ -27,9 +27,9 @@
         </Tab>
         <Tab fx:id="CorrelationGraphTab" text="Correlation Graph">
           <content>
-            <ScatterChart id="ScatterChart" fx:id="ScatterRatings" legendVisible="false">
+            <ScatterChart id="ScatterChart" fx:id="ScatterRatings" legendVisible="false" maxHeight="436.0" minHeight="300.0" prefHeight="436.0" prefWidth="800.0">
               <xAxis>
-                <NumberAxis fx:id="UserAxis" label="Your Ratings" lowerBound="1.0" prefHeight="0.0" prefWidth="624.0" side="BOTTOM" upperBound="5.5" />
+                <NumberAxis fx:id="UserAxis" label="Your Ratings" lowerBound="1.0" prefHeight="0.0" prefWidth="624.0" upperBound="5.5" />
               </xAxis>
               <yAxis>
                 <NumberAxis fx:id="NeighborAxis" label="Neighbor's Ratings" lowerBound="1.0" side="LEFT" tickLength="8.0" tickUnit="10.0" upperBound="5.5" />
