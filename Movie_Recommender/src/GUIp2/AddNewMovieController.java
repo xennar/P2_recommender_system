@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//This controls AddNewMovie.fxml, and allows the user to add new movies to the system
 public class AddNewMovieController implements Initializable {
 
 
@@ -55,6 +56,7 @@ public class AddNewMovieController implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        //This changes the screen into the Tableview, which shows watched movies and their scores
         PreviousRatings.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -68,6 +70,7 @@ public class AddNewMovieController implements Initializable {
             }
         });
 
+        //This changes the screen into GetRecommendation.fxml, which allows the user to get recommendations
         GetRecommendation.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -81,6 +84,7 @@ public class AddNewMovieController implements Initializable {
             }
         });
 
+        //This changes the screen into AddNewMovie, which allows the user to add new movies to the database
         AddMovies.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -94,6 +98,7 @@ public class AddNewMovieController implements Initializable {
             }
         });
 
+        //This changes the screen into SeeListOfMovies.fxml, which allows the user to see the TableView of all movies
         ListOfMovies.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -107,6 +112,7 @@ public class AddNewMovieController implements Initializable {
             }
         });
 
+        //Changes the screen back into the MenuOptions.fxml screen.
         Back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -120,9 +126,11 @@ public class AddNewMovieController implements Initializable {
             }
         });
 
+        //Adds a new movie to the system, using all the information inputted.
         AddMovieButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                //Movie ID is always one larger than the ID of the last product in the list.
                 product_manager.AddNewProduct(product_manager.GetProductList().get(product_manager.GetProductList().size()-1).GetID()+1, NameMovie.getText() + YearRelease.getText(),
                         TagsMovie.getText());
             }

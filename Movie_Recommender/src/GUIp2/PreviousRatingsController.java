@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+//Controls previousRatings.fxml
 public class PreviousRatingsController implements Initializable {
 
 
@@ -59,6 +60,7 @@ public class PreviousRatingsController implements Initializable {
         this.neighbor_manager = neighbor_manager;
         this.session_manager = session_manager;
         RatedProducts = new ArrayList<>();
+        //Adds all previous ratings to a list in the form of PreviousRatingsPresent objects.
         PreviousRatingPresent Rating;
         for (Movie m : user_manager.getCurrent_user().GetRatedProducts()) {
             Rating = new PreviousRatingPresent(m.GetID(), m.GetString(), user_manager.getCurrent_user().GetProductRating(m));
@@ -68,27 +70,35 @@ public class PreviousRatingsController implements Initializable {
 
 
     public void initialize(URL location, ResourceBundle resources) {
+        //The content of Ratedproducts are added to the Tableview
         for (PreviousRatingPresent p : RatedProducts) {
             ListWithPreviousRatings.getItems().add(p);
         }
+        //The cells in the first column are filled with the title of the movie in that row.
         MovieColumm.setCellValueFactory(cellData -> cellData.getValue().getPropTitle());
 
+        //The cells in the second column are filled with the ProductID of the movie in that row.
         MovieID.setCellValueFactory(cellData -> cellData.getValue().getPropID());
 
+        //The cells in the last column are filmed with the rating given to the movie in that row.
         RatingColumm.setCellValueFactory(cellData -> cellData.getValue().getPropRating());
 
 
+        //Changes the rating of a watched product
         ChangeRating.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                //The selected row is rotten
                 TablePosition pos = ListWithPreviousRatings.getSelectionModel().getSelectedCells().get(0);
                 int row = pos.getRow();
 
                 PreviousRatingPresent rating = ListWithPreviousRatings.getItems().get(row);
+                //A pop-up window prompts the user for the new rating.
                 TextInputDialog dialog = new TextInputDialog("New Rating");
                 dialog.setTitle("Change Rating");
                 dialog.setContentText("Please input your new rating");
                 Optional<String> change = dialog.showAndWait();
+                //If the rating is valid, then it is changed, and the tableview is updated to reflect that.
                 double change_as_double;
                 if (change.isPresent()) {
                     change_as_double = Double.valueOf(change.get());
@@ -102,10 +112,10 @@ public class PreviousRatingsController implements Initializable {
             }
         });
 
-
         RatingColumm.setCellFactory(TextFieldTableCell.forTableColumn());
-        PreviousRatings.setOnAction(new EventHandler<ActionEvent>() {
 
+        //This changes the screen into the Tableview, which shows watched movies and their scores
+        PreviousRatings.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PreviousRatings.fxml"));
@@ -120,6 +130,10 @@ public class PreviousRatingsController implements Initializable {
         /*public void onEditChanged(TableColumn.CellEditEvent<PreviousRatingPresent, Double>){
             ListWithPreviousRatings.getSelectionModel().getSelectedItem();
         }*/
+
+
+
+        //This changes the screen into GetRecommendation.fxml, which allows the user to get recommendations
         GetRecommendation.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -132,6 +146,8 @@ public class PreviousRatingsController implements Initializable {
                 }
             }
         });
+
+        //This changes the screen into AddNewMovie, which allows the user to add new movies to the database
         AddMovies.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -144,6 +160,8 @@ public class PreviousRatingsController implements Initializable {
                 }
             }
         });
+
+        //This changes the screen into SeeListOfMovies.fxml, which allows the user to see the TableView of all movies
         ListOfMovies.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -156,6 +174,8 @@ public class PreviousRatingsController implements Initializable {
                 }
             }
         });
+
+        //Changes the screen back into the MenuOptions.fxml screen.
         Back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

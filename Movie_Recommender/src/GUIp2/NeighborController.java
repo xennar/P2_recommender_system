@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+//This controls Neighbors.fxml, which show the user's relationship with their neighbors.
 public class NeighborController implements Initializable {
 
     @FXML
@@ -73,31 +74,39 @@ public class NeighborController implements Initializable {
         this.neighbor_manager = neighbor_manager;
         this.session_manager = session_manager;
 
+
+        //A HashMap is initialized.
         MapOfneighborsAndScores = new HashMap<>();
 
         for (int i : user_manager.getCurrent_user().GetNeighborIDs()) {
+            //A list of all movies the neighbor and user have in common are made
             RatingsWatcher<Movie> neighbor = user_manager.GetUserFromID(i);
             ArrayList<Movie> MoviesInCommon = new ArrayList<>();
+
             for (Movie m : neighbor.GetRatedProducts())
                 if (user_manager.getCurrent_user().GetRatedProducts().contains(m))
                     MoviesInCommon.add(m);
+            //A NeighborUserScorePresent object is made for each movie in common, and added to NUSPlist
             ArrayList<NeighborUserScorePresent> NUSPList = new ArrayList<>();
             for(Movie m: MoviesInCommon){
                 NeighborUserScorePresent Nusp = new NeighborUserScorePresent(m.GetString(), user_manager.getCurrent_user().GetProductRating(m), neighbor.GetProductRating(m));
+
                 NUSPList.add(Nusp);
             }
+            //The list is then added to the HashMap, with the neighbor as key.
             MapOfneighborsAndScores.put(neighbor, NUSPList);
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //The choiceBox is filled with the neighbors.
         ArrayList<RatingsWatcher<Movie>> ListOfNeighbors = new ArrayList<>();
         for(int i : user_manager.getCurrent_user().GetNeighborIDs())
             ListOfNeighbors.add(user_manager.GetUserFromID(i));
         DropDownNeighbor.getItems().addAll(ListOfNeighbors);
 
-
+        //A Pearson Graph is made, with each data point using the user and the neighbors score for a specific movie
         UserAxis.setAutoRanging(false);
         UserAxis.setLowerBound(0);
         UserAxis.setUpperBound(5.5);
@@ -112,17 +121,22 @@ public class NeighborController implements Initializable {
         ScatterRatings.getData().addAll(series);
         series.setName("Neighbor-User");
         DropDownNeighbor.setTooltip(new Tooltip("Select neighbor to compare"));
+
+        //When a neighbor is chosen, the graph updates to show that neighbors graph, and tableview
         DropDownNeighbor.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                //the currently selected user is gotten, and the List of NeighborUserScorePresents are added to the table
                 Current_neighbor = DropDownNeighbor.getItems().get(newValue.intValue());
                 MoviesInCommonTable.getItems().clear();
                 MoviesInCommonTable.getItems().addAll(MapOfneighborsAndScores.get(Current_neighbor));
 
+                //Each cell in each row are filled with a  movie title, a user rating and a neighbor rating
                 MoviesInCommonMovie.setCellValueFactory(cellData -> cellData.getValue().getTitle());
                 CurrentUserMovieRating.setCellValueFactory(cellData -> cellData.getValue().getUserscore());
                 NeighborMovieRatings.setCellValueFactory(cellData -> cellData.getValue().getNeighborscore());
 
+                //The list of NeighborUserScorePresents are added to the graph
                 series.getData().clear();
                 ScatterRatings.getData().clear();
 
@@ -134,6 +148,7 @@ public class NeighborController implements Initializable {
             }
         });
 
+        //The screen returns to MenuOptions.fxml on action.
         BackToMenu.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

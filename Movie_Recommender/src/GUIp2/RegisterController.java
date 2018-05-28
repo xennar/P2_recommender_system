@@ -17,6 +17,8 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+
+//This controller handles Register.fxml, and allows the creation of new users
 public class RegisterController implements Initializable {
 
 
@@ -55,6 +57,7 @@ public class RegisterController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //The UserID of the next user made is set.
         int NumOfUsers = user_manager.GetListOfUsers().size() + 1;
         String LabelNumOfUsers = Integer.toString(NumOfUsers);
         GivenID.setText(LabelNumOfUsers);
@@ -63,8 +66,10 @@ public class RegisterController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 int IDToInt = Integer.parseInt(GivenID.getText());
+                //creates a new user if the password is the same in both fields.
                 if (newPassword.getText().equals(repeatPassword.getText())) {
                     user_manager.AddNewUser(IDToInt, newPassword.getText());
+                    //if a new user is made, then the GUI switches to the login screen.
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
                         fxmlLoader.setController(new LoginController(user_manager, product_manager, ratings_manager, neighbor_manager, session_manager));
@@ -77,6 +82,7 @@ public class RegisterController implements Initializable {
             }
         });
 
+        //If the cancel button is pressed, then the screen switches back to the login scree.
         cancelbutton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

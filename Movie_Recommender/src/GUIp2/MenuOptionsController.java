@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//This controller allows the user to access the various features of the program
 public class MenuOptionsController implements Initializable {
 
     @FXML
@@ -44,6 +45,7 @@ public class MenuOptionsController implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        //This changes the screen into the Tableview, which shows watched movies and their scores
         PreviousRatings.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -57,6 +59,7 @@ public class MenuOptionsController implements Initializable {
             }
         });
 
+        //This changes the screen into GetRecommendation.fxml, which allows the user to get recommendations
         GetRecommendationButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -70,6 +73,7 @@ public class MenuOptionsController implements Initializable {
             }
         });
 
+        //This changes the screen into AddNewMovie.fxml, which allows the user to add new movies to the database
         AddMovies.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -83,6 +87,7 @@ public class MenuOptionsController implements Initializable {
             }
         });
 
+        //This changes the screen into SeeListOfMovies.fxml, which allows the user to see the TableView of all movies
         ListOfMovies.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -96,6 +101,7 @@ public class MenuOptionsController implements Initializable {
             }
         });
 
+        //This button logs the user out of the system, by returning to the Login screen.
         BackButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

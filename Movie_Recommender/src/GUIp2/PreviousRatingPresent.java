@@ -4,6 +4,7 @@ import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableDoubleValue;
 
+//This class is used to show information in the tableview of preciously rated products
 public class PreviousRatingPresent {
     private IntegerProperty IDprop;
     private int ID;
@@ -13,7 +14,7 @@ public class PreviousRatingPresent {
     private double rating;
 
 
-
+    //Since tableviews can't use Strings and Integers, Properties are made instead.
     PreviousRatingPresent(int ID, String title, double rating){
         this.IDprop = new SimpleIntegerProperty(ID);
         this.titleprop = new SimpleStringProperty(title);
@@ -23,6 +24,8 @@ public class PreviousRatingPresent {
         this.rating = rating;
     }
 
+
+    //Basic getters
     IntegerProperty getPropID() {
         return IDprop;
     }
@@ -51,6 +54,7 @@ public class PreviousRatingPresent {
         rating = change;
     }
 
+    //Sets the visual number to be equal the actual number
     void SetRatingpropToRating(){
         ratingprop = new SimpleStringProperty(String.valueOf(rating));
     }

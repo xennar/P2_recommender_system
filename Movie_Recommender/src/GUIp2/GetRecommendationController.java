@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//This controls GetRecommendation.fxml, and allows the user to get recommendations.
 public class GetRecommendationController implements Initializable {
 
     @FXML
@@ -58,14 +59,17 @@ public class GetRecommendationController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
 
+        //Gets the user their recommendation. Can only get a new one when either the current is added to ignore or rated.
         GetNextRecommendation.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                //The recommendation is gotten, and the labels are filled with the information of the movie.
                 try {
                     Recommended_Movie = ratings_manager.GetRecommendation(user_manager.getCurrent_user(), neighbor_manager, 20);
                     NameOfMovie.setText(Recommended_Movie.GetString());
                     String tags = String.join(" | ", Recommended_Movie.GetTags());
                     MovieTags.setText(tags);
+                    //If not recommendations can be gotten, a pop-up window will be used to inform the user of this.
                 } catch (RuntimeException e) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Can't Open menu");
@@ -74,6 +78,7 @@ public class GetRecommendationController implements Initializable {
             }
         });
 
+        //Adds the movie's ID to the user's ignorelist
         IgnoreThisMovie.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -81,6 +86,7 @@ public class GetRecommendationController implements Initializable {
             }
         });
 
+        //Changes the screen to Neighbors.fxml, which allows the user to study their neighbors and their relationship
         WhoLikesMovie.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -94,6 +100,7 @@ public class GetRecommendationController implements Initializable {
             }
         });
 
+        //This changes the screen into the Tableview, which shows watched movies and their scores
         PreviousRatings.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -107,6 +114,7 @@ public class GetRecommendationController implements Initializable {
             }
         });
 
+        //This changes the screen into GetRecommendation.fxml, which allows the user to get recommendations
         GetRecommendation.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -120,6 +128,7 @@ public class GetRecommendationController implements Initializable {
             }
         });
 
+        //This changes the screen into AddNewMovie, which allows the user to add new movies to the database
         AddMovies.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -133,6 +142,7 @@ public class GetRecommendationController implements Initializable {
             }
         });
 
+        //This changes the screen into SeeListOfMovies.fxml, which allows the user to see the TableView of all movies
         ListOfMovies.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -146,6 +156,8 @@ public class GetRecommendationController implements Initializable {
             }
         });
 
+
+        //Changes the screen back into the MenuOptions.fxml screen.
         Back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

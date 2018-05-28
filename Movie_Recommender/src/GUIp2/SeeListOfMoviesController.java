@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+//This controller controls SeeListOfMovies.fxml, and allows the user to see a tableview of all movies in the system
 public class SeeListOfMoviesController implements Initializable {
 
     @FXML
@@ -52,26 +53,33 @@ public class SeeListOfMoviesController implements Initializable {
     }
 
 
+    //An Observablelist is initialized, containing all movies in product_manager.
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Movie> ListOfProducts = FXCollections.observableArrayList(product_manager.GetProductList());
         for (Movie s : ListOfProducts) {
+            //If the user has not seen them, then they are added to the tableview.
             if(!user_manager.getCurrent_user().GetRatedProducts().contains(s))
             listWithMovies.getItems().add(s);
         }
 
+        //The cells of the tableview are filled with the movies' titles.
         MovieColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().GetString()));
 
+        //This button allows the user to add a rating to an unwatched product.
         AddRating.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                //The selected cell and its content are gotten.
                 TablePosition pos = listWithMovies.getSelectionModel().getSelectedCells().get(0);
                 int row = pos.getRow();
-
                 Movie NewlyWatched = listWithMovies.getItems().get(row);
+                //A pop-up window asks for the rating.
                 TextInputDialog dialog = new TextInputDialog("Rating");
                 dialog.setTitle("New Watched Movie");
+                dialog.setHeaderText("Ratings go from 0 to 5");
                 dialog.setContentText("Please input your rating for the movie");
                 Optional<String> change = dialog.showAndWait();
+                //If a rating is input, and that rating is valid, it is added to the system, and the movie is removed from the tableview
                 double change_as_double;
                 if (change.isPresent()) {
                     change_as_double = Double.valueOf(change.get());
@@ -84,6 +92,7 @@ public class SeeListOfMoviesController implements Initializable {
             }
         });
 
+        //This changes the screen into the Tableview, which shows watched movies and their scores
         PreviousRatings.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -97,6 +106,8 @@ public class SeeListOfMoviesController implements Initializable {
             }
         });
 
+
+        //This changes the screen into GetRecommendation.fxml, which allows the user to get recommendations
         GetRecommendation1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -110,6 +121,7 @@ public class SeeListOfMoviesController implements Initializable {
             }
         });
 
+        //This changes the screen into AddNewMovie, which allows the user to add new movies to the database
         AddMovies.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -123,6 +135,7 @@ public class SeeListOfMoviesController implements Initializable {
             }
         });
 
+        //Changes the screen back into the MenuOptions.fxml screen.
         BackButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
